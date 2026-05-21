@@ -7,9 +7,11 @@ public class Player : MonoBehaviour
     //Inputs
     [SerializeField]private InputActionReference moveActions;
     [SerializeField]private InputActionReference JumpAction;
+    [SerializeField] private InputActionReference shootActions;
     private CharacterController charControl;
     //movement
     private Vector2 movement;
+    private Vector2 shootDir;
     public float speed = 6f;
     //jump
     public bool jumpEnabled = false;
@@ -30,6 +32,8 @@ public class Player : MonoBehaviour
     {
         moveActions.action.performed += storeInput;
         moveActions.action.canceled += storeInput;
+        shootActions.action.performed += storeShootInput;
+        shootActions.action.canceled += storeShootInput;
         JumpAction.action.performed += Jump;
     }
 
@@ -37,6 +41,8 @@ public class Player : MonoBehaviour
     {
         moveActions.action.performed -= storeInput;
         moveActions.action.canceled -= storeInput;
+        shootActions.action.performed -= storeShootInput;
+        shootActions.action.canceled -= storeShootInput;
         JumpAction.action.performed -= Jump;
     }
 
@@ -48,12 +54,19 @@ public class Player : MonoBehaviour
         HandleGravity();
         //movement method
         Move();
+        HandleRotation();
     }
 
     //detects the player input and stores it on a vector2
     private void storeInput(InputAction.CallbackContext call)
     {
         movement = call.ReadValue<Vector2>();
+    }
+
+    //detects the player input regarding shooting for direction purpouses
+    private void storeShootInput(InputAction.CallbackContext call)
+    {
+        shootDir = call.ReadValue<Vector2>();
     }
 
     //Movement, makes the camera direction "forward" and moves the character according to where they are facing
@@ -63,12 +76,11 @@ public class Player : MonoBehaviour
         var fMove = mover * speed;
         fMove.y = verticalVelocity;
         charControl.Move(fMove * Time.deltaTime);
-        HandleRotation(mover);
     }
 
-    private void HandleRotation(Vector3 moveDir)
+    private void HandleRotation()
     {
-        //it should check if the player is pressing the shoot button
+        var moveDir = new Vector3(shootDir.x, 0, shootDir.y).normalized;
         //rotates the player depending on the input
         if (moveDir.z > 0)
         {
