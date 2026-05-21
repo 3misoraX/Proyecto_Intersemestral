@@ -63,6 +63,29 @@ public class Player : MonoBehaviour
         var fMove = mover * speed;
         fMove.y = verticalVelocity;
         charControl.Move(fMove * Time.deltaTime);
+        HandleRotation(mover);
+    }
+
+    private void HandleRotation(Vector3 moveDir)
+    {
+        //it should check if the player is pressing the shoot button
+        //rotates the player depending on the input
+        if (moveDir.z > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if (moveDir.z < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (moveDir.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 270, 0);
+        }
+        else if (moveDir.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
     }
     
     private void Jump(InputAction.CallbackContext call)
