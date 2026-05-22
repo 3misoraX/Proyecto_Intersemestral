@@ -282,7 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   moveActions: {fileID: -6353191347366657310, guid: 3bfa7de3dc1ecc74bb7224af27006723, type: 3}
   JumpAction: {fileID: 6096260461631940758, guid: 3bfa7de3dc1ecc74bb7224af27006723, type: 3}
-  shootActions: {fileID: 0}
+  shootActions: {fileID: -5585067422731489026, guid: 3bfa7de3dc1ecc74bb7224af27006723, type: 3}
   speed: 6
   jumpEnabled: 0
   jumpForce: 7

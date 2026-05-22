@@ -6,7 +6,6 @@ public class Player : MonoBehaviour
     //Variables
     //Inputs
     [SerializeField]private InputActionReference moveActions;
-    [SerializeField]private InputActionReference JumpAction;
     [SerializeField] private InputActionReference shootActions;
     private CharacterController charControl;
     //movement
@@ -17,7 +16,6 @@ public class Player : MonoBehaviour
     public bool jumpEnabled = false;
     private bool isGrounded;
     private float verticalVelocity = 0f;
-    public float jumpForce = 7f;
     public float gravity = -12f;
     public float iFallVelocity = -2f;
 
@@ -34,7 +32,6 @@ public class Player : MonoBehaviour
         moveActions.action.canceled += storeInput;
         shootActions.action.performed += storeShootInput;
         shootActions.action.canceled += storeShootInput;
-        JumpAction.action.performed += Jump;
     }
 
     private void OnDisable()
@@ -43,7 +40,6 @@ public class Player : MonoBehaviour
         moveActions.action.canceled -= storeInput;
         shootActions.action.performed -= storeShootInput;
         shootActions.action.canceled -= storeShootInput;
-        JumpAction.action.performed -= Jump;
     }
 
     // Update is called once per frame
@@ -97,15 +93,6 @@ public class Player : MonoBehaviour
         else if (moveDir.x < 0)
         {
             transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
-    }
-    
-    private void Jump(InputAction.CallbackContext call)
-    {
-        //player on the ground will jump
-        if (isGrounded && jumpEnabled)
-        {
-            verticalVelocity = jumpForce;
         }
     }
     
