@@ -4,23 +4,29 @@ using UnityEngine.InputSystem;
 
 public class GunScript : MonoBehaviour
 {
+    //inputs
     [SerializeField] private InputActionReference shootAction;
     [SerializeField] private InputActionReference switchAction;
+    //shooting and changing weapons
     [SerializeField] private Transform shootPoint;
     public List<TransformationObject> transformations = new List<TransformationObject>();
-    [SerializeField] private TransformationObject activeTransformation;
+    private TransformationObject activeTransformation;
     public GameObject bulletPrefab;
     public float bulletForce;
     private float cooldown = 0;
+    [SerializeField] private int current = 0;
 
+    //Checks for default weapon
     void Start()
     {
-        activeTransformation = transformations[0];
+        activeTransformation = transformations[current];
     }
 
     void Update()
     {
+        //function for shooting
         ShootingManager();
+        //switches transformation if the switch button is pressed
         if (switchAction.action.triggered)
         {
             ChangeWeapons();
@@ -35,18 +41,27 @@ public class GunScript : MonoBehaviour
                 //single prefab
                 if (shootAction.action.triggered)
                 {
+                    //instantiates a bullet
                     GameObject projectile = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-                    projectile.GetComponent<Rigidbody>().AddForce(transform.forward * bulletForce, ForceMode.VelocityChange);
+                    //changes the bullet type acording to its transformation
+                    projectile.GetComponent<BulletScript>().bulletType = activeTransformation.bulletType;
+                    //bullet goes pium pium
+                    projectile.GetComponent<Rigidbody>().AddForce(shootPoint.forward * bulletForce, ForceMode.VelocityChange);
                 }
                 break;
             case 'a':
                 //auto prefab
+                //same bs but automatic (i think)
                 if (shootAction.action.IsPressed() == true && cooldown <= 0)
                 {
                     GameObject projectile = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-                    projectile.GetComponent<Rigidbody>().AddForce(transform.forward * bulletForce, ForceMode.VelocityChange);
+                    projectile.GetComponent<BulletScript>().bulletType = activeTransformation.bulletType;
+                    projectile.GetComponent<Rigidbody>().AddForce(shootPoint.forward *bulletForce, ForceMode.VelocityChange);
                     cooldown = 1 / activeTransformation.cadency;
                 }
+
+                //auto weapon cooldown
+                if(cooldown > 0)
                 cooldown -= Time.deltaTime;
                 break;
             case 'r':
@@ -60,6 +75,14 @@ public class GunScript : MonoBehaviour
 
     void ChangeWeapons()
     {
-        //This function should change the active object, which should be a scriptable object
+        current++;
+        if(current >= transformations.Count)
+        {
+            current = 0;
+        }
+        else
+        {
+            activeTransformation = transformations[current];
+        }
     }
 }

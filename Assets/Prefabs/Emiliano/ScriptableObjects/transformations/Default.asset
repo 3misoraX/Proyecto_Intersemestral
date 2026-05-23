@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d1711c702b31644938dbb3d0819077, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: Assembly-CSharp::TransformationObject
+  weaponType: 97
+  cadency: 2
+  specialAbility: 110
+  superAbility: 110
+  superCharges: 3
+  bulletType: {fileID: 11400000, guid: a84120b667e38a441a1163ee5a7c79ef, type: 2}
