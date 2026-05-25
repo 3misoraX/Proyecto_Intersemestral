@@ -34,7 +34,6 @@ public class UniversalProjectile : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
 
-    // Usamos OnTriggerEnter asumiendo que el Collider de la bala es un Trigger
     private void OnTriggerEnter(Collider other)
     {
         // 1. Comprobar si chocó contra un objetivo válido (Jugador o Enemigo)
@@ -54,7 +53,7 @@ public class UniversalProjectile : MonoBehaviour
     {
         // --- APLICAR DAÑO ---
         // Aquí usamos SendMessage para enviar el daño sin importar cómo se llame tu script de vida.
-        // Solo asegúrate de que el script del jugador/enemigo tenga un método llamado "TakeDamage(int amount)"
+        // Asegurarse de que el script del jugador/enemigo tenga un método llamado "TakeDamage(int amount)"
         target.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
 
         // --- APLICAR ATURDIMIENTO ---

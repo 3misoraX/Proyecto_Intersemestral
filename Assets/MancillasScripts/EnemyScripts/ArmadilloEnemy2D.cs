@@ -139,8 +139,6 @@ public class ArmadilloEnemy2D : MonoBehaviour
         // Voltear el sprite dependiendo de si va a la izquierda o derecha
         if (currentDirection.x != 0)
         {
-            // Asume que el sprite original mira hacia la derecha.
-            // Si mira a la izquierda por defecto, invierte el '<' por '>'
             spriteRenderer.flipX = currentDirection.x < 0; 
         }
     }
@@ -159,17 +157,14 @@ public class ArmadilloEnemy2D : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         // Ignorar si ya está muerto
-        // Si lo pones en el Jugador, cambia "EnemyState.Dead" por la variable de estado de tu jugador
         if (currentState == EnemyState.Dead) return; 
 
         currentHealth -= damageAmount;
         Debug.Log($"{gameObject.name} recibió {damageAmount} de daño. Vida restante: {currentHealth}");
 
-        // Opcional: Aquí puedes poner un sonido de recibir daño o cambiar el color del Sprite a rojo por un instante
-
         if (currentHealth <= 0)
         {
-            Die(); // Llama a la función de muerte que ya tienes
+            Die(); // Llama a la función de muerte
         }
     }
 

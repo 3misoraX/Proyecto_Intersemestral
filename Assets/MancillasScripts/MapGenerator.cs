@@ -108,7 +108,7 @@ public class MapGenerator : MonoBehaviour
     }
     if (candidateRooms.Count > 0) bossRoom = candidateRooms[UnityEngine.Random.Range(0, candidateRooms.Count)];
 
-    // NUEVO: Diccionario para guardar las referencias de los cuartos instanciados
+    // Diccionario para guardar las referencias de los cuartos instanciados
     Dictionary<Vertex, GameObject> instantiatedRooms = new Dictionary<Vertex, GameObject>();
 
     foreach (var room in roomList)
@@ -129,7 +129,7 @@ public class MapGenerator : MonoBehaviour
 
         if (prefabToSpawn == null) continue;
 
-        // NUEVO: Guardamos el GameObject instanciado para configurarlo despues
+        // Guardamos el GameObject instanciado para configurarlo despues
         GameObject spawnedRoom = Instantiate(prefabToSpawn, vertexPositions[room], Quaternion.identity);
         instantiatedRooms[room] = spawnedRoom;
     }
@@ -157,7 +157,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    // NUEVO: Lógica para bloquear los muros vacíos en cada habitación instanciada
+    // Lógica para bloquear los muros vacíos en cada habitación instanciada
     foreach (var room in roomList)
     {
         if (!instantiatedRooms.ContainsKey(room)) continue;

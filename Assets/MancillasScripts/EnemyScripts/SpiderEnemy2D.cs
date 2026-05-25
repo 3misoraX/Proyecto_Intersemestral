@@ -157,17 +157,14 @@ public class SpiderEnemy2D : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         // Ignorar si ya está muerto
-        // Si lo pones en el Jugador, cambia "EnemyState.Dead" por la variable de estado de tu jugador
         if (currentState == EnemyState.Dead) return; 
 
         currentHealth -= damageAmount;
         Debug.Log($"{gameObject.name} recibió {damageAmount} de daño. Vida restante: {currentHealth}");
 
-        // Opcional: Aquí puedes poner un sonido de recibir daño o cambiar el color del Sprite a rojo por un instante
-
         if (currentHealth <= 0)
         {
-            Die(); // Llama a la función de muerte que ya tienes
+            Die(); // Llama a la función de muerte
         }
     }
 
@@ -209,7 +206,6 @@ public class SpiderEnemy2D : MonoBehaviour
         randomMoveDirection = new Vector3(randomCircle.x, 0, randomCircle.y);
         moveTimer = changeDirectionInterval + Random.Range(-0.5f, 0.5f); 
 
-        // Validación de seguridad para el Animator
         if (animator != null) 
         {
             animator.SetBool(isMovingHash, true);
@@ -222,7 +218,6 @@ public class SpiderEnemy2D : MonoBehaviour
     {
         currentState = EnemyState.Attacking;
         
-        // Validación de seguridad
         if (animator != null)
         {
             animator.SetBool(isMovingHash, false);
@@ -266,7 +261,6 @@ public class SpiderEnemy2D : MonoBehaviour
     {
         currentState = EnemyState.SpecialAttacking;
         
-        // Validación de seguridad
         if (animator != null)
         {
             animator.SetBool(isMovingHash, false);
@@ -307,7 +301,6 @@ public class SpiderEnemy2D : MonoBehaviour
         currentState = EnemyState.Dead;
         if (rb != null) rb.linearVelocity = Vector3.zero;
         
-        // Validación de seguridad
         if (animator != null)
         {
             animator.SetTrigger(dieHash);

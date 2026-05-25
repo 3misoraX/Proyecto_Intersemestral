@@ -58,7 +58,7 @@ public class RoomController : MonoBehaviour
     private void LockRoom()
     {
         isLocked = true;
-        // Aquí puedes disparar animaciones para cerrar las puertas visualmente
+        // Disparar animaciones para cerrar las puertas visualmente
         Debug.Log("Jugador entró. ¡Puertas cerradas!");
     }
 
@@ -66,7 +66,7 @@ public class RoomController : MonoBehaviour
     {
         isLocked = false;
         isCleared = true;
-        // Aquí puedes disparar animaciones para abrir las puertas
+        // Disparar animaciones para abrir las puertas
         Debug.Log("¡Habitación despejada! Las puertas se abren.");
     }
 }
