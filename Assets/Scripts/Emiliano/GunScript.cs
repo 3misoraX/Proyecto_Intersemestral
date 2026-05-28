@@ -7,6 +7,8 @@ public class GunScript : MonoBehaviour
     //inputs
     [SerializeField] private InputActionReference shootAction;
     [SerializeField] private InputActionReference switchAction;
+    public InputActionReference specialAction;
+    public InputActionReference superAction;
     //shooting and changing weapons
     [SerializeField] private Transform shootPoint;
     public List<TransformationObject> transformations = new List<TransformationObject>();
@@ -15,24 +17,63 @@ public class GunScript : MonoBehaviour
     public float bulletForce;
     private float cooldown = 0;
     [SerializeField] private int current = 0;
+    //specials
+    [SerializeField] private RoomController currentRoom;
+    private int superCharges;
+    public int superMaxCharges;
+    public float specialCooldown;
+
+
+
 
     //Checks for default weapon
     void Start()
     {
         activeTransformation = transformations[current];
+        //search for Active Room
     }
 
     void Update()
     {
         //function for shooting
         ShootingManager();
+
         //switches transformation if the switch button is pressed
         if (switchAction.action.triggered)
         {
             ChangeWeapons();
         }
+
+        //Calling the current special or super, never both
+        if (specialAction.action.triggered && specialCooldown >= 5)
+        {
+            CallSpecial(this.gameObject, false);
+            cooldown = 0;
+        }
+        else if (specialAction.action.triggered && superCharges == superMaxCharges)
+        {
+            CallSpecial(this.gameObject,true);
+            superCharges = 0;
+        }
+
+        if(specialCooldown < 5)
+        {
+            specialCooldown += Time.deltaTime;
+        }
+
+        //when completing a room this should add a charge
+        if (currentRoom.isCleared && superCharges < superMaxCharges)
+        {
+            //adds a charge to the current special
+            superCharges++;
+        }
     }
 
+    //Function that manages shooting
+    //s for a single shot
+    //a for an auto prefab shot
+    //r for a single raycast shot
+    //l for an auto raycast shot
     void ShootingManager()
     {
         switch (activeTransformation.weaponType)
@@ -73,6 +114,7 @@ public class GunScript : MonoBehaviour
         }
     }
 
+    //Will cycle through the weapons pressing the switch button
     void ChangeWeapons()
     {
         current++;
@@ -80,9 +122,12 @@ public class GunScript : MonoBehaviour
         {
             current = 0;
         }
-        else
-        {
-            activeTransformation = transformations[current];
-        }
+        activeTransformation = transformations[current];
+    }
+
+    void CallSpecial(GameObject target, bool isSuper)
+    {
+        //when triggering the special button, this will call the corresponding special
+        target.SendMessage(activeTransformation.transformationName, isSuper, SendMessageOptions.DontRequireReceiver);
     }
 }
