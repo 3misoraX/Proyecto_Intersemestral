@@ -50,6 +50,7 @@ public class EnemySpawner : MonoBehaviour
         
         if (activeEnemies <= 0 && currentRoom != null)
         {
+            GameObject.FindWithTag("Player").GetComponent<GunScript>().AddCharge(); //Añade una carga al especial del jugador si el cuarto estaba bloqueado
             currentRoom.UnlockRoom();
         }
     }

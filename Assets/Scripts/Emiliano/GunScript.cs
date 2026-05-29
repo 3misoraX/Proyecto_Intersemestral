@@ -19,18 +19,14 @@ public class GunScript : MonoBehaviour
     [SerializeField] private int current = 0;
     //specials
     [SerializeField] private RoomController currentRoom;
-    private int superCharges;
+    public int superCharges;
     public int superMaxCharges;
     public float specialCooldown;
-
-
-
 
     //Checks for default weapon
     void Start()
     {
         activeTransformation = transformations[current];
-        //search for Active Room
     }
 
     void Update()
@@ -59,13 +55,6 @@ public class GunScript : MonoBehaviour
         if(specialCooldown < 5)
         {
             specialCooldown += Time.deltaTime;
-        }
-
-        //when completing a room this should add a charge
-        if (currentRoom.isCleared && superCharges < superMaxCharges)
-        {
-            //adds a charge to the current special
-            superCharges++;
         }
     }
 
@@ -129,5 +118,16 @@ public class GunScript : MonoBehaviour
     {
         //when triggering the special button, this will call the corresponding special
         target.SendMessage(activeTransformation.transformationName, isSuper, SendMessageOptions.DontRequireReceiver);
+    }
+
+    public void AddCharge()
+    {
+        //when completing a room this should add a charge
+        if (superCharges < superMaxCharges)
+        {
+            //adds a charge to the current special
+            superCharges++;
+        }
+        //animation for adding a charges
     }
 }
