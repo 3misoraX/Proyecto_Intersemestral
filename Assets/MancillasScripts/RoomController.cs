@@ -17,7 +17,7 @@ public class RoomController : MonoBehaviour
     [Header("Referencias")]
     public EnemySpawner spawner;
 
-    private bool isCleared = false;
+    [HideInInspector]public bool isCleared = false;
     private bool isLocked = false;
 
     // Configura los muros y puertas según las conexiones que dicte el MapGenerator

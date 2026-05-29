@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Transformation", menuName = "Scriptable Objects/Transformation")]
 public class TransformationObject : ScriptableObject
 {
+    //public variables
+    public string transformationName;///the name of the function for the special or the super
     public char weaponType; ///s for single-prefab, a for auto-prefab, r for single-raycast, l for auto-raycast
     public float cadency; /// the higher the number the lower the time between bullets, only avaliable for auto modes
     public char specialAbility;///introduce the initial of the transformation that grants it

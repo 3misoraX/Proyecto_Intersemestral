@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     //Variables
     //Inputs
@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     private Vector2 shootDir;
     public float speed = 6f;
     //jump
-    public bool jumpEnabled = false;
     private bool isGrounded;
     private float verticalVelocity = 0f;
     public float gravity = -12f;
