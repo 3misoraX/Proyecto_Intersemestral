@@ -539,10 +539,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3509725763905640945, guid: 6f6ab195ff886cc45a14ff94a13e8a0b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f497ea11afa12724ca0bda3897915f15, type: 2}
+    - target: {fileID: -1366085317681763184, guid: 6f6ab195ff886cc45a14ff94a13e8a0b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f497ea11afa12724ca0bda3897915f15, type: 2}
+    - target: {fileID: -639204575875005666, guid: 6f6ab195ff886cc45a14ff94a13e8a0b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f497ea11afa12724ca0bda3897915f15, type: 2}
     - target: {fileID: 919132149155446097, guid: 6f6ab195ff886cc45a14ff94a13e8a0b, type: 3}
       propertyPath: m_Name
       value: Cristales
       objectReference: {fileID: 0}
+    - target: {fileID: 1313035815963047940, guid: 6f6ab195ff886cc45a14ff94a13e8a0b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f497ea11afa12724ca0bda3897915f15, type: 2}
+    - target: {fileID: 2597267302090553329, guid: 6f6ab195ff886cc45a14ff94a13e8a0b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f497ea11afa12724ca0bda3897915f15, type: 2}
+    - target: {fileID: 3486445942482432190, guid: 6f6ab195ff886cc45a14ff94a13e8a0b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f497ea11afa12724ca0bda3897915f15, type: 2}
+    - target: {fileID: 4210512714811316415, guid: 6f6ab195ff886cc45a14ff94a13e8a0b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f497ea11afa12724ca0bda3897915f15, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -657,10 +685,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5448424562635097519, guid: 45cf08cd3618beb449fb71e799f43c3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d034cff22395fd4ebb02b31318c2c32, type: 2}
+    - target: {fileID: -3275861605051253010, guid: 45cf08cd3618beb449fb71e799f43c3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d034cff22395fd4ebb02b31318c2c32, type: 2}
+    - target: {fileID: -1044029993765042517, guid: 45cf08cd3618beb449fb71e799f43c3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d034cff22395fd4ebb02b31318c2c32, type: 2}
+    - target: {fileID: 818293805046165781, guid: 45cf08cd3618beb449fb71e799f43c3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d034cff22395fd4ebb02b31318c2c32, type: 2}
     - target: {fileID: 919132149155446097, guid: 45cf08cd3618beb449fb71e799f43c3d, type: 3}
       propertyPath: m_Name
       value: Cristales_3
       objectReference: {fileID: 0}
+    - target: {fileID: 2412155271994457675, guid: 45cf08cd3618beb449fb71e799f43c3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d034cff22395fd4ebb02b31318c2c32, type: 2}
+    - target: {fileID: 4854144453929318273, guid: 45cf08cd3618beb449fb71e799f43c3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d034cff22395fd4ebb02b31318c2c32, type: 2}
+    - target: {fileID: 5664468064820057010, guid: 45cf08cd3618beb449fb71e799f43c3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d034cff22395fd4ebb02b31318c2c32, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1134,10 +1190,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7404988951738066541, guid: 614bffcff92ce4644b87a9f180996bef, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c198b03c93d04db19e6f0bff1ac87, type: 2}
+    - target: {fileID: -6993615677016929310, guid: 614bffcff92ce4644b87a9f180996bef, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c198b03c93d04db19e6f0bff1ac87, type: 2}
+    - target: {fileID: -1153252600237075760, guid: 614bffcff92ce4644b87a9f180996bef, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c198b03c93d04db19e6f0bff1ac87, type: 2}
     - target: {fileID: 919132149155446097, guid: 614bffcff92ce4644b87a9f180996bef, type: 3}
       propertyPath: m_Name
       value: Cristales_4
       objectReference: {fileID: 0}
+    - target: {fileID: 4871028208300361739, guid: 614bffcff92ce4644b87a9f180996bef, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c198b03c93d04db19e6f0bff1ac87, type: 2}
+    - target: {fileID: 6115409833459591351, guid: 614bffcff92ce4644b87a9f180996bef, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c198b03c93d04db19e6f0bff1ac87, type: 2}
+    - target: {fileID: 7073064723568830888, guid: 614bffcff92ce4644b87a9f180996bef, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c198b03c93d04db19e6f0bff1ac87, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1191,10 +1271,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6392687725504040954, guid: 8ffc3c5ec3f1f5c40b2c82fc8905ed7d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ae6d117a19eb894b8086f4979de0eb5, type: 2}
+    - target: {fileID: -4714437016816360965, guid: 8ffc3c5ec3f1f5c40b2c82fc8905ed7d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ae6d117a19eb894b8086f4979de0eb5, type: 2}
     - target: {fileID: 919132149155446097, guid: 8ffc3c5ec3f1f5c40b2c82fc8905ed7d, type: 3}
       propertyPath: m_Name
       value: Cristales_2
       objectReference: {fileID: 0}
+    - target: {fileID: 3600665291241380844, guid: 8ffc3c5ec3f1f5c40b2c82fc8905ed7d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ae6d117a19eb894b8086f4979de0eb5, type: 2}
+    - target: {fileID: 4772765150889839921, guid: 8ffc3c5ec3f1f5c40b2c82fc8905ed7d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ae6d117a19eb894b8086f4979de0eb5, type: 2}
+    - target: {fileID: 4940539489851537662, guid: 8ffc3c5ec3f1f5c40b2c82fc8905ed7d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ae6d117a19eb894b8086f4979de0eb5, type: 2}
+    - target: {fileID: 5563066105023648980, guid: 8ffc3c5ec3f1f5c40b2c82fc8905ed7d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ae6d117a19eb894b8086f4979de0eb5, type: 2}
+    - target: {fileID: 8873634787809047771, guid: 8ffc3c5ec3f1f5c40b2c82fc8905ed7d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ae6d117a19eb894b8086f4979de0eb5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
