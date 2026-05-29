@@ -478,6 +478,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d95e402775ead1d43bce8b16edc87080, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 56a819e017d973f42a8fa2424066cc08, type: 2}
     - target: {fileID: 919132149155446097, guid: d95e402775ead1d43bce8b16edc87080, type: 3}
       propertyPath: m_Name
       value: Rock_5
@@ -1419,6 +1423,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7a93c3a5cc2ceea4a921be41fc4b43c9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a5e790b62f0ab94eaa5f4caec4f89e8, type: 2}
     - target: {fileID: 919132149155446097, guid: 7a93c3a5cc2ceea4a921be41fc4b43c9, type: 3}
       propertyPath: m_Name
       value: Rock_6
