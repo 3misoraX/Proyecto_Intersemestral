@@ -7,19 +7,19 @@ public class BulletScript : MonoBehaviour
 
     void Start()
     {
-        Destroy(this, bulletType.duration); 
+        Destroy(gameObject, bulletType.duration); 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         else
         {
             ApplyEffects(collision.gameObject);
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
     private void ApplyEffects(GameObject target)
