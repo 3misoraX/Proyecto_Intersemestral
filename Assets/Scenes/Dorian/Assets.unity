@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9a85d9a6821b5fc42a57272bfa4239e1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 10cd17028f18fd84d94cc259f8a9490c, type: 2}
     - target: {fileID: 919132149155446097, guid: 9a85d9a6821b5fc42a57272bfa4239e1, type: 3}
       propertyPath: m_Name
       value: Rock10
@@ -1047,6 +1051,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1c2450d6aa5567345a07199ad307b7b3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8aabce8ffafe6a142a8aa62c4580f3c9, type: 2}
     - target: {fileID: 919132149155446097, guid: 1c2450d6aa5567345a07199ad307b7b3, type: 3}
       propertyPath: m_Name
       value: Rock9
@@ -2743,6 +2751,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 47ded04b21821af4e8dbe2477611259e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0290247aff213b040960afaad6ec5d0f, type: 2}
     - target: {fileID: 919132149155446097, guid: 47ded04b21821af4e8dbe2477611259e, type: 3}
       propertyPath: m_Name
       value: Rock8
@@ -2800,6 +2812,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e26589f304fac9946a159fc30339ed40, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2544137c701fa4f428fec46293eb65fa, type: 2}
     - target: {fileID: 919132149155446097, guid: e26589f304fac9946a159fc30339ed40, type: 3}
       propertyPath: m_Name
       value: Rock11
