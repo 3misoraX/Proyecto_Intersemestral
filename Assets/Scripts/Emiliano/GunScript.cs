@@ -15,10 +15,9 @@ public class GunScript : MonoBehaviour
     private TransformationObject activeTransformation;
     public GameObject bulletPrefab;
     public float bulletForce;
-    private float cooldown = 0;
+    private float cooldown = 0f;
     [SerializeField] private int current = 0;
     //specials
-    [SerializeField] private RoomController currentRoom;
     public int superCharges;
     public int superMaxCharges;
     public float specialCooldown;
@@ -59,29 +58,23 @@ public class GunScript : MonoBehaviour
     }
 
     //Function that manages shooting
-    //s for a single shot
     //a for an auto prefab shot
-    //r for a single raycast shot
     //l for an auto raycast shot
     void ShootingManager()
     {
+        //This is a stupid solution for the shooting direction bug but it works so fine i guess :/
+        //Just adds a small cooldown when starting to shoot
+        if (shootAction.action.triggered)
+        {
+            cooldown = 0.01f;
+        }
+
+        //there is still a bug where if can shoot twice when pressing two directions at the same time
+
         switch (activeTransformation.weaponType)
         {
-            case 's':
-                //single prefab
-                if (shootAction.action.triggered)
-                {
-                    //instantiates a bullet
-                    GameObject projectile = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-                    //changes the bullet type acording to its transformation
-                    projectile.GetComponent<BulletScript>().bulletType = activeTransformation.bulletType;
-                    //bullet goes pium pium
-                    projectile.GetComponent<Rigidbody>().AddForce(shootPoint.forward * bulletForce, ForceMode.VelocityChange);
-                }
-                break;
             case 'a':
                 //auto prefab
-                //same bs but automatic (i think)
                 if (shootAction.action.IsPressed() == true && cooldown <= 0)
                 {
                     GameObject projectile = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
@@ -91,16 +84,13 @@ public class GunScript : MonoBehaviour
                 }
 
                 //auto weapon cooldown
-                if(cooldown > 0)
-                cooldown -= Time.deltaTime;
-                break;
-            case 'r':
-                //single raycast
                 break;
             case 'l':
                 //auto raycast
                 break;
         }
+        if(cooldown > 0)
+        cooldown -= Time.deltaTime;
     }
 
     //Will cycle through the weapons pressing the switch button
