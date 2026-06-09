@@ -1123,6 +1123,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4646848123621314097, guid: c30f8c3a89069034481b2b7a8623f892, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4848238547573576466, guid: c30f8c3a89069034481b2b7a8623f892, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.85
@@ -1183,6 +1187,10 @@ PrefabInstance:
     - target: {fileID: 6618187151193827809, guid: 2700c337a886b7c49be0c80931cf874c, type: 3}
       propertyPath: m_Name
       value: RangedEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618187151193827809, guid: 2700c337a886b7c49be0c80931cf874c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7225994003186778404, guid: 2700c337a886b7c49be0c80931cf874c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1281,6 +1289,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyArmadillo
       objectReference: {fileID: 0}
+    - target: {fileID: 4946500119860702527, guid: 46f006ed3cd6f8d4e9d8db2531d22c9b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8507339668003775716, guid: 46f006ed3cd6f8d4e9d8db2531d22c9b, type: 3}
       propertyPath: player
       value: 
@@ -1341,6 +1353,10 @@ PrefabInstance:
     - target: {fileID: 5486339975435732661, guid: 9f5ddc099d1b67a48b9163b19119d65b, type: 3}
       propertyPath: m_Name
       value: EnemySpider
+      objectReference: {fileID: 0}
+    - target: {fileID: 5486339975435732661, guid: 9f5ddc099d1b67a48b9163b19119d65b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6193198563177109461, guid: 9f5ddc099d1b67a48b9163b19119d65b, type: 3}
       propertyPath: player
