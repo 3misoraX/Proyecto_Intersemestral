@@ -41,6 +41,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Super",
+                    "type": "Button",
+                    "id": "5f249efd-d6d1-45ed-a411-d27079e6bbcc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -173,6 +182,17 @@
                     "processors": "",
                     "groups": ";Keyboard",
                     "action": "Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "af438086-5adb-4ba8-bd55-1531414cad86",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Super",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

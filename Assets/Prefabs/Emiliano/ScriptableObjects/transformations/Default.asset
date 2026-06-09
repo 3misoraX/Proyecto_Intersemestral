@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d1711c702b31644938dbb3d0819077, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: Assembly-CSharp::TransformationObject
+  transformationName: Cat
   weaponType: 97
   cadency: 2
   specialAbility: 110
