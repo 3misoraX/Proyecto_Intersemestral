@@ -17,11 +17,19 @@ public class PlayerController : MonoBehaviour
     private float verticalVelocity = 0f;
     public float gravity = -12f;
     public float iFallVelocity = -2f;
+    [Header("2.5D Visuals")]
+    public Transform spriteGraphic; 
+    public SpriteRenderer spriteRenderer;
+    public Animator animator;
+    private Transform mainCamera;
+    private readonly int isMovingHash = Animator.StringToHash("IsMoving");
+    private readonly int isShootingHash = Animator.StringToHash("hasWeapon");
 
     void Awake()
     {
         //gets the character controller at the beginning
         charControl = GetComponent<CharacterController>();
+        if (Camera.main != null) mainCamera = Camera.main.transform;
     }
 
     //input detection, didnt understand why but i'm sure its for connecting it with the new input system easily
@@ -50,6 +58,15 @@ public class PlayerController : MonoBehaviour
         //movement method
         Move();
         HandleRotation();
+        UpdateAnimations();
+    }
+
+    void LateUpdate()
+    {
+        if (spriteGraphic != null && mainCamera != null)
+        {
+            spriteGraphic.forward = mainCamera.forward;
+        }
     }
 
     //detects the player input and stores it on a vector2
@@ -98,6 +115,35 @@ public class PlayerController : MonoBehaviour
         else if (moveDir.x < 0)
         {
             transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
+
+        if (spriteRenderer != null)
+        {
+            var aimDir = new Vector3(shootDir.x, 0, shootDir.y).normalized;
+            
+            if (aimDir.x != 0) // Si está apuntando, mira hacia el disparo
+            {
+                spriteRenderer.flipX = aimDir.x < 0; 
+            }
+            else if (movement.x != 0) // Si no apunta, mira hacia donde camina
+            {
+                spriteRenderer.flipX = movement.x < 0;
+            }
+        }
+    }
+
+    private void UpdateAnimations()
+    {
+        if (animator != null)
+        {
+            // Detecta si te estás moviendo (WASD)
+            bool isMoving = movement.magnitude > 0.1f;
+            
+            // Detecta si estás apuntando/disparando (Flechas / Joystick derecho)
+            bool isShooting = shootDir.magnitude > 0.1f;
+
+            animator.SetBool(isMovingHash, isMoving);
+            animator.SetBool(isShootingHash, isShooting);
         }
     }
     
