@@ -9,6 +9,7 @@ public class GunScript : MonoBehaviour
     [SerializeField] private InputActionReference switchAction;
     public InputActionReference specialAction;
     public InputActionReference superAction;
+    [SerializeField] private Specials specialsScript;
     //shooting and changing weapons
     [SerializeField] private Transform shootPoint;
     public List<TransformationObject> transformations = new List<TransformationObject>();
@@ -55,6 +56,7 @@ public class GunScript : MonoBehaviour
         {
             specialCooldown += Time.deltaTime;
         }
+        AbilityManager();
     }
 
     //Function that manages shooting
@@ -120,4 +122,38 @@ public class GunScript : MonoBehaviour
         }
         //animation for adding a charges
     }
+
+    // --- NUEVAS FUNCIONES AÑADIDAS ---
+    void AbilityManager()
+    {
+        // Evitar errores si no se ha asignado el script de especiales
+        if (specialsScript == null) return;
+
+        // Detectar Input de Habilidad Especial
+        if (specialAction != null && specialAction.action.triggered)
+        {
+            TriggerAbility(activeTransformation.specialAbility, false);
+        }
+
+        // Detectar Input de Súper Habilidad
+        if (superAction != null && superAction.action.triggered)
+        {
+            TriggerAbility(activeTransformation.superAbility, true);
+        }
+    }
+
+    void TriggerAbility(char abilityChar, bool isSuper)
+    {
+        // Convierte a minúscula por seguridad y evalúa la letra de la tarjeta
+        switch (char.ToLower(abilityChar))
+        {
+            case 'a':
+                specialsScript.Armadillo(isSuper);
+                break;
+            case 's':
+                specialsScript.Spider(isSuper);
+                break;
+        }
+    }
+    // ---------------------------------
 }

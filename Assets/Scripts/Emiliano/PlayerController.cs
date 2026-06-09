@@ -73,6 +73,12 @@ public class PlayerController : MonoBehaviour
         charControl.Move(fMove * Time.deltaTime);
     }
 
+    // Función pública para que Specials.cs pueda leer la dirección de WASD
+    public Vector3 GetMoveDirection()
+    {
+        return new Vector3(movement.x, 0, movement.y).normalized;
+    }
+
     private void HandleRotation()
     {
         var moveDir = new Vector3(shootDir.x, 0, shootDir.y).normalized;
