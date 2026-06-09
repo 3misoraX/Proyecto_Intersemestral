@@ -34,12 +34,18 @@ public class MusicManager : MonoBehaviour
         if (musicSource.clip == clip) return;
 
         volumeTween?.Kill();
-        musicSource.DOFade(0f, fadeDuration).OnComplete(() =>
-        {
-            musicSource.clip = clip;
-            musicSource.Play();
-            musicSource.DOFade(currentVolume, fadeDuration);
-        });
+
+        musicSource
+            .DOFade(0f, fadeDuration)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                musicSource.clip = clip;
+                musicSource.Play();
+                musicSource
+                    .DOFade(currentVolume, fadeDuration)
+                    .SetUpdate(true);
+            });
     }
 
     public void SetVolume(float value)
@@ -48,7 +54,9 @@ public class MusicManager : MonoBehaviour
         PlayerPrefs.SetFloat(MusicVolumeKey, value);
 
         volumeTween?.Kill();
-        volumeTween = musicSource.DOFade(currentVolume, fadeDuration);
+        volumeTween = musicSource
+            .DOFade(currentVolume, fadeDuration)
+            .SetUpdate(true);
     }
 
     public float GetVolume() => currentVolume;

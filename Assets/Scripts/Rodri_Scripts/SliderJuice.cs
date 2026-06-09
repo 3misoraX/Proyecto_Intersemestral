@@ -39,7 +39,8 @@ public class SliderJuice : MonoBehaviour,
         sliderRoot.DOKill();
         sliderRoot
             .DOScale(baseSliderScale * hoverScale, hoverDuration)
-            .SetEase(Ease.OutQuad);
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -47,7 +48,8 @@ public class SliderJuice : MonoBehaviour,
         sliderRoot.DOKill();
         sliderRoot
             .DOScale(baseSliderScale, hoverDuration)
-            .SetEase(Ease.OutQuad);
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -55,7 +57,8 @@ public class SliderJuice : MonoBehaviour,
         handle.DOKill();
         handle
             .DOScale(baseHandleScale * handleClickScale, clickDuration)
-            .SetEase(Ease.OutBack);
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -63,7 +66,8 @@ public class SliderJuice : MonoBehaviour,
         handle.DOKill();
         handle
             .DOScale(baseHandleScale, clickDuration)
-            .SetEase(Ease.OutQuad);
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true);
     }
 
     /// <summary>
@@ -81,6 +85,6 @@ public class SliderJuice : MonoBehaviour,
             0.15f,
             1,
             0.5f
-        );
+        ).SetUpdate(true);
     }
 }

@@ -253,7 +253,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Miau Interestellar
+  m_text: Miau Interstellar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 21d1c483df655fd44aeead1e1194c971, type: 2}
   m_sharedMaterial: {fileID: -6567121480574979138, guid: 21d1c483df655fd44aeead1e1194c971, type: 2}
@@ -2571,7 +2571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicVolumeSlider
   slider: {fileID: 1078644588}
-  juice: {fileID: 0}
+  juice: {fileID: 229093194}
 --- !u!1 &1002805487
 GameObject:
   m_ObjectHideFlags: 0
