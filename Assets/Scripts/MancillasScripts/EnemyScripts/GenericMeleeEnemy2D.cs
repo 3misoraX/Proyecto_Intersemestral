@@ -190,6 +190,7 @@ public class GenericMeleeEnemy2D : MonoBehaviour
         if (col != null) col.enabled = false;
         EnemyDeathNotifier notifier = GetComponent<EnemyDeathNotifier>();
         if (notifier != null) notifier.NotifyDeath();
+        Destroy(gameObject, 2f);
     }
 
     private void PlayLoopingSound(AudioClip clip)
