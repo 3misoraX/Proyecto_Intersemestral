@@ -262,23 +262,40 @@ public class ArmadilloEnemy2D : MonoBehaviour
     }
 
     public void Die()
-    {
-        if (currentState == EnemyState.Dead) return;
+{
+    if (currentState == EnemyState.Dead) return;
 
-        currentState = EnemyState.Dead;
-        rb.linearVelocity = Vector3.zero;
-        
+    currentState = EnemyState.Dead;
+    rb.linearVelocity = Vector3.zero;
+    
+    if (animator != null)
+    {
         animator.SetTrigger(dieHash);
         animator.SetBool(isWalkingHash, false);
         animator.SetBool(isRollingHash, false);
-
-        loopingAudioSource.Stop();
-        
-        GetComponent<Collider>().enabled = false;
-        rb.isKinematic = true;
-        EnemyDeathNotifier notifier = GetComponent<EnemyDeathNotifier>();
-        if (notifier != null) notifier.NotifyDeath();
     }
+
+    if (loopingAudioSource != null) 
+    {
+        loopingAudioSource.Stop();
+    }
+    
+    Collider col = GetComponent<Collider>();
+    if (col != null) 
+    {
+        col.enabled = false;
+    }
+
+    rb.isKinematic = true;
+
+    // Notificamos al Spawner
+    EnemyDeathNotifier notifier = GetComponent<EnemyDeathNotifier>();
+    if (notifier != null) 
+    {
+        notifier.NotifyDeath();
+    }
+    Destroy(gameObject, 2f);
+}
 
     private void PlayLoopingSound(AudioClip clip)
     {
