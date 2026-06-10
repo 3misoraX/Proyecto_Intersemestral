@@ -3,12 +3,12 @@ using UnityEngine;
 public class Bird_Idle : StateMachineBehaviour
 {
     float timer;
-    int ctrl = 2;
+    int ctrl;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //ctrl = Random.Range(0, 3);
+        ctrl = Random.Range(0, 3);
         timer = 3;
     }
 

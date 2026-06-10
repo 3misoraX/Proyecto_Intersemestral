@@ -8,7 +8,6 @@ public class Birb_Attacks : StateMachineBehaviour
         if(animator.GetInteger("Attack") == 1)
         {
             animator.GetComponent<BirdBoss>().FallingAttack();
-            animator.SetTrigger("Stop");
         }
         if(animator.GetInteger("Attack") == 2)
         {
