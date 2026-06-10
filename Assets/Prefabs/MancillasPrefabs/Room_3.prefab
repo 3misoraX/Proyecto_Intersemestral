@@ -139,6 +139,8 @@ MonoBehaviour:
   wallSouth: {fileID: 3146166995410490357}
   wallEast: {fileID: 4584135368484142909}
   wallWest: {fileID: 7330198060707753936}
+  doorHideDistance: 4
+  doorMoveSpeed: 3
   spawner: {fileID: 2192035894468227770}
 --- !u!65 &7138442998144426144
 BoxCollider:
@@ -273,6 +275,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2400390008325979117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4071715806363538532}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4071715806363538532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2400390008325979117}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8392831497570494018}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2827755395360774391
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,8 +416,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.510812, z: 1}
+  m_Center: {x: 0, y: 1.2554067, z: 0}
 --- !u!1 &3085902756452770549
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,8 +528,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.7375572, z: 1}
+  m_Center: {x: 0, y: 1.3687801, z: 0}
 --- !u!1 &3098369604246047271
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6791900188414805684
 Transform:
   m_ObjectHideFlags: 0
@@ -642,8 +675,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9999984, y: 4.489526, z: 1}
+  m_Center: {x: 0, y: 1.7447637, z: 0}
 --- !u!1 &3302788470028096501
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +857,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4071715806363538532}
   m_Father: {fileID: 2184272978361025509}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2192035894468227770
@@ -839,8 +873,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af9a951eff4e9c47b7666fc9b433c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemiesToSpawn: []
-  spawnPoints: []
+  enemiesToSpawn:
+  - enemyPrefab: {fileID: 5486339975435732661, guid: 9f5ddc099d1b67a48b9163b19119d65b, type: 3}
+    amountToSpawn: 3
+  - enemyPrefab: {fileID: 4946500119860702527, guid: 46f006ed3cd6f8d4e9d8db2531d22c9b, type: 3}
+    amountToSpawn: 3
+  spawnPoints:
+  - {fileID: 4071715806363538532}
 --- !u!1 &4093653936576311084
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,8 +990,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9999984, y: 4.5460334, z: 1}
+  m_Center: {x: 0, y: 1.7730173, z: 0}
 --- !u!1 &4297974144746173878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,8 +1102,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.640488, z: 1}
+  m_Center: {x: 0, y: 1.3202442, z: 0}
 --- !u!1 &4543532502380069000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,8 +1214,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.5802615, z: 1}
+  m_Center: {x: 0, y: 1.2901319, z: 0}
 --- !u!1 &4584135368484142909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,8 +1326,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9999984, y: 4.3645244, z: 1}
+  m_Center: {x: 0, y: 1.6822635, z: 0}
 --- !u!1 &4766362394050770044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,8 +1438,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.4651499, z: 1}
+  m_Center: {x: 0, y: 1.2325773, z: 0}
 --- !u!1 &5212286500237338325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,8 +1550,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.7038522, z: 1}
+  m_Center: {x: 0, y: 1.3519267, z: 0}
 --- !u!1 &6198055297424910241
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,8 +1921,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.5362666, z: 1}
+  m_Center: {x: 0, y: 1.2681335, z: 0}
 --- !u!1 &7330198060707753936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,8 +2033,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9999984, y: 4.5134873, z: 1}
+  m_Center: {x: 0, y: 1.756745, z: 0}
 --- !u!1 &9157766384430654144
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,5 +2145,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.6946151, z: 1}
+  m_Center: {x: 0, y: 1.3473076, z: 0}

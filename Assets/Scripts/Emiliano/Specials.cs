@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Specials : MonoBehaviour
@@ -16,6 +17,8 @@ public class Specials : MonoBehaviour
     public float superDashBaseSpeed = 15f;
     public float superDashSpeedIncrement = 3f;
     public float maxSuperDashSpeed = 30f;
+    public int normalDashDamage = 1;
+    public int superDashDamage = 3;
     
     [Tooltip("Variable para leer desde tu script de daño si el jugador es invencible")]
     public bool isInvincible = false; 
@@ -26,6 +29,16 @@ public class Specials : MonoBehaviour
     public GameObject normalProjectilePrefab;
     public GameObject stunProjectilePrefab; // El proyectil universal que configuraste antes
     public float projectileSpeed = 15f;
+
+    [Header("Cooldowns de Habilidades")]
+    public float armadilloNormalCooldown = 1.5f;
+    public float armadilloSuperCooldown = 5f;
+    public float spiderNormalCooldown = 1f;
+    public float spiderSuperCooldown = 8f;
+
+    // Relojes internos para llevar la cuenta
+    private float nextArmadilloTime = 0f;
+    private float nextSpiderTime = 0f;
     
     [Range(0, 100)] public float shotgunStunChance = 25f;
     public int shotgunPellets = 5;
@@ -49,17 +62,25 @@ public class Specials : MonoBehaviour
     // --- HABILIDADES DE ARMADILLO ---
     public void Armadillo(bool super)
     {
+        // 1. Verificamos si la habilidad aún se está recargando
+        if (Time.time < nextArmadilloTime)
+        {
+            Debug.Log("El Armadillo está en cooldown. Falta: " + (nextArmadilloTime - Time.time).ToString("F1") + "s");
+            return; 
+        }
+
         // Evitar que active la habilidad si ya está rodando
         if (isDashing) return;
 
         if (!super)
         {
-            // Dash invencible corto (no rebota)
+            // Registramos el tiempo para el próximo uso (Tiempo actual + lo que dura el dash + el cooldown)
+            nextArmadilloTime = Time.time + specialDashDuration + armadilloNormalCooldown;
             StartCoroutine(ArmadilloDashRoutine(specialDashDuration, specialDashSpeed, false));
         }
         else
         {
-            // Dash invencible largo (rebota en paredes)
+            nextArmadilloTime = Time.time + superDashDuration + armadilloSuperCooldown;
             StartCoroutine(ArmadilloDashRoutine(superDashDuration, superDashBaseSpeed, true));
         }
     }
@@ -68,6 +89,16 @@ public class Specials : MonoBehaviour
     {
         isDashing = true;
         isInvincible = true;
+
+        // Obtenemos los IDs de las capas de Unity
+        int playerLayer = LayerMask.NameToLayer("Player");
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+
+        // Desactivamos la colisión física para pasar a través de los enemigos
+        if (playerLayer != -1 && enemyLayer != -1)
+        {
+            Physics.IgnoreLayerCollision(playerLayer, enemyLayer, true);
+        }
 
         // Desactivar el control normal del jugador para que no interfiera
         if (playerScript != null) playerScript.enabled = false;
@@ -83,14 +114,16 @@ public class Specials : MonoBehaviour
             dashDirection = player.transform.forward;
         }
 
+        // Registro de enemigos golpeados en este dash
+        HashSet<GameObject> enemiesDamagedThisDash = new HashSet<GameObject>();
+
         while (timer < duration)
         {
             bounceCooldown -= Time.deltaTime;
+            Vector3 center = player.transform.position + charControl.center;
 
             if (canBounce && bounceCooldown <= 0f)
             {
-                // Calculamos el centro del jugador
-                Vector3 center = player.transform.position + charControl.center;
                 
                 // Distancia que recorrerá en este frame más un pequeño margen de predicción (0.2f)
                 float predictDistance = (currentSpeed * Time.deltaTime) + 0.2f;
@@ -105,6 +138,7 @@ public class Specials : MonoBehaviour
                         dashDirection = Vector3.Reflect(dashDirection, hit.normal);
                         dashDirection.y = 0; // Mantenerlo en el plano horizontal
                         dashDirection.Normalize();
+                        enemiesDamagedThisDash.Clear();
 
                         // 2. Aumentar la velocidad
                         currentSpeed = Mathf.Clamp(currentSpeed + superDashSpeedIncrement, startSpeed, maxSuperDashSpeed);
@@ -118,6 +152,17 @@ public class Specials : MonoBehaviour
                 }
             }
 
+            // Detección de daño a enemigos
+            Collider[] hitColliders = Physics.OverlapSphere(center, charControl.radius * 1.2f);
+            foreach (Collider col in hitColliders)
+            {
+                if (col.CompareTag("Enemy") && !enemiesDamagedThisDash.Contains(col.gameObject))
+                {
+                    int damageAmount = canBounce ? superDashDamage : normalDashDamage;
+                    col.gameObject.SendMessage("TakeDamage", damageAmount, SendMessageOptions.DontRequireReceiver);
+                    enemiesDamagedThisDash.Add(col.gameObject);
+                }
+            }
             // Mover al jugador con la dirección final (ya sea la original o la rebotada)
             charControl.Move(dashDirection * currentSpeed * Time.deltaTime);
 
@@ -135,6 +180,13 @@ public class Specials : MonoBehaviour
     // --- HABILIDADES DE ARAÑA ---
     public void Spider(bool super)
     {
+        // 1. Verificamos si la habilidad aún se está recargando
+        if (Time.time < nextSpiderTime)
+        {
+            Debug.Log("La Araña está en cooldown. Falta: " + (nextSpiderTime - Time.time).ToString("F1") + "s");
+            return;
+        }
+
         if (shootPoint == null)
         {
             Debug.LogWarning("Falta asignar el ShootPoint en Specials.");
@@ -143,12 +195,14 @@ public class Specials : MonoBehaviour
 
         if (!super)
         {
-            // Disparo tipo escopeta, probabilidad de stun
+            // Registramos el tiempo para el próximo uso normal
+            nextSpiderTime = Time.time + spiderNormalCooldown;
             ShootShotgun();
         }
         else
         {
-            // Disparo en 8 direcciones, todos stunean
+            // Registramos el tiempo para el próximo uso especial
+            nextSpiderTime = Time.time + spiderSuperCooldown;
             Shoot8Way();
         }
     }

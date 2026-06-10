@@ -54,7 +54,14 @@ public class UniversalProjectile : MonoBehaviour
         // --- APLICAR DAÑO ---
         // Aquí usamos SendMessage para enviar el daño sin importar cómo se llame tu script de vida.
         // Asegurarse de que el script del jugador/enemigo tenga un método llamado "TakeDamage(int amount)"
-        target.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+        if(target.tag == "Player")
+        {
+            target.SendMessage("LoseHealth", damage, SendMessageOptions.DontRequireReceiver);
+        }
+        else
+        {
+            target.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+        }
 
         // --- APLICAR ATURDIMIENTO ---
         if (isStunProjectile)
