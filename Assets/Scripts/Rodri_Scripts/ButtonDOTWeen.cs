@@ -15,8 +15,8 @@ public class ButtonDOTween : MonoBehaviour,
     public float clickTime = 0.1f;
 
     [Header("Cursor Follow")]
-    public float followStrength = 15f;   // Qué tanto sigue al cursor
-    public float followSmooth = 0.15f;   // Suavidad del movimiento
+    public float followStrength = 15f;
+    public float followSmooth = 0.15f;
 
     RectTransform rectTransform;
     Canvas canvas;
@@ -45,7 +45,8 @@ public class ButtonDOTween : MonoBehaviour,
         scaleTween?.Kill();
         scaleTween = rectTransform
             .DOScale(originalScale * hoverScale, hoverTime)
-            .SetEase(Ease.OutBack);
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true); // 🔥 CLAVE
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -57,11 +58,13 @@ public class ButtonDOTween : MonoBehaviour,
 
         scaleTween = rectTransform
             .DOScale(originalScale, hoverTime)
-            .SetEase(Ease.OutExpo);
+            .SetEase(Ease.OutExpo)
+            .SetUpdate(true);
 
         moveTween = rectTransform
             .DOAnchorPos(originalAnchoredPos, hoverTime)
-            .SetEase(Ease.OutExpo);
+            .SetEase(Ease.OutExpo)
+            .SetUpdate(true);
     }
 
     public void OnPointerMove(PointerEventData eventData)
@@ -81,15 +84,19 @@ public class ButtonDOTween : MonoBehaviour,
         moveTween?.Kill();
         moveTween = rectTransform
             .DOAnchorPos(targetPos, followSmooth)
-            .SetEase(Ease.OutQuad);
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        UISoundManager.Instance?.PlayClick();
+
         scaleTween?.Kill();
         scaleTween = rectTransform
             .DOScale(originalScale * clickScale, clickTime)
-            .SetEase(Ease.InOutQuad);
+            .SetEase(Ease.InOutQuad)
+            .SetUpdate(true);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -102,6 +109,7 @@ public class ButtonDOTween : MonoBehaviour,
 
         scaleTween = rectTransform
             .DOScale(targetScale, clickTime)
-            .SetEase(Ease.OutQuad);
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true);
     }
 }

@@ -28,7 +28,6 @@ public class EnemySpawner : MonoBehaviour
                 Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
                 GameObject enemy = Instantiate(group.enemyPrefab, sp.position, Quaternion.identity);
 
-                // Le agregamos el puente de comunicación dinámicamente
                 EnemyDeathNotifier notifier = enemy.AddComponent<EnemyDeathNotifier>();
                 notifier.spawner = this;
                 
@@ -36,24 +35,24 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        // Si la lista estaba vacía, desbloqueamos la sala inmediatamente
+        Debug.Log($"<color=yellow>Habitación activada. Enemigos totales generados: {activeEnemies}</color>");
+
         if (activeEnemies == 0 && currentRoom != null)
         {
+            Debug.Log("<color=green>No había enemigos en la lista. Abriendo habitación instantáneamente.</color>");
             currentRoom.UnlockRoom();
         }
     }
 
-    // El notificador llamará a este método
     public void EnemyDied()
     {
         activeEnemies--;
+        Debug.Log($"<color=orange>Un enemigo murió. Enemigos restantes en la sala: {activeEnemies}</color>");
         
         if (activeEnemies <= 0 && currentRoom != null)
         {
-            GameObject.FindWithTag("Player").GetComponent<GunScript>().AddCharge(); //Añade una carga al especial del jugador si el cuarto estaba bloqueado
+            Debug.Log("<color=green>¡Todos los enemigos eliminados! </color>");
             currentRoom.UnlockRoom();
         }
     }
 }
-
-//este comentario es solo para hacer el merge

@@ -316,6 +316,7 @@ public class SpiderEnemy2D : MonoBehaviour
         if (rb != null) rb.isKinematic = true;
         EnemyDeathNotifier notifier = GetComponent<EnemyDeathNotifier>();
         if (notifier != null) notifier.NotifyDeath();
+        Destroy(gameObject, 2f);
     }
 
     private void ShootProjectile(GameObject prefab, Vector3 direction)
