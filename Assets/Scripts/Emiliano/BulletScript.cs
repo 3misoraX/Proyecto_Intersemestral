@@ -10,11 +10,15 @@ public class BulletScript : MonoBehaviour
         Destroy(gameObject, bulletType.duration); 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
             Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Areas"))
+        {
+            return;
         }
         else
         {
