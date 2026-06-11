@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: aa9a5ce1cc065434aa1c0dfb4d3cb4c7
+=======
 guid: 28bce4cb26d9fd94ba573c6ea7d5ee67
+>>>>>>> be28e2b68bed67bb067774f6a5fee4b76f5b99b8
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,6 +25,8 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+<<<<<<< HEAD
+=======
 AssetOrigin:
   serializedVersion: 1
   productId: 324429
@@ -28,3 +34,4 @@ AssetOrigin:
   packageVersion: 1.0.1
   assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/buttons/heavy_mechanical_button/heavy_mechanical_button_click_out_02.wav
   uploadId: 792348
+>>>>>>> be28e2b68bed67bb067774f6a5fee4b76f5b99b8

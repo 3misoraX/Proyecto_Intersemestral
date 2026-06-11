@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d76fe7901f976e249aaada8403e9d911
+guid: 89d4078a6d763c14bbcddf96e7684cfc
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/buttons/heavy_mechanical_button/heavy_mechanical_button_click_in_02.wav
-  uploadId: 792348
