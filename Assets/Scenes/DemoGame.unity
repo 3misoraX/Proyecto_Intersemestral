@@ -365,6 +365,10 @@ PrefabInstance:
       propertyPath: hp
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3204765064879268455, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
+      propertyPath: maxHp
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4602674702693580938, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -475,6 +479,7 @@ MonoBehaviour:
   - {fileID: 395829979855807224, guid: 955f3674146f5e141b538ada09593c85, type: 3}
   hallPrefab:
   - {fileID: 4205114647350784772, guid: 645e26e7b4f87554dae72a47a37932c7, type: 3}
+  keyPrefab: {fileID: 2438311974635917952, guid: 4037bdbc6c232bb46b7219be4669709c, type: 3}
 --- !u!4 &909610904
 Transform:
   m_ObjectHideFlags: 0

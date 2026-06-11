@@ -1936,8 +1936,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 44.992943, y: 0.000000045507477, z: -4.997512}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1703770942369056923}
   - {fileID: 5927805739463915621}
@@ -2047,6 +2047,7 @@ MonoBehaviour:
   doorHideDistance: 4
   doorMoveSpeed: 3
   spawner: {fileID: 8058081233016526339}
+  isBossRoom: 0
 --- !u!65 &3271957938237777420
 BoxCollider:
   m_ObjectHideFlags: 0

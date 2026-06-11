@@ -244,6 +244,14 @@ public class ArmadilloEnemy2D : MonoBehaviour
             int damageToDeal = (currentState == EnemyState.Rolling) ? rollDamage : normalDamage;
             Debug.Log($"Hizo {damageToDeal} de daño al jugador.");
 
+            // --- LLAMADA AL SCRIPT DE VIDA DEL JUGADOR ---
+            PlayerHeallth playerHealth = collision.gameObject.GetComponent<PlayerHeallth>();
+            if (playerHealth != null)
+            {
+                playerHealth.LoseHealth(damageToDeal);
+            }
+            // ---------------------------------------------
+
             if (currentState == EnemyState.Rolling)
             {
                 EndSpecialAttack();

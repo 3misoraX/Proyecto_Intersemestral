@@ -479,8 +479,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.1, y: 0.0000029364792, z: -25.19102}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4719901177221617461}
   - {fileID: 452074032983696805}
@@ -590,6 +590,7 @@ MonoBehaviour:
   doorHideDistance: 4
   doorMoveSpeed: 3
   spawner: {fileID: 6222971180083733907}
+  isBossRoom: 0
 --- !u!65 &2057022241796290206
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1669,7 +1670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4719901177221617461
 Transform:
   m_ObjectHideFlags: 0
