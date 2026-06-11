@@ -105,8 +105,8 @@ MonoBehaviour:
   isMoving: 0
   dashTime: 1
   dashSpeed: 10
-  rangex: 10
-  rangez: 10
+  rangex: 3
+  rangez: 3
   boulder: {fileID: 2057082105079022788, guid: 61e356888df7f544da193eba3890deaf, type: 3}
   explosionRange: 3
   bulletCount: 10
@@ -116,7 +116,7 @@ MonoBehaviour:
   shootPoint: {fileID: 77478376827480500}
   spriteGraphic: {fileID: 160637002791232954}
   spriteRenderer: {fileID: 1295929714603977953}
-  explosionEffect: {fileID: 0}
+  explosionEffect: {fileID: 2556824767211944716, guid: 551cdf9fe766dbe469fdc5765b835f69, type: 3}
   effectLifetime: 0.3
   fallIndicator: {fileID: 588497388107695979, guid: cf5f662e8c6f93e4d90200c589473813, type: 3}
 --- !u!95 &774420154439938632
