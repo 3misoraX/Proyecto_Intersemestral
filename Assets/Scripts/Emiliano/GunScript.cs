@@ -104,6 +104,10 @@ public class GunScript : MonoBehaviour
             current = 0;
         }
         activeTransformation = transformations[current];
+        if (UIManager.Instance != null) 
+        {
+            UIManager.Instance.SwitchActiveTransformation(activeTransformation.specialAbility);
+        }
     }
 
     void CallSpecial(GameObject target, bool isSuper)
@@ -149,9 +153,11 @@ public class GunScript : MonoBehaviour
         {
             case 'a':
                 specialsScript.Armadillo(isSuper);
+                UIManager.Instance.StartCooldown(isSuper, isSuper ? 4f : 1f);
                 break;
             case 's':
                 specialsScript.Spider(isSuper);
+                UIManager.Instance.StartCooldown(isSuper, isSuper ? 2f : 0.5f);
                 break;
         }
     }

@@ -15,19 +15,16 @@ public class PlayerHeallth : MonoBehaviour
     void Start()
     {
         hp = maxHp;
-        //actualize the UI
+        if (UIManager.Instance != null) UIManager.Instance.UpdateHealth(hp);
     }
 
     public void LoseHealth(int dmg)
     {
         if (canTakeDamage)
-            {
+        {
             hp -= dmg;
-            //actualize the UI
-            if( hp <= 0)
-            {
-                Die();
-            }
+            if (UIManager.Instance != null) UIManager.Instance.UpdateHealth(hp); // ACTUALIZA UI
+            if( hp <= 0) Die();
             StartCoroutine(IFrames());
         }
     }
@@ -35,8 +32,8 @@ public class PlayerHeallth : MonoBehaviour
     public void Heal(int healHp)
     {
         hp += healHp;
-        if (hp >= maxHp)
-            hp = maxHp;
+        if (hp >= maxHp) hp = maxHp;
+        if (UIManager.Instance != null) UIManager.Instance.UpdateHealth(hp); // ACTUALIZA UI
     }
 
     private void Die()

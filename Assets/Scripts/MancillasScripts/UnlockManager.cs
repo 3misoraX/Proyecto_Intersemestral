@@ -33,6 +33,7 @@ public class UnlockManager : MonoBehaviour
         if (enemyType == "Armadillo" && !armadilloUnlocked)
         {
             armadilloKills++;
+            UIManager.Instance.UpdateKillCounter("Armadillo", armadilloKills);
             if (armadilloKills >= killsRequired)
             {
                 armadilloUnlocked = true;
@@ -43,6 +44,7 @@ public class UnlockManager : MonoBehaviour
         else if (enemyType == "Spider" && !spiderUnlocked)
         {
             spiderKills++;
+            UIManager.Instance.UpdateKillCounter("Spider", spiderKills);
             if (spiderKills >= killsRequired)
             {
                 spiderUnlocked = true;
