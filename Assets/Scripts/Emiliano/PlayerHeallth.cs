@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHeallth : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class PlayerHeallth : MonoBehaviour
 
     private void Die()
     {
-        //game over screen
+        SceneManager.LoadScene("MainMenu");
         gameObject.SetActive(false);
     }
 
