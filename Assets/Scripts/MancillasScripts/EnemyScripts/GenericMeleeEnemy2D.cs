@@ -125,8 +125,13 @@ public class GenericMeleeEnemy2D : MonoBehaviour
         if (loopingAudioSource != null) loopingAudioSource.Stop();
         if (sfxAudioSource != null && attackSound != null) sfxAudioSource.PlayOneShot(attackSound);
 
-        // Aplicar daño al jugador (asumiendo que está en rango)
-        player.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+        // --- LLAMADA AL SCRIPT DE VIDA DEL JUGADOR ---
+        PlayerHeallth playerHealth = player.GetComponent<PlayerHeallth>();
+        if (playerHealth != null)
+        {
+            playerHealth.LoseHealth(damage);
+        }
+        // ---------------------------------------------
 
         // Volver a perseguir después de un pequeño retraso
         Invoke(nameof(ResumeChasing), 0.5f);
