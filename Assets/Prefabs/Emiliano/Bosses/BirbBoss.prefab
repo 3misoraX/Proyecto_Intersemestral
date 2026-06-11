@@ -102,6 +102,7 @@ MonoBehaviour:
   dmg: 1
   hp: 0
   maxHp: 60
+  nextLevelPortal: {fileID: 7336380662205959615, guid: 3e6611772280257459ef48349cccc748, type: 3}
   isMoving: 0
   dashTime: 1
   dashSpeed: 10

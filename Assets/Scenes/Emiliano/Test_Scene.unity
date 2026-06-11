@@ -642,6 +642,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BirbBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 4285304537076827512, guid: 471894e3a4031b443b621edb56ffd586, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288854760589020160, guid: 471894e3a4031b443b621edb56ffd586, type: 3}
+      propertyPath: dmg
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
