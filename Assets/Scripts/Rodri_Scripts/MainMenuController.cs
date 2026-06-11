@@ -87,7 +87,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("DemoGame");
     }
 
     public void ShowMainMenu()
