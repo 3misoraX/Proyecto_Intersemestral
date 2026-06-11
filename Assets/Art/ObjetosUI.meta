@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/ObjetosUI.meta
 guid: 456523bf7bc207d43ba39978e8461452
+========
+guid: 894284ac7c8640542af4208772ade0a0
+>>>>>>>> be28e2b68bed67bb067774f6a5fee4b76f5b99b8:Assets/Art/Effects.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
