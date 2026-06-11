@@ -294,6 +294,11 @@ public class ArmadilloEnemy2D : MonoBehaviour
     {
         notifier.NotifyDeath();
     }
+    // Avisamos al manager que un armadillo murió
+    if (UnlockManager.Instance != null) 
+    {
+        UnlockManager.Instance.RegisterKill("Armadillo");
+    }
     Destroy(gameObject, 2f);
 }
 

@@ -1919,7 +1919,7 @@ GameObject:
   - component: {fileID: 8814803095036964774}
   - component: {fileID: 8645274945648483376}
   - component: {fileID: 3271957938237777420}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Room_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

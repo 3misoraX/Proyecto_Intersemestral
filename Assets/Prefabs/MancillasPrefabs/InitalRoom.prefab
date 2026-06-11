@@ -1243,7 +1243,7 @@ GameObject:
   - component: {fileID: 3241457514712388444}
   - component: {fileID: 30825794406457689}
   - component: {fileID: 6084696447618111038}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: InitalRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1368,6 +1368,8 @@ MonoBehaviour:
   wallSouth: {fileID: 8273451119768397730}
   wallEast: {fileID: 8765686854915453641}
   wallWest: {fileID: 5759779988498583029}
+  doorHideDistance: 4
+  doorMoveSpeed: 3
   spawner: {fileID: 0}
 --- !u!65 &6084696447618111038
 BoxCollider:
