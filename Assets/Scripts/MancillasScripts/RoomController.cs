@@ -25,10 +25,12 @@ public class RoomController : MonoBehaviour
     [Header("Referencias")]
     public EnemySpawner spawner;
 
+    [Header("Configuración de Jefe")]
+    public bool isBossRoom = false;
+
     private bool isCleared = false;
     private bool isLocked = false;
     
-    // Listas para manejar solo las puertas que existen en esta habitación
     private List<Transform> activeDoors = new List<Transform>();
     private Dictionary<Transform, Vector3> closedPositions = new Dictionary<Transform, Vector3>();
     private Dictionary<Transform, Vector3> openPositions = new Dictionary<Transform, Vector3>();
@@ -47,17 +49,21 @@ public class RoomController : MonoBehaviour
         if (doorEast) { doorEast.SetActive(hasEast); if (hasEast) activeDoors.Add(doorEast.transform); }
         if (doorWest) { doorWest.SetActive(hasWest); if (hasWest) activeDoors.Add(doorWest.transform); }
 
-        // 3. Registrar posiciones y esconder las puertas bajo el suelo
+        // 3. Registrar posiciones y configurar estado inicial de las puertas
         foreach (Transform door in activeDoors)
         {
-            // La posición en el prefab será la posición "Cerrada" (bloqueando el paso)
             closedPositions[door] = door.localPosition; 
-            
-            // La posición "Abierta" será X metros más abajo
             openPositions[door] = door.localPosition - new Vector3(0, doorHideDistance, 0);
             
-            // Al iniciar la sala, las puertas están abiertas (escondidas abajo)
-            door.localPosition = openPositions[door];
+            // Si es la sala del jefe, las puertas empiezan CERRADAS bloqueando el paso
+            if (isBossRoom)
+            {
+                door.localPosition = closedPositions[door];
+            }
+            else
+            {
+                door.localPosition = openPositions[door];
+            }
         }
     }
 
@@ -73,7 +79,7 @@ public class RoomController : MonoBehaviour
             }
             else
             {
-                UnlockRoom(); // Si no hay enemigos, se vuelve a abrir al instante
+                UnlockRoom(); 
             }
         }
     }
@@ -81,7 +87,7 @@ public class RoomController : MonoBehaviour
     private void LockRoom()
     {
         isLocked = true;
-        StopAllCoroutines(); // Detiene cualquier movimiento previo por seguridad
+        StopAllCoroutines(); 
         StartCoroutine(AnimateDoors(true)); // True = Subir puertas
     }
 
@@ -93,7 +99,13 @@ public class RoomController : MonoBehaviour
         StartCoroutine(AnimateDoors(false)); // False = Bajar puertas
     }
 
-    // Corrutina que mueve las puertas suavemente a lo largo del tiempo
+    // Se ejecuta desde el script de la llave cuando el jugador la recoge
+    public void UnlockBossRoom()
+    {
+        StopAllCoroutines();
+        StartCoroutine(AnimateDoors(false)); // Baja las puertas para permitir el paso inicial
+    }
+
     private IEnumerator AnimateDoors(bool closing)
     {
         float progress = 0f;
@@ -107,11 +119,10 @@ public class RoomController : MonoBehaviour
                 Vector3 startPos = closing ? openPositions[door] : closedPositions[door];
                 Vector3 endPos = closing ? closedPositions[door] : openPositions[door];
                 
-                // Lerp crea una transición fluida entre dos posiciones
                 door.localPosition = Vector3.Lerp(startPos, endPos, progress);
             }
             
-            yield return null; // Espera al siguiente frame
+            yield return null; 
         }
     }
 }
