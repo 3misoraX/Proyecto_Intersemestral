@@ -8,6 +8,7 @@ public class BirdBoss : MonoBehaviour
     public int dmg = 1;
     [SerializeField] private int hp;
     public int maxHp = 60;
+    public GameObject nextLevelPortal;
 
     [Header("Dash Configuration")]
     public bool isMoving = false;
@@ -163,12 +164,19 @@ public class BirdBoss : MonoBehaviour
 
         if (hp <= 0)
         {
-            animator.SetInteger("Attack", 0);
-            //Death Effect
-            //more bs that he can do
-            Destroy(gameObject);
+            OnDeath();
         }
     }
-}
 
-//subida y caida con daño en area
+    void OnDeath()
+    {
+        animator.SetInteger("Attack", 0);
+        animator.SetTrigger("Dead");
+        if(nextLevelPortal != null)
+        {
+            Instantiate(nextLevelPortal, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
+    }
+
+}
