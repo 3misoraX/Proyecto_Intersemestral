@@ -91,7 +91,7 @@ public class BirdBoss : MonoBehaviour
 
         for(int i = 0; i < 3; i++)
         {
-            Vector3 spawnPos = new Vector3(Random.Range(-rangex, rangex), 10, Random.Range(-rangez, rangez));
+            Vector3 spawnPos = new Vector3(transform.position.x + Random.Range(-rangex, rangex), 10, transform.position.z + Random.Range(-rangez, rangez));
             GameObject rock = Instantiate(boulder, spawnPos, Quaternion.identity);
             Destroy(rock, 2f);
         }
