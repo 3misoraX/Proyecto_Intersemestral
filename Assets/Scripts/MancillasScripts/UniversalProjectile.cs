@@ -27,11 +27,33 @@ public class UniversalProjectile : MonoBehaviour
     [Header("Efectos Visuales (Opcional)")]
     [Tooltip("Prefab que aparece cuando la bala choca (ej. una pequeña explosión o chispa).")]
     public GameObject impactEffectPrefab;
+    public Transform spriteGraphic; // El GameObject hijo que tiene el SpriteRenderer y el Animator
+    public SpriteRenderer spriteRenderer;
+    private Transform mainCamera;
 
     void Start()
     {
+        if (Camera.main != null)
+        {
+            mainCamera = Camera.main.transform;
+        }
+        else
+        {
+            Debug.LogError("No se encontró una Main Camera para el billboarding.");
+        }
+
         // Destruir el proyectil automáticamente si no choca con nada después de 'lifetime' segundos
         Destroy(gameObject, lifetime);
+    }
+
+    void LateUpdate()
+    {
+        // Billboarding: Hacer que el sprite siempre mire a la cámara
+        if (spriteGraphic != null && mainCamera != null)
+        {
+            // Esto hace que el plano del sprite sea paralelo a la pantalla
+            spriteGraphic.forward = mainCamera.forward;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
