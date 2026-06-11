@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
-
 public class Bird_Movement : StateMachineBehaviour
 {
     BirdBoss boss;

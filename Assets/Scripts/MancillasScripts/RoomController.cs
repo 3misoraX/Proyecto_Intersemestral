@@ -24,6 +24,7 @@ public class RoomController : MonoBehaviour
 
     [Header("Referencias")]
     public EnemySpawner spawner;
+    public GameObject fih;
 
     [Header("Configuración de Jefe")]
     public bool isBossRoom = false;
@@ -96,6 +97,11 @@ public class RoomController : MonoBehaviour
         isLocked = false;
         isCleared = true;
         StopAllCoroutines();
+        int r = Random.Range(0, 4);
+        if(r == 0)
+        {
+            GameObject fish = Instantiate(fih, transform.position, Quaternion.identity);
+        }
         StartCoroutine(AnimateDoors(false)); // False = Bajar puertas
     }
 

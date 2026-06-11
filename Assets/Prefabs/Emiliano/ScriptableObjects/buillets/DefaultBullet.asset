@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 562cf7d0c454c754b8c6098c579bc627, type: 3}
   m_Name: DefaultBullet
   m_EditorClassIdentifier: Assembly-CSharp::BulletType
-  dmg: 2
+  dmg: 3
   duration: 5
   abilityDuration: 0
   properties: []
