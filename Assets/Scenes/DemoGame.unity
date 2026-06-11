@@ -365,6 +365,10 @@ PrefabInstance:
       propertyPath: hp
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3204765064879268455, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
+      propertyPath: maxHp
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4602674702693580938, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
       propertyPath: m_Enabled
       value: 0
