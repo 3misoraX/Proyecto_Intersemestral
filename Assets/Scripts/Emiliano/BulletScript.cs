@@ -4,10 +4,32 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     public BulletType bulletType;
+    public Transform spriteGraphic; // El GameObject hijo que tiene el SpriteRenderer y el Animator
+    public SpriteRenderer spriteRenderer;
+    private Transform mainCamera;
 
     void Start()
     {
-        Destroy(gameObject, bulletType.duration); 
+        if (Camera.main != null)
+        {
+            mainCamera = Camera.main.transform;
+        }
+        else
+        {
+            Debug.LogError("No se encontró una Main Camera para el billboarding.");
+        }
+        Destroy(gameObject, bulletType.duration);
+
+    }
+
+    void LateUpdate()
+    {
+        // Billboarding: Hacer que el sprite siempre mire a la cámara
+        if (spriteGraphic != null && mainCamera != null)
+        {
+            // Esto hace que el plano del sprite sea paralelo a la pantalla
+            spriteGraphic.forward = mainCamera.forward;
+        }
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -16,7 +38,7 @@ public class BulletScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Areas"))
+        else if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Areas")|| collision.gameObject.CompareTag("Player"))
         {
             return;
         }
