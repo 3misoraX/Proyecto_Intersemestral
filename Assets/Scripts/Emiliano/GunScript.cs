@@ -155,5 +155,14 @@ public class GunScript : MonoBehaviour
                 break;
         }
     }
-    // ---------------------------------
+    
+    public void UnlockTransformation(TransformationObject newForm)
+    {
+        // Revisamos que no la tenga ya desbloqueada por accidente
+        if (!transformations.Contains(newForm))
+        {
+            transformations.Add(newForm);
+            Debug.Log("Nueva transformación añadida al inventario: " + newForm.name);
+        }
+    }
 }
