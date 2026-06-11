@@ -4,6 +4,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     public BulletType bulletType;
+    public GameObject hitEffect;
     public Transform spriteGraphic; // El GameObject hijo que tiene el SpriteRenderer y el Animator
     public SpriteRenderer spriteRenderer;
     private Transform mainCamera;
@@ -36,6 +37,11 @@ public class BulletScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
+            if (hitEffect != null)
+            {
+                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                Destroy(effect, 0.2f);
+            }
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Areas")|| collision.gameObject.CompareTag("Player"))
@@ -45,6 +51,11 @@ public class BulletScript : MonoBehaviour
         else
         {
             ApplyEffects(collision.gameObject);
+            if(hitEffect != null)
+            {
+                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                Destroy(effect, 0.2f);
+            }
             Destroy(gameObject);
         }
     }

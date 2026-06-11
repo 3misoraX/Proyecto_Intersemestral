@@ -161,7 +161,7 @@ MonoBehaviour:
   isStunProjectile: 1
   stunDuration: 2
   lifetime: 5
-  impactEffectPrefab: {fileID: 0}
+  impactEffectPrefab: {fileID: 1488428251082261772, guid: 395dab146bec56a4cb76a34e9e512a81, type: 3}
   spriteGraphic: {fileID: 4788839991893907238}
   spriteRenderer: {fileID: 4921443172078603939}
 --- !u!1 &3677407545655337657

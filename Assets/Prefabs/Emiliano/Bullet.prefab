@@ -269,5 +269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletScript
   bulletType: {fileID: 11400000, guid: a84120b667e38a441a1163ee5a7c79ef, type: 2}
+  hitEffect: {fileID: 7851670918411323497, guid: c773fec80ed446c4697fd73b412e87ee, type: 3}
   spriteGraphic: {fileID: 697168838279933838}
   spriteRenderer: {fileID: 1355446359072628339}

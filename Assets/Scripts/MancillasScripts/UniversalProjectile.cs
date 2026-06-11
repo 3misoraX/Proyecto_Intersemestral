@@ -98,7 +98,8 @@ public class UniversalProjectile : MonoBehaviour
         // Instanciar el efecto de impacto si hay uno asignado
         if (impactEffectPrefab != null)
         {
-            Instantiate(impactEffectPrefab, transform.position, Quaternion.identity);
+            GameObject effect = Instantiate(impactEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(effect, 3f);
         }
 
         // Destruir el objeto de la bala
