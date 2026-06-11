@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4122278804905181627}
   - component: {fileID: 1052326284668030494}
   - component: {fileID: 2989944196915346132}
-  - component: {fileID: 2791488425403386880}
+  - component: {fileID: 8245349039244892254}
   m_Layer: 0
   m_Name: Rock8
   m_TagString: Untagged
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3638510578480093953}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.62, y: 2.13, z: -5.99}
+  m_LocalRotation: {x: -0, y: 0.38818792, z: -0, w: 0.92158026}
+  m_LocalPosition: {x: 10.25, y: 1.53, z: -11.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 45.684, z: 0}
 --- !u!33 &1052326284668030494
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -91,7 +91,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2791488425403386880
+--- !u!65 &8245349039244892254
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,5 +110,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.8186116, y: 4.3046403, z: 3.1265063}
+  m_Size: {x: 1.691167, y: 2.5827842, z: 1.8759038}
   m_Center: {x: 0, y: 0, z: 0}

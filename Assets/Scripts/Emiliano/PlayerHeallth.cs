@@ -6,6 +6,7 @@ public class PlayerHeallth : MonoBehaviour
     //health
     public int hp = 0;
     public int maxHp = 3;
+    public float iframes;
     [SerializeField] private bool canTakeDamage = true;
     //UI
     //---
@@ -27,7 +28,7 @@ public class PlayerHeallth : MonoBehaviour
             {
                 Die();
             }
-            StartCoroutine(IFrames(1.5f));
+            StartCoroutine(IFrames());
         }
     }
 
@@ -41,10 +42,10 @@ public class PlayerHeallth : MonoBehaviour
     private void Die()
     {
         //game over screen
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
-    IEnumerator IFrames(float iframes)
+    IEnumerator IFrames()
     {
         canTakeDamage = false;
         yield return new WaitForSeconds(iframes);

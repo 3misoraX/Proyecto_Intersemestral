@@ -239,6 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHeallth
   hp: 0
   maxHp: 3
+  iframes: 0.5
   canTakeDamage: 1
 --- !u!114 &7196204491669625200
 MonoBehaviour:
