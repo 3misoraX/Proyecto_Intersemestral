@@ -101,7 +101,10 @@ public class Specials : MonoBehaviour
         }
 
         // Desactivar el control normal del jugador para que no interfiera
-        if (playerScript != null) playerScript.enabled = false;
+        if (playerScript != null) {
+            playerScript.enabled = false;
+            playerScript.SetRollingAnimation(true);
+        }
 
         float timer = 0f;
         float currentSpeed = startSpeed;
@@ -171,7 +174,10 @@ public class Specials : MonoBehaviour
         }
 
         // Restaurar el control al jugador
-        if (playerScript != null) playerScript.enabled = true;
+        if (playerScript != null) {
+            playerScript.enabled = true;
+            playerScript.SetRollingAnimation(false);
+        }
         isDashing = false;
         isInvincible = false;
     }
@@ -192,7 +198,7 @@ public class Specials : MonoBehaviour
             Debug.LogWarning("Falta asignar el ShootPoint en Specials.");
             return;
         }
-
+        if (playerScript != null) playerScript.ForceShootAnimation(0.3f);
         if (!super)
         {
             // Registramos el tiempo para el próximo uso normal

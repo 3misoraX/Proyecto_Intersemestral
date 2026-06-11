@@ -23,7 +23,10 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     private Transform mainCamera;
     private readonly int isMovingHash = Animator.StringToHash("IsMoving");
-    private readonly int isShootingHash = Animator.StringToHash("hasWeapon");
+    private readonly int isShootingHash = Animator.StringToHash("IsShooting");
+    private readonly int isRollingHash = Animator.StringToHash("IsRolling");
+    private readonly int damageHash = Animator.StringToHash("Damage");
+    private float forceShootTimer = 0f; // Para forzar la animación con la habilidad de la araña
 
     void Awake()
     {
@@ -136,11 +139,12 @@ public class PlayerController : MonoBehaviour
     {
         if (animator != null)
         {
-            // Detecta si te estás moviendo (WASD)
+            // Restar el tiempo del temporizador de disparo forzado
+            if (forceShootTimer > 0) forceShootTimer -= Time.deltaTime;
+
             bool isMoving = movement.magnitude > 0.1f;
-            
-            // Detecta si estás apuntando/disparando (Flechas / Joystick derecho)
-            bool isShooting = shootDir.magnitude > 0.1f;
+            // Dispara si mueve el joystick/teclas de apuntar, o si forzamos la animación con la habilidad
+            bool isShooting = shootDir.magnitude > 0.1f || forceShootTimer > 0f;
 
             animator.SetBool(isMovingHash, isMoving);
             animator.SetBool(isShootingHash, isShooting);
@@ -156,5 +160,23 @@ public class PlayerController : MonoBehaviour
         }
 
         verticalVelocity += gravity * Time.deltaTime;
+    }
+
+    // Lo llamará Specials.cs cuando use el Armadillo
+    public void SetRollingAnimation(bool isRolling)
+    {
+        if (animator != null) animator.SetBool(isRollingHash, isRolling);
+    }
+
+    // Lo llamará Specials.cs cuando use la Araña
+    public void ForceShootAnimation(float duration = 0.3f)
+    {
+        forceShootTimer = duration;
+    }
+
+    // Llámalo desde tu función de recibir daño (TakeDamage)
+    public void TriggerDamageAnimation()
+    {
+        if (animator != null) animator.SetTrigger(damageHash);
     }
 }

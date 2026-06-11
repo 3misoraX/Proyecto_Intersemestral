@@ -316,6 +316,11 @@ public class SpiderEnemy2D : MonoBehaviour
         if (rb != null) rb.isKinematic = true;
         EnemyDeathNotifier notifier = GetComponent<EnemyDeathNotifier>();
         if (notifier != null) notifier.NotifyDeath();
+        // Avisamos al manager que una araña murió
+        if (UnlockManager.Instance != null) 
+        {
+            UnlockManager.Instance.RegisterKill("Spider");
+        }
         Destroy(gameObject, 2f);
     }
 
