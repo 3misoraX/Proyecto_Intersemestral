@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2540264303057904061}
   - component: {fileID: 3204765064879268455}
   - component: {fileID: 7196204491669625200}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: PrototypePlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920934815429440621}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -217,8 +217,6 @@ MonoBehaviour:
   shootPoint: {fileID: 4148059464847180416}
   transformations:
   - {fileID: 11400000, guid: 1349ab6f68435d549a84d5ab82650f03, type: 2}
-  - {fileID: 11400000, guid: f6a67f7c8c9aa2d4f87806b749de62e6, type: 2}
-  - {fileID: 11400000, guid: 7d7a86123cea18740b669a4fc34f4983, type: 2}
   bulletPrefab: {fileID: 7805502062003170813, guid: 25a39a43bcc4a1e459eb48d9273c04f2, type: 3}
   bulletForce: 20
   current: 0
@@ -237,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc55ab7f080dbf4489dfec871e341d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHeallth
-  hp: 0
+  hp: 3
   maxHp: 3
   iframes: 0.5
   canTakeDamage: 1
@@ -285,7 +283,7 @@ GameObject:
   - component: {fileID: 7078872998221488658}
   - component: {fileID: 5487963904833620362}
   - component: {fileID: 4961634024579883360}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: SpriteGraphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,15 +376,15 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: fcf43a35045e5fd49985e4dbceb4e8da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.2, y: 5.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!1 &4952710764316140669
 GameObject:
@@ -397,7 +395,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4148059464847180416}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
