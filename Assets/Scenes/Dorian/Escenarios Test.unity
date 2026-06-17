@@ -284,7 +284,7 @@ MonoBehaviour:
   hallPrefab:
   - {fileID: 3724734184417023160, guid: 4ee2661f62185fe40b5a13db0dfc10b5, type: 3}
   - {fileID: 1976236283725426227, guid: c07f67d8cd853444b96df480ac403e7d, type: 3}
-  keyPrefab: {fileID: 0}
+  keyPrefab: {fileID: 2438311974635917952, guid: 4037bdbc6c232bb46b7219be4669709c, type: 3}
 --- !u!4 &1021191578
 Transform:
   m_ObjectHideFlags: 0
