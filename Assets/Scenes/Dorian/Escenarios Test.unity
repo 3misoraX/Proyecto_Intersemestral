@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d5a97c64ab78a4790afa12f660b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
-  maxRooms: 5
+  maxRooms: 10
   maxChilds: 2
   roomSize: 30
   hallLength: 5
@@ -281,9 +281,11 @@ MonoBehaviour:
   bossRoomPrefab: {fileID: 0}
   roomPrefab:
   - {fileID: 5956022416685931363, guid: 5149fb7d6cceb4f4391ed43dab150af3, type: 3}
+  - {fileID: 2785293994807521987, guid: 9521c29f6d58888428b4fff53d86709c, type: 3}
   hallPrefab:
   - {fileID: 3724734184417023160, guid: 4ee2661f62185fe40b5a13db0dfc10b5, type: 3}
   - {fileID: 1976236283725426227, guid: c07f67d8cd853444b96df480ac403e7d, type: 3}
+  - {fileID: 2450229056819857612, guid: 0ce99a1ddfee2bc48803858caf2a2d89, type: 3}
   keyPrefab: {fileID: 2438311974635917952, guid: 4037bdbc6c232bb46b7219be4669709c, type: 3}
 --- !u!4 &1021191578
 Transform:
