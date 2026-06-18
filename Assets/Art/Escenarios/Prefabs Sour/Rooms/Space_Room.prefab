@@ -1344,6 +1344,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1207752589196445063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6357674364923676109}
+  m_Layer: 0
+  m_Name: EnemySpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6357674364923676109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207752589196445063}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7, y: 0, z: -5.68}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5885332667026159829}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1224230165272925796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3494,6 +3525,60 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.63711494, y: 1.0854275, z: 0.80747247}
   m_Center: {x: -0.11390459, y: 0.54271376, z: -0.06448765}
+--- !u!1 &3056452394713102795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5885332667026159829}
+  - component: {fileID: 331001756410941295}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5885332667026159829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3056452394713102795}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5558670883049586571}
+  - {fileID: 6357674364923676109}
+  m_Father: {fileID: 6446220633839492148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &331001756410941295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3056452394713102795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af9a951eff4e9c47b7666fc9b433c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemiesToSpawn:
+  - enemyPrefab: {fileID: 0}
+    amountToSpawn: 0
+  - enemyPrefab: {fileID: 0}
+    amountToSpawn: 0
+  spawnPoints:
+  - {fileID: 5558670883049586571}
+  - {fileID: 6357674364923676109}
 --- !u!1 &3156270197110861158
 GameObject:
   m_ObjectHideFlags: 0
@@ -5870,6 +5955,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.175432, y: 5.204445, z: 4.739581}
   m_Center: {x: 0, y: 2.6022224, z: 0}
+--- !u!1 &5245266079653702249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5558670883049586571}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5558670883049586571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5245266079653702249}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.72, y: 0, z: 5.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5885332667026159829}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5251092480660564385
 GameObject:
   m_ObjectHideFlags: 0
@@ -6329,7 +6445,7 @@ GameObject:
   - component: {fileID: 2986261586776404250}
   m_Layer: 0
   m_Name: WallsRoom
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6448,6 +6564,7 @@ Transform:
   - {fileID: 2986261586776404250}
   - {fileID: 7013883903398516815}
   - {fileID: 115350117261810254}
+  - {fileID: 5885332667026159829}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &422299597625338480
@@ -6473,7 +6590,7 @@ MonoBehaviour:
   doorHideDistance: 4
   doorMoveSpeed: 3
   spawner: {fileID: 0}
-  fih: {fileID: 0}
+  fih: {fileID: 4570207459090386016, guid: fc7b14602e378b944b5750f4077056ef, type: 3}
   isBossRoom: 0
 --- !u!1 &6008731068108588122
 GameObject:
@@ -8044,7 +8161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 115350117261810254}
   m_Layer: 0
-  m_Name: Doors (1)
+  m_Name: Doors
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

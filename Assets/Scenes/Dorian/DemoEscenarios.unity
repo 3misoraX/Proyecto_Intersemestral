@@ -928,7 +928,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 909610904}
-  - component: {fileID: 909610903}
+  - component: {fileID: 909610905}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -936,32 +936,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &909610903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909610902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d5a97c64ab78a4790afa12f660b5c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
-  maxRooms: 20
-  maxChilds: 3
-  roomSize: 30
-  hallLength: 5
-  startRoomPrefab: {fileID: 1741609437093615847, guid: b82b245583187334d9ec356ecc284963, type: 3}
-  bossRoomPrefab: {fileID: 7926465230191712522, guid: aebba771aa045d148a270ea7e4ebbc75, type: 3}
-  roomPrefab:
-  - {fileID: 5956022416685931363, guid: 5149fb7d6cceb4f4391ed43dab150af3, type: 3}
-  - {fileID: 2785293994807521987, guid: 9521c29f6d58888428b4fff53d86709c, type: 3}
-  hallPrefab:
-  - {fileID: 3724734184417023160, guid: 4ee2661f62185fe40b5a13db0dfc10b5, type: 3}
-  - {fileID: 1976236283725426227, guid: c07f67d8cd853444b96df480ac403e7d, type: 3}
-  - {fileID: 2450229056819857612, guid: 0ce99a1ddfee2bc48803858caf2a2d89, type: 3}
-  keyPrefab: {fileID: 2438311974635917952, guid: 4037bdbc6c232bb46b7219be4669709c, type: 3}
 --- !u!4 &909610904
 Transform:
   m_ObjectHideFlags: 0
@@ -977,6 +951,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &909610905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909610902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d5a97c64ab78a4790afa12f660b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
+  maxRooms: 10
+  maxChilds: 2
+  roomSize: 30
+  hallLength: 5
+  startRoomPrefab: {fileID: 1741609437093615847, guid: b82b245583187334d9ec356ecc284963, type: 3}
+  bossRoomPrefab: {fileID: 7926465230191712522, guid: aebba771aa045d148a270ea7e4ebbc75, type: 3}
+  roomPrefab:
+  - {fileID: 2785293994807521987, guid: 9521c29f6d58888428b4fff53d86709c, type: 3}
+  - {fileID: 5956022416685931363, guid: 5149fb7d6cceb4f4391ed43dab150af3, type: 3}
+  hallPrefab:
+  - {fileID: 3724734184417023160, guid: 4ee2661f62185fe40b5a13db0dfc10b5, type: 3}
+  - {fileID: 1976236283725426227, guid: c07f67d8cd853444b96df480ac403e7d, type: 3}
+  - {fileID: 2450229056819857612, guid: 0ce99a1ddfee2bc48803858caf2a2d89, type: 3}
+  - {fileID: 6110689092526225480, guid: 3cfdc50894d000444826503d4f75b1ed, type: 3}
+  keyPrefab: {fileID: 2438311974635917952, guid: 4037bdbc6c232bb46b7219be4669709c, type: 3}
 --- !u!224 &918202610 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6675813596000261845, guid: 1f696149076748046834dae1dd970d04, type: 3}
