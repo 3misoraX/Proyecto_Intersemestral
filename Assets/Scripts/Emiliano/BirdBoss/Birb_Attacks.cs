@@ -5,13 +5,15 @@ public class Birb_Attacks : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(animator.GetInteger("Attack") == 1)
+        BirdBoss boss = animator.GetComponentInParent<BirdBoss>();
+
+        if (animator.GetInteger("Attack") == 1)
         {
-            animator.GetComponent<BirdBoss>().FallingAttack();
+            boss.StartCoroutine(boss.FallingAttack());
         }
         if(animator.GetInteger("Attack") == 2)
         {
-            animator.GetComponent<BirdBoss>().ShotgunAttack();
+            boss.ShotgunAttack();
             animator.SetTrigger("Stop");
         }
     }
