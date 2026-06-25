@@ -970,7 +970,6 @@ MonoBehaviour:
   startRoomPrefab: {fileID: 1741609437093615847, guid: b82b245583187334d9ec356ecc284963, type: 3}
   bossRoomPrefab: {fileID: 7926465230191712522, guid: aebba771aa045d148a270ea7e4ebbc75, type: 3}
   roomPrefab:
-  - {fileID: 2785293994807521987, guid: 9521c29f6d58888428b4fff53d86709c, type: 3}
   - {fileID: 5956022416685931363, guid: 5149fb7d6cceb4f4391ed43dab150af3, type: 3}
   hallPrefab:
   - {fileID: 3724734184417023160, guid: 4ee2661f62185fe40b5a13db0dfc10b5, type: 3}
