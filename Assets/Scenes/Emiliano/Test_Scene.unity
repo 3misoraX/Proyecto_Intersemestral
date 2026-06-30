@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.1
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalPosition.z
@@ -141,11 +141,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.89879405
+      value: 0.95881975
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.43837115
+      value: 0.28401536
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalRotation.y
@@ -157,19 +157,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 54.505
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -1.263
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -2.788
       objectReference: {fileID: 0}
     - target: {fileID: 5935045106139361975, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_Name
       value: CinemachineCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6192942749653983842, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
+      propertyPath: TiltAxis.Value
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 8148270940349563560, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
+      propertyPath: FollowOffset.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8499059932405609273, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: Target.TrackingTarget
@@ -566,13 +574,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182073454}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.43837115, y: 0, z: 0, w: 0.89879405}
-  m_LocalPosition: {x: 0, y: 8.1, z: -6}
+  m_LocalRotation: {x: 0.28401536, y: 0, z: 0, w: 0.95881975}
+  m_LocalPosition: {x: 0, y: 5.1, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 33.332, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35.942, y: 0, z: 0}
 --- !u!114 &1182073456
 MonoBehaviour:
   m_ObjectHideFlags: 0

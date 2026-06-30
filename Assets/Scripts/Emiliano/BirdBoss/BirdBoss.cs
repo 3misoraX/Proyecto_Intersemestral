@@ -147,7 +147,6 @@ public class BirdBoss : MonoBehaviour
         isMoving = true;
         rb.linearVelocity = new Vector3(moveDir.x * dashSpeed, 0, moveDir.z * dashSpeed);
         yield return new WaitForSeconds(dashTime);
-        animator.SetTrigger("Continue");
         isMoving = false;
     }
 
