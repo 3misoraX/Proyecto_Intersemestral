@@ -5,6 +5,7 @@ public class BirdBoss : MonoBehaviour
 {
     [Header("General")]
     private Rigidbody rb;
+    private CapsuleCollider capsule;
     public int dmg = 1;
     [SerializeField] private int hp;
     public int maxHp = 60;
@@ -41,6 +42,7 @@ public class BirdBoss : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        capsule = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
         hp = maxHp;
         player = GameObject.FindWithTag("Player").transform;
@@ -88,10 +90,14 @@ public class BirdBoss : MonoBehaviour
     public IEnumerator FallingAttack()
     {
         Vector3 fallPos = new Vector3(player.position.x, transform.position.y, player.position.z);
+        rb.useGravity = false;
+        capsule.enabled = false;
         GameObject indicator = Instantiate(fallIndicator, new Vector3(fallPos.x, 1, fallPos.z), Quaternion.Euler(90, 0, 0));
-        transform.position = fallPos;
         yield return new WaitForSeconds(0.5f);
+        transform.position = fallPos;
         Destroy(indicator);
+        rb.useGravity = true;
+        capsule.enabled = true;
         Collider[] coll = Physics.OverlapSphere(transform.position, explosionRange);
         foreach (Collider col in coll)
         {
