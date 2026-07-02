@@ -85,6 +85,17 @@ public class RoomController : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        //Proteccion para que abra las puertas en caso que el jugador salga antes de completar la sala
+        if(!other.CompareTag("Player") && !isCleared)
+        {
+            isLocked = false;
+            StopAllCoroutines();
+            StartCoroutine(AnimateDoors(false));
+        }
+    }
+
     private void LockRoom()
     {
         isLocked = true;
@@ -115,6 +126,11 @@ public class RoomController : MonoBehaviour
     private IEnumerator AnimateDoors(bool closing)
     {
         float progress = 0f;
+
+        if (closing)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
 
         while (progress < 1f)
         {
