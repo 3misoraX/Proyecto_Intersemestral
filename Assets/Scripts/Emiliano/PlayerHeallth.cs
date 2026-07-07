@@ -37,7 +37,7 @@ public class PlayerHeallth : MonoBehaviour
         if (UIManager.Instance != null) UIManager.Instance.UpdateHealth(hp); // ACTUALIZA UI
     }
 
-    private void Die()
+    public void Die()
     {
         SceneManager.LoadScene("MainMenu");
         gameObject.SetActive(false);

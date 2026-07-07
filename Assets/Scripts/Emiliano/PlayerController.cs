@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float verticalVelocity = 0f;
     public float gravity = -12f;
     public float iFallVelocity = -2f;
+    public float FallTimer = 5f;
     [Header("2.5D Visuals")]
     public Transform spriteGraphic; 
     public SpriteRenderer spriteRenderer;
@@ -113,11 +115,17 @@ public class PlayerController : MonoBehaviour
         }
         else if (moveDir.x > 0)
         {
-            transform.rotation = Quaternion.Euler(0, 270, 0);
+            if(moveDir.z == 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 270, 0);
+            }
         }
         else if (moveDir.x < 0)
         {
-            transform.rotation = Quaternion.Euler(0, 90, 0);
+            if(moveDir.z == 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
         }
 
         if (spriteRenderer != null)
@@ -160,6 +168,8 @@ public class PlayerController : MonoBehaviour
         }
 
         verticalVelocity += gravity * Time.deltaTime;
+        //Esta Corrutina actua en caso que el jugador se caiga del mapa, se modificara si se mete alguna habilidad que use la gravedad;
+        StartCoroutine(FallingOff());
     }
 
     // Lo llamará Specials.cs cuando use el Armadillo
@@ -178,5 +188,14 @@ public class PlayerController : MonoBehaviour
     public void TriggerDamageAnimation()
     {
         if (animator != null) animator.SetTrigger(damageHash);
+    }
+
+    private IEnumerator FallingOff()
+    {
+        yield return new WaitForSeconds(FallTimer);
+        if (!isGrounded)
+        {
+            GetComponent<PlayerHeallth>().Die(); // Mata al jugador si lleva cayendo mas de el tiempo establecido, es decir, si se cae del mapa por cualquier razon
+        }
     }
 }
