@@ -36,6 +36,14 @@ public class RoomController : MonoBehaviour
     private Dictionary<Transform, Vector3> closedPositions = new Dictionary<Transform, Vector3>();
     private Dictionary<Transform, Vector3> openPositions = new Dictionary<Transform, Vector3>();
 
+    private CameraBounds confiner;
+    public Transform confinerPos;
+
+    void Awake()
+    {
+        confiner = GameObject.Find("CameraBounds").GetComponent<CameraBounds>();
+    }
+
     public void SetupRoom(bool hasNorth, bool hasSouth, bool hasEast, bool hasWest)
     {
         // 1. Configurar Muros (Aparecen si NO hay camino)
@@ -70,17 +78,25 @@ public class RoomController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isCleared && !isLocked)
+        if (other.CompareTag("Player"))
         {
-            LockRoom();
+            confiner.inRoom = true;
+            confiner.StartCoroutine(confiner.MoveBoundaries(confinerPos));
+            BoxCollider confBox = gameObject.GetComponent<BoxCollider>();
+            //confiner.ResizeBoundaries(confBox.size.x + 1, confBox.size.z + 1);
+
+            if (!isCleared && !isLocked)
+            {
+                LockRoom();
             
-            if (spawner != null)
-            {
-                spawner.SpawnEnemies(this);
-            }
-            else
-            {
-                UnlockRoom(); 
+                if (spawner != null)
+                {
+                    spawner.SpawnEnemies(this);
+                }
+                else
+                {
+                    UnlockRoom(); 
+                }
             }
         }
     }
@@ -88,11 +104,15 @@ public class RoomController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //Proteccion para que abra las puertas en caso que el jugador salga antes de completar la sala
-        if(!other.CompareTag("Player") && !isCleared)
+        if(other.CompareTag("Player"))
         {
-            isLocked = false;
-            StopAllCoroutines();
-            StartCoroutine(AnimateDoors(false));
+            confiner.inRoom = false;
+            if (!isCleared)
+            {
+                isLocked = false;
+                StopAllCoroutines();
+                StartCoroutine(AnimateDoors(false));
+            }
         }
     }
 
@@ -129,7 +149,7 @@ public class RoomController : MonoBehaviour
 
         if (closing)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
         }
 
         while (progress < 1f)

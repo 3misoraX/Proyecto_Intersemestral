@@ -355,8 +355,8 @@ Camera:
   m_GameObject: {fileID: 443517734}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -406,7 +406,7 @@ Transform:
   m_GameObject: {fileID: 443517734}
   serializedVersion: 2
   m_LocalRotation: {x: 0.43837115, y: 0, z: 0, w: 0.89879405}
-  m_LocalPosition: {x: 0.0021164652, y: 7.9999995, z: -5.939583}
+  m_LocalPosition: {x: 0, y: 7.9999995, z: -2.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -726,7 +726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5528302585933105103, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0021164652
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5528302585933105103, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -734,7 +734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5528302585933105103, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.06041735
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5528302585933105103, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1439,9 +1439,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1885774262}
   - component: {fileID: 1885774261}
+  - component: {fileID: 1885774263}
   m_Layer: 0
   m_Name: CameraBounds
-  m_TagString: Untagged
+  m_TagString: Areas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1465,7 +1466,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 20, y: 20, z: 20}
+  m_Size: {x: 4, y: 20, z: 5.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1885774262
 Transform:
@@ -1482,6 +1483,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1885774263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885774260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389f17cf3fa9eb145919cc165d221580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraBounds
+  cameraObj: {fileID: 0}
+  inRoom: 0
 --- !u!1 &1911958728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1749,7 +1764,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0021164652
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1757,7 +1772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.939583
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4024175763945286076, guid: 4f345a6f4c28abe4981bff065c9950ff, type: 3}
       propertyPath: m_LocalRotation.w
