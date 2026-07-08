@@ -30,21 +30,26 @@ public class UnlockManager : MonoBehaviour
     // Los enemigos llamarán a esta función justo antes de morir
     public void RegisterKill(string enemyType)
     {
+        // ESTO APARECERÁ EN TU CONSOLA. Si matas a una araña y dice "Armadillo",
+        // significa que el script de la Araña está mandando la palabra equivocada.
+        Debug.Log("El UnlockManager registró la muerte de: " + enemyType);
+
         if (enemyType == "Armadillo" && !armadilloUnlocked)
         {
             armadilloKills++;
-            UIManager.Instance.UpdateKillCounter("Armadillo", armadilloKills);
+            if (UIManager.Instance != null) UIManager.Instance.UpdateKillCounter("Armadillo", armadilloKills);
+            
             if (armadilloKills >= killsRequired)
             {
                 armadilloUnlocked = true;
                 if (playerGun != null) playerGun.UnlockTransformation(armadilloCard);
-                // Aquí después podemos poner un efecto de sonido o UI
             }
         }
         else if (enemyType == "Spider" && !spiderUnlocked)
         {
             spiderKills++;
-            UIManager.Instance.UpdateKillCounter("Spider", spiderKills);
+            if (UIManager.Instance != null) UIManager.Instance.UpdateKillCounter("Spider", spiderKills);
+            
             if (spiderKills >= killsRequired)
             {
                 spiderUnlocked = true;

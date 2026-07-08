@@ -11,7 +11,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject bossRoomPrefab;
     public List<GameObject> roomPrefab;
     public List<GameObject> hallPrefab;
-    public GameObject keyPrefab; // Prefab de la llave asignable en inspector
+    public GameObject keyPrefab; 
     private List<Vertex> roomList = new List<Vertex>();
     private Dictionary<Vertex, Vector3> vertexPositions = new Dictionary<Vertex, Vector3>();
 
@@ -113,7 +113,6 @@ public class MapGenerator : MonoBehaviour
             bossRoom = candidateRooms[UnityEngine.Random.Range(0, candidateRooms.Count)];
         }
 
-        // Elegir una habitación aleatoria para la llave (que no sea raíz ni el jefe)
         Vertex keyRoom = null;
         List<Vertex> keyCandidateRooms = new List<Vertex>();
         foreach (var r in roomList)
@@ -158,6 +157,7 @@ public class MapGenerator : MonoBehaviour
             instantiatedRooms[room] = spawnedRoom;
         }
     
+        // 1. Instanciamos los pasillos visuales
         foreach (var room in roomList)
         {
             if (room.ParentVertex != null && vertexPositions.ContainsKey(room.ParentVertex) && vertexPositions.ContainsKey(room))
@@ -181,6 +181,42 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
+        // 2. NUEVO: Mapeo de la ruta física de los pasillos
+        Dictionary<Vector3, List<Vector3>> physicalDoors = new Dictionary<Vector3, List<Vector3>>();
+
+        foreach (var room in roomList)
+        {
+            if (room.ParentVertex != null && vertexPositions.ContainsKey(room.ParentVertex) && vertexPositions.ContainsKey(room))
+            {
+                Vector3 start = vertexPositions[room.ParentVertex];
+                Vector3 end = vertexPositions[room];
+                Vector3 diff = end - start;
+
+                Vector3 stepDir = Mathf.Abs(diff.x) >= Mathf.Abs(diff.z)
+                    ? new Vector3(Mathf.Sign(diff.x), 0, 0)
+                    : new Vector3(0, 0, Mathf.Sign(diff.z));
+
+                int steps = Mathf.Max(1, Mathf.RoundToInt(diff.magnitude / stepDistance));
+
+                Vector3 current = start;
+                for (int i = 0; i < steps; i++)
+                {
+                    Vector3 next = current + stepDir * stepDistance;
+
+                    // Añade una puerta de salida de 'current' hacia 'next'
+                    if (!physicalDoors.ContainsKey(current)) physicalDoors[current] = new List<Vector3>();
+                    physicalDoors[current].Add(stepDir);
+
+                    // Añade una puerta de entrada a 'next' desde 'current'
+                    if (!physicalDoors.ContainsKey(next)) physicalDoors[next] = new List<Vector3>();
+                    physicalDoors[next].Add(-stepDir);
+
+                    current = next;
+                }
+            }
+        }
+
+        // 3. Configuración de Habitaciones
         RoomController bossRoomController = null;
 
         foreach (var room in roomList)
@@ -191,25 +227,20 @@ public class MapGenerator : MonoBehaviour
             if (controller != null)
             {
                 bool hasNorth = false, hasSouth = false, hasEast = false, hasWest = false;
-                List<Vertex> connectedNodes = new List<Vertex>(room.Edges);
-                if (room.ParentVertex != null) connectedNodes.Add(room.ParentVertex);
-
                 Vector3 myPos = vertexPositions[room];
 
-                foreach (var node in connectedNodes)
+                // Verificamos el mapa físico en lugar de las conexiones lógicas
+                if (physicalDoors.ContainsKey(myPos))
                 {
-                    if (!vertexPositions.ContainsKey(node)) continue;
-                    
-                    Vector3 nodePos = vertexPositions[node];
-                    Vector3 dir = (nodePos - myPos).normalized;
-
-                    if (dir.z > 0.5f) hasNorth = true;
-                    if (dir.z < -0.5f) hasSouth = true;
-                    if (dir.x > 0.5f) hasEast = true;
-                    if (dir.x < -0.5f) hasWest = true;
+                    foreach (Vector3 dir in physicalDoors[myPos])
+                    {
+                        if (dir.z > 0.5f) hasNorth = true;
+                        if (dir.z < -0.5f) hasSouth = true;
+                        if (dir.x > 0.5f) hasEast = true;
+                        if (dir.x < -0.5f) hasWest = true;
+                    }
                 }
 
-                // Marcamos si es la habitación del jefe antes de configurar salas
                 controller.isBossRoom = (room == bossRoom);
                 if (room == bossRoom) bossRoomController = controller;
 
@@ -217,10 +248,12 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        // Instanciar la llave física en el centro de la sala elegida
+        // 4. Instanciar la llave física en la sala elegida
         if (keyRoom != null && instantiatedRooms.ContainsKey(keyRoom) && bossRoomController != null)
         {
-            Vector3 keyPos = vertexPositions[keyRoom];
+            // Tomamos la posición base de la sala y le sumamos 1.5 en el eje Y para que flote
+            Vector3 keyPos = vertexPositions[keyRoom] + new Vector3(0f, 1.5f, 0f); 
+            
             GameObject keyObj = Instantiate(keyPrefab, keyPos, Quaternion.identity);
             
             BossKey bossKeyScript = keyObj.GetComponent<BossKey>();
