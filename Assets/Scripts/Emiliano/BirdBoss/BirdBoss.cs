@@ -5,6 +5,7 @@ public class BirdBoss : MonoBehaviour
 {
     [Header("General")]
     private Rigidbody rb;
+    private CapsuleCollider capsule;
     public int dmg = 1;
     [SerializeField] private int hp;
     public int maxHp = 60;
@@ -20,7 +21,6 @@ public class BirdBoss : MonoBehaviour
     public float rangez;
     public GameObject boulder;
     public float explosionRange = 3f;
-    private bool falling = false;
     private Transform player;
 
     [Header("Shotgun Attack")]
@@ -42,6 +42,7 @@ public class BirdBoss : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        capsule = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
         hp = maxHp;
         player = GameObject.FindWithTag("Player").transform;
@@ -86,48 +87,45 @@ public class BirdBoss : MonoBehaviour
     }
     
 
-    public void FallingAttack()
+    public IEnumerator FallingAttack()
     {
-        transform.Translate(new Vector3(transform.position.x, transform.position.y+30, transform.position.z));
+        Vector3 fallPos = new Vector3(player.position.x, transform.position.y, player.position.z);
+        rb.useGravity = false;
+        capsule.enabled = false;
+        GameObject indicator = Instantiate(fallIndicator, new Vector3(fallPos.x, 1, fallPos.z), Quaternion.Euler(90, 0, 0));
+        yield return new WaitForSeconds(0.5f);
+        transform.position = fallPos;
+        Destroy(indicator);
+        rb.useGravity = true;
+        capsule.enabled = true;
+        Collider[] coll = Physics.OverlapSphere(transform.position, explosionRange);
+        foreach (Collider col in coll)
+        {
+            if (col.CompareTag("Player"))
+            {
+                col.GetComponent<PlayerHeallth>().LoseHealth(dmg);
 
-        for(int i = 0; i < 3; i++)
+            }
+        }
+
+        if (explosionEffect != null)
+        {
+            GameObject effect = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(effect, effectLifetime);
+        }
+
+        animator.SetTrigger("Stop");
+
+        for (int i = 0; i < 3; i++)
         {
             Vector3 spawnPos = new Vector3(transform.position.x + Random.Range(-rangex, rangex), 10, transform.position.z + Random.Range(-rangez, rangez));
             GameObject rock = Instantiate(boulder, spawnPos, Quaternion.identity);
             Destroy(rock, 2f);
         }
-
-        Vector3 fallPos = new Vector3(player.position.x, transform.position.y, player.position.z);
-        transform.position = fallPos;
-        GameObject indicator = Instantiate(fallIndicator, new Vector3(fallPos.x, 1, fallPos.z), Quaternion.Euler(90, 0, 0));
-        Destroy(indicator, 2.5f);
-        falling = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.contactCount > 0 && falling)
-        {
-            falling = false;
-            Collider[] coll = Physics.OverlapSphere(transform.position, explosionRange);
-            foreach(Collider col in coll)
-            {
-                if (col.CompareTag("Player"))
-                {
-                    col.GetComponent<PlayerHeallth>().LoseHealth(dmg);
-                    
-                }
-            }
-
-            if(explosionEffect != null)
-            {
-                GameObject effect = Instantiate(explosionEffect, transform.position, Quaternion.identity);
-                Destroy(effect, effectLifetime);
-            }
-
-            animator.SetTrigger("Stop");
-        }
-        
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerHeallth>().LoseHealth(dmg);
@@ -176,7 +174,7 @@ public class BirdBoss : MonoBehaviour
         {
             Instantiate(nextLevelPortal, transform.position, Quaternion.identity);
         }
-        Destroy(gameObject);
+        Destroy(gameObject,  5f);
     }
 
 }
