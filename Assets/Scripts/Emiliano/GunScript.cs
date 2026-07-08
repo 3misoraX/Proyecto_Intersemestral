@@ -139,17 +139,25 @@ public class GunScript : MonoBehaviour
 
     void TriggerAbility(char abilityChar, bool isSuper)
     {
-        // Convierte a minúscula por seguridad y evalúa la letra de la tarjeta
-        switch (char.ToLower(abilityChar))
+        char lowerChar = char.ToLower(abilityChar);
+        
+        // Asignar los tiempos correspondientes
+        float cooldown = 1f;
+        if (lowerChar == 'a') cooldown = isSuper ? 8f : 1f;
+        else if (lowerChar == 's') cooldown = isSuper ? 7f : 1.5f;
+
+        // Le preguntamos al UI si podemos usar la habilidad. Si devuelve true, la ejecutamos.
+        if (UIManager.Instance != null && UIManager.Instance.StartCooldown(lowerChar, isSuper, cooldown))
         {
-            case 'a':
-                specialsScript.Armadillo(isSuper);
-                UIManager.Instance.StartCooldown(isSuper, isSuper ? 4f : 1f);
-                break;
-            case 's':
-                specialsScript.Spider(isSuper);
-                UIManager.Instance.StartCooldown(isSuper, isSuper ? 2f : 0.5f);
-                break;
+            switch (lowerChar)
+            {
+                case 'a':
+                    specialsScript.Armadillo(isSuper);
+                    break;
+                case 's':
+                    specialsScript.Spider(isSuper);
+                    break;
+            }
         }
     }
     

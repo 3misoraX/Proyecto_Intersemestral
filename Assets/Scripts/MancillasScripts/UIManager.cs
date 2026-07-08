@@ -38,10 +38,10 @@ public class UIManager : MonoBehaviour
     public AudioClip unlockCompletedSound;
 
     // Controladores de Cooldown internos
-    private float basicCooldownTimer;
-    private float basicCooldownMax;
-    private float superCooldownTimer;
-    private float superCooldownMax;
+    private float armaBasicTimer, armaBasicMax;
+    private float armaSuperTimer, armaSuperMax;
+    private float spiderBasicTimer, spiderBasicMax;
+    private float spiderSuperTimer, spiderSuperMax;
     private char currentActiveAnimal = ' '; 
 
     void Awake()
@@ -52,11 +52,12 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        // Reducir los temporizadores de las habilidades
-        if (basicCooldownTimer > 0) basicCooldownTimer -= Time.deltaTime;
-        if (superCooldownTimer > 0) superCooldownTimer -= Time.deltaTime;
+        // Reducir todos los temporizadores en segundo plano
+        if (armaBasicTimer > 0) armaBasicTimer -= Time.deltaTime;
+        if (armaSuperTimer > 0) armaSuperTimer -= Time.deltaTime;
+        if (spiderBasicTimer > 0) spiderBasicTimer -= Time.deltaTime;
+        if (spiderSuperTimer > 0) spiderSuperTimer -= Time.deltaTime;
 
-        // Si el panel de habilidades está visible, actualizamos los sprites en tiempo real
         if (abilitiesPanel != null && abilitiesPanel.activeSelf)
         {
             UpdateCooldownVisuals();
@@ -119,31 +120,59 @@ public class UIManager : MonoBehaviour
         UpdateCooldownVisuals();
     }
 
-    public void StartCooldown(bool isSuper, float duration)
+    // Cambiamos 'void' por 'bool' para que el UI le avise al jugador si la habilidad estaba lista
+    public bool StartCooldown(char animalChar, bool isSuper, float duration)
     {
-        if (!isSuper) 
-        { 
-            basicCooldownMax = duration; 
-            basicCooldownTimer = duration; 
+        char a = char.ToLower(animalChar);
+
+        if (a == 'a') // Relojes del Armadillo
+        {
+            if (!isSuper)
+            {
+                if (armaBasicTimer > 0) return false; 
+                armaBasicMax = duration; 
+                armaBasicTimer = duration; 
+                return true; 
+            }
+            else
+            {
+                if (armaSuperTimer > 0) return false; 
+                armaSuperMax = duration; 
+                armaSuperTimer = duration; 
+                return true; 
+            }
         }
-        else 
-        { 
-            superCooldownMax = duration; 
-            superCooldownTimer = duration; 
+        else if (a == 's') // Relojes de la Araña
+        {
+            if (!isSuper)
+            {
+                if (spiderBasicTimer > 0) return false; 
+                spiderBasicMax = duration; 
+                spiderBasicTimer = duration; 
+                return true; 
+            }
+            else
+            {
+                if (spiderSuperTimer > 0) return false; 
+                spiderSuperMax = duration; 
+                spiderSuperTimer = duration; 
+                return true; 
+            }
         }
+        return false;
     }
 
     private void UpdateCooldownVisuals()
     {
         if (currentActiveAnimal == 'a')
         {
-            basicAbilityIcon.sprite = GetCooldownSprite(armadilloBasicSprites, basicCooldownTimer, basicCooldownMax);
-            superAbilityIcon.sprite = GetCooldownSprite(armadilloSuperSprites, superCooldownTimer, superCooldownMax);
+            basicAbilityIcon.sprite = GetCooldownSprite(armadilloBasicSprites, armaBasicTimer, armaBasicMax);
+            superAbilityIcon.sprite = GetCooldownSprite(armadilloSuperSprites, armaSuperTimer, armaSuperMax);
         }
         else if (currentActiveAnimal == 's')
         {
-            basicAbilityIcon.sprite = GetCooldownSprite(spiderBasicSprites, basicCooldownTimer, basicCooldownMax);
-            superAbilityIcon.sprite = GetCooldownSprite(spiderSuperSprites, superCooldownTimer, superCooldownMax);
+            basicAbilityIcon.sprite = GetCooldownSprite(spiderBasicSprites, spiderBasicTimer, spiderBasicMax);
+            superAbilityIcon.sprite = GetCooldownSprite(spiderSuperSprites, spiderSuperTimer, spiderSuperMax);
         }
     }
 
