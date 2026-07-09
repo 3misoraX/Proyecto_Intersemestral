@@ -43,7 +43,7 @@ public class BirdBoss : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         capsule = GetComponent<CapsuleCollider>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         hp = maxHp;
         player = GameObject.FindWithTag("Player").transform;
 

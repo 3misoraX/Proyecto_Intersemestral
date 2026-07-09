@@ -9,23 +9,24 @@ public class Bird_Idle : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         ctrl = Random.Range(0, 3);
-        timer = 3;
+        timer = 4f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        timer -= Time.deltaTime;
         if(ctrl == 0 && timer <= 0)
         {
+            timer = 4f;
             animator.SetTrigger("Move");
         }
-        else if(ctrl != 0 && timer <= 0)
+        else if(ctrl > 0 && timer <= 0)
         {
             timer = 3f;
             animator.SetInteger("Attack", ctrl);
             animator.SetTrigger("AttackT");
         }
-        timer -= Time.deltaTime;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
