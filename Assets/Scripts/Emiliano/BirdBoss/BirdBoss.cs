@@ -70,19 +70,31 @@ public class BirdBoss : MonoBehaviour
         currentDirection = (player.position - transform.position).normalized;
 
         // Voltear el sprite dependiendo de si va a la izquierda o derecha
-        if (currentDirection.x != 0)
+        if (currentDirection.x >= 0)
         {
-            spriteRenderer.flipX = currentDirection.x < 0;
+            Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            Quaternion.Euler(0, 180, 0);
         }
     }
 
     void LateUpdate()
     {
+        Vector3 currentDirection = (player.position - transform.position).normalized;
         // Billboarding: Hacer que el sprite siempre mire a la cámara
         if (spriteGraphic != null && mainCamera != null)
         {
-            // Esto hace que el plano del sprite sea paralelo a la pantalla
-            spriteGraphic.forward = mainCamera.forward;
+            if(currentDirection.x >= 0)
+            {
+                // Esto hace que el plano del sprite sea paralelo a la pantalla
+                spriteGraphic.forward = mainCamera.forward;
+            }
+            else
+            {
+                spriteGraphic.forward = -mainCamera.forward;
+            }
         }
     }
     
@@ -93,8 +105,8 @@ public class BirdBoss : MonoBehaviour
         rb.useGravity = false;
         capsule.enabled = false;
         GameObject indicator = Instantiate(fallIndicator, new Vector3(fallPos.x, 1, fallPos.z), Quaternion.Euler(90, 0, 0));
-        yield return new WaitForSeconds(0.5f);
         transform.position = fallPos;
+        yield return new WaitForSeconds(0.5f);
         Destroy(indicator);
         rb.useGravity = true;
         capsule.enabled = true;
