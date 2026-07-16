@@ -130,11 +130,15 @@ public class SpiderEnemy2D : MonoBehaviour
         {
             // Movimiento errático
             rb.MovePosition(transform.position + randomMoveDirection * moveSpeed * Time.fixedDeltaTime);
-            
+
             // Voltear sprite según el movimiento
-            if (randomMoveDirection.x != 0)
+            if (randomMoveDirection.x >= 0)
             {
-                spriteRenderer.flipX = randomMoveDirection.x < 0;
+                Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                Quaternion.Euler(0, 180, 0);
             }
         }
         else
@@ -146,10 +150,17 @@ public class SpiderEnemy2D : MonoBehaviour
 
     void LateUpdate()
     {
+
+        Vector3 currentDirection = (player.position - transform.position).normalized;
         // Billboarding
-        if (spriteGraphic != null && mainCamera != null)
+        if (currentDirection.x <= 0)
         {
+            // Esto hace que el plano del sprite sea paralelo a la pantalla
             spriteGraphic.forward = mainCamera.forward;
+        }
+        else
+        {
+            spriteGraphic.forward = -mainCamera.forward;
         }
     }
 
@@ -222,6 +233,7 @@ public class SpiderEnemy2D : MonoBehaviour
         {
             animator.SetBool(isMovingHash, false);
             animator.SetTrigger(attackHash);
+            animator.ResetTrigger(attackHash);
         }
         
         attackTimer = attackCooldown;
