@@ -145,6 +145,7 @@ public class GunScript : MonoBehaviour
         float cooldown = 1f;
         if (lowerChar == 'a') cooldown = isSuper ? 8f : 1f;
         else if (lowerChar == 's') cooldown = isSuper ? 7f : 1.5f;
+        else if (lowerChar == 'f') cooldown = isSuper ? 6f : 2f;
 
         // Le preguntamos al UI si podemos usar la habilidad. Si devuelve true, la ejecutamos.
         if (UIManager.Instance != null && UIManager.Instance.StartCooldown(lowerChar, isSuper, cooldown))
@@ -156,6 +157,9 @@ public class GunScript : MonoBehaviour
                     break;
                 case 's':
                     specialsScript.Spider(isSuper);
+                    break;
+                case 'f':
+                    specialsScript.Fish(isSuper);
                     break;
             }
         }

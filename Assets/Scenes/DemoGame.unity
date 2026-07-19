@@ -227,6 +227,7 @@ MonoBehaviour:
   playerGun: {fileID: 2082994257}
   armadilloCard: {fileID: 11400000, guid: f6a67f7c8c9aa2d4f87806b749de62e6, type: 2}
   spiderCard: {fileID: 11400000, guid: 7d7a86123cea18740b669a4fc34f4983, type: 2}
+  fishCard: {fileID: 11400000, guid: b26cf653d3ae32b4c860b81f9bca492b, type: 2}
   killsRequired: 5
 --- !u!4 &316343188
 Transform:
@@ -243,6 +244,148 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &316875710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 316875711}
+  - component: {fileID: 316875712}
+  m_Layer: 3
+  m_Name: Beam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &316875711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316875710}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2082994254}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!120 &316875712
+LineRenderer:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316875710}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.8099022
+        value: 0.7072067
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 0.3015307, g: 0.58585376, b: 0.9685534, a: 1}
+      key1: {r: 0, g: 0.20493536, b: 0.5031446, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 3
+    alignment: 0
+    textureMode: 0
+    textureScale: {x: 1, y: 1}
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_UseWorldSpace: 0
+  m_Loop: 0
+  m_ApplyActiveColorSpace: 1
 --- !u!1 &429977161
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,9 +912,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7196204491669625200, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
+      propertyPath: playerBeamLine
+      value: 
+      objectReference: {fileID: 316875712}
+    - target: {fileID: 7196204491669625200, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
+      propertyPath: playerShootPoint
+      value: 
+      objectReference: {fileID: 1502115424}
+    - target: {fileID: 7196204491669625200, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
       propertyPath: maxSuperDashSpeed
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 7196204491669625200, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
+      propertyPath: enemiesLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196204491669625200, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
+      propertyPath: fishHeavyBulletPrefab
+      value: 
+      objectReference: {fileID: 6439161000818605803, guid: fc92c6b040d6d894cabaed838b41610f, type: 3}
     - target: {fileID: 7196204491669625200, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
       propertyPath: armadilloSuperCooldown
       value: 1
@@ -780,9 +939,16 @@ PrefabInstance:
       propertyPath: armadilloNormalCooldown
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7196204491669625200, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
+      propertyPath: environmentLayer.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5528302585933105103, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 316875711}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
 --- !u!1 &800685996
@@ -1248,6 +1414,86 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!4 &1502115424 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4148059464847180416, guid: f865ffb96c1114e429ddd8aff77f389c, type: 3}
+  m_PrefabInstance: {fileID: 601103185}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1642700327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1642700328}
+  - component: {fileID: 1642700330}
+  - component: {fileID: 1642700329}
+  m_Layer: 5
+  m_Name: PanelPez
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1642700328
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642700327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25163, y: 0.25163, z: 0.25163}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2055805142}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 833.0383, y: -417.1267}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1642700329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642700327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1642700330
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642700327}
+  m_CullTransparentMesh: 1
 --- !u!1 &1823825233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,6 +1578,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9aae7f1bf5d0f5e41bc7d930da422f66, type: 3}
   - {fileID: 21300000, guid: 03a87d48af255df4da978bb9e05629e7, type: 3}
   - {fileID: 21300000, guid: ec32cbf11efe5184eab8ba55fc7d903a, type: 3}
+  fishKillPanel: {fileID: 0}
+  fishKillIcon: {fileID: 0}
+  fishKillSprites: []
+  fishBasicSprites: []
+  fishSuperSprites: []
   uiAudioSource: {fileID: 0}
   unlockCompletedSound: {fileID: 8300000, guid: 201ca6db89a5987499957ad1d7ab1762, type: 3}
 --- !u!4 &1823825235
@@ -1595,6 +1846,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1642700328}
   - {fileID: 143984625}
   - {fileID: 1877579520}
   - {fileID: 2064945724}

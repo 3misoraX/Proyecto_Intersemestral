@@ -11,14 +11,18 @@ public class UnlockManager : MonoBehaviour
     [Header("Tarjetas a Desbloquear")]
     public TransformationObject armadilloCard;
     public TransformationObject spiderCard;
+    public TransformationObject fishCard;
 
     [Header("Progreso")]
     public int killsRequired = 5;
     private int armadilloKills = 0;
     private int spiderKills = 0;
+    private int fishKills = 0;
+
 
     private bool armadilloUnlocked = false;
     private bool spiderUnlocked = false;
+    private bool fishUnlocked = false;
 
     void Awake()
     {
@@ -54,6 +58,17 @@ public class UnlockManager : MonoBehaviour
             {
                 spiderUnlocked = true;
                 if (playerGun != null) playerGun.UnlockTransformation(spiderCard);
+            }
+        }
+        else if (enemyType == "Fish" && !fishUnlocked)
+        {
+            fishKills++;
+            if (UIManager.Instance != null) UIManager.Instance.UpdateKillCounter("Fish", fishKills);
+            
+            if (fishKills >= killsRequired)
+            {
+                fishUnlocked = true;
+                if (playerGun != null) playerGun.UnlockTransformation(fishCard);
             }
         }
     }

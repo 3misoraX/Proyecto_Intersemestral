@@ -33,6 +33,20 @@ public class UIManager : MonoBehaviour
     public Sprite[] spiderBasicSprites;
     public Sprite[] spiderSuperSprites;
 
+    [Header("Desbloqueos - Pez")]
+    public GameObject fishKillPanel;
+    public Image fishKillIcon;
+    public Sprite[] fishKillSprites;
+    private Coroutine fishFadeRoutine;
+
+    [Header("Habilidades - Pez (Sprites de Cooldown)")]
+    public Sprite[] fishBasicSprites;
+    public Sprite[] fishSuperSprites;
+
+    // Relojes del pez
+    private float fishBasicTimer, fishBasicMax;
+    private float fishSuperTimer, fishSuperMax;
+
     [Header("Audio")]
     public AudioSource uiAudioSource;
     public AudioClip unlockCompletedSound;
@@ -57,6 +71,9 @@ public class UIManager : MonoBehaviour
         if (armaSuperTimer > 0) armaSuperTimer -= Time.deltaTime;
         if (spiderBasicTimer > 0) spiderBasicTimer -= Time.deltaTime;
         if (spiderSuperTimer > 0) spiderSuperTimer -= Time.deltaTime;
+        if (fishBasicTimer > 0) fishBasicTimer -= Time.deltaTime;
+        if (fishSuperTimer > 0) fishSuperTimer -= Time.deltaTime;
+        
 
         if (abilitiesPanel != null && abilitiesPanel.activeSelf)
         {
@@ -85,6 +102,11 @@ public class UIManager : MonoBehaviour
         {
             if (spiderFadeRoutine != null) StopCoroutine(spiderFadeRoutine);
             spiderFadeRoutine = StartCoroutine(ShowKillCounter(spiderKillPanel, spiderKillIcon, spiderKillSprites, kills));
+        }
+        else if (type == "Fish")
+        {
+            if (fishFadeRoutine != null) StopCoroutine(fishFadeRoutine);
+            fishFadeRoutine = StartCoroutine(ShowKillCounter(fishKillPanel, fishKillIcon, fishKillSprites, kills));
         }
     }
 
@@ -159,6 +181,23 @@ public class UIManager : MonoBehaviour
                 return true; 
             }
         }
+        else if (a == 'f') // Relojes del Pez
+        {
+            if (!isSuper)
+            {
+                if (fishBasicTimer > 0) return false; 
+                fishBasicMax = duration; 
+                fishBasicTimer = duration; 
+                return true; 
+            }
+            else
+            {
+                if (fishSuperTimer > 0) return false; 
+                fishSuperMax = duration; 
+                fishSuperTimer = duration; 
+                return true; 
+            }
+        }
         return false;
     }
 
@@ -173,6 +212,11 @@ public class UIManager : MonoBehaviour
         {
             basicAbilityIcon.sprite = GetCooldownSprite(spiderBasicSprites, spiderBasicTimer, spiderBasicMax);
             superAbilityIcon.sprite = GetCooldownSprite(spiderSuperSprites, spiderSuperTimer, spiderSuperMax);
+        }
+        else if (currentActiveAnimal == 'f')
+        {
+            basicAbilityIcon.sprite = GetCooldownSprite(fishBasicSprites, fishBasicTimer, fishBasicMax);
+            superAbilityIcon.sprite = GetCooldownSprite(fishSuperSprites, fishSuperTimer, fishSuperMax);
         }
     }
 
