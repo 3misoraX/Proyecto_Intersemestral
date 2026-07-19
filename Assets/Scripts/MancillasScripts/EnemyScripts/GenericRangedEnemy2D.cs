@@ -171,7 +171,7 @@ public class GenericRangedEnemy2D : MonoBehaviour
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null) bulletRb.linearVelocity = snapDirection * projectileSpeed;
 
-        if (sfxAudioSource != null && shootSound != null) sfxAudioSource.PlayOneShot(shootSound);
+        SfxPlayer.Play(sfxAudioSource, shootSound);
 
         Invoke(nameof(ResumeMovement), 0.5f);
     }
@@ -245,7 +245,7 @@ public class GenericRangedEnemy2D : MonoBehaviour
         }
 
         if (loopingAudioSource != null) loopingAudioSource.Stop();
-        if (sfxAudioSource != null && deathSound != null) sfxAudioSource.PlayOneShot(deathSound);
+        SfxPlayer.Play(sfxAudioSource, deathSound);
         
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
@@ -262,6 +262,7 @@ public class GenericRangedEnemy2D : MonoBehaviour
         loopingAudioSource.Stop();
         loopingAudioSource.clip = clip;
         loopingAudioSource.loop = true;
+        loopingAudioSource.volume = SfxSettings.GetVolume();
         loopingAudioSource.Play();
     }
 }

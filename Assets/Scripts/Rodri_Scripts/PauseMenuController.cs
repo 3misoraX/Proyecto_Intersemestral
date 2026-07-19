@@ -19,11 +19,10 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private CanvasGroup controlsCanvasGroup;
 
     private bool isPaused;
-    private bool isInControls; // 🔥 NUEVO ESTADO
+    private bool isInControls;
 
     void Start()
     {
-        // Init Pause Panel
         pausePanel.anchoredPosition = new Vector2(
             hiddenX,
             pausePanel.anchoredPosition.y
@@ -33,7 +32,6 @@ public class PauseMenuController : MonoBehaviour
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
 
-        // Init Controls Panel
         controlsPanel.anchoredPosition = new Vector2(
             hiddenX,
             controlsPanel.anchoredPosition.y
@@ -48,7 +46,6 @@ public class PauseMenuController : MonoBehaviour
     {
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            // 🚫 Si estás en controles, ESC no hace nada
             if (isInControls)
                 return;
 
@@ -122,7 +119,7 @@ public class PauseMenuController : MonoBehaviour
     {
         if (!isPaused) return;
 
-        isInControls = true; // 🔒 Bloquea ESC
+        isInControls = true;
 
         // Ocultar Pause Panel
         canvasGroup.interactable = false;
@@ -139,7 +136,6 @@ public class PauseMenuController : MonoBehaviour
             .DOFade(0f, slideDuration)
             .SetUpdate(true);
 
-        // Mostrar Controls Panel
         controlsCanvasGroup.interactable = true;
         controlsCanvasGroup.blocksRaycasts = true;
 
@@ -157,7 +153,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void CloseControlsPanel()
     {
-        isInControls = false; // 🔓 Libera ESC
+        isInControls = false;
 
         // Ocultar Controls Panel
         controlsCanvasGroup.interactable = false;

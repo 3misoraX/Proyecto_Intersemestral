@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
 
         if (kills >= 5)
         {
-            if (uiAudioSource && unlockCompletedSound) uiAudioSource.PlayOneShot(unlockCompletedSound);
+            SfxPlayer.Play(uiAudioSource, unlockCompletedSound);
             yield return new WaitForSeconds(3f); // Se queda un poco más de tiempo para celebrar
             panel.SetActive(false);
         }
