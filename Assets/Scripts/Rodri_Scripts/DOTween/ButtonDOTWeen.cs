@@ -26,6 +26,13 @@ public class ButtonDOTween : MonoBehaviour,
 
     Tween scaleTween;
     Tween moveTween;
+    Tween idleMoveTween;
+    Tween idleTween;
+
+    [Header("Idle Float")]
+    public bool enableIdle = true;
+    public float idleRadius = 2f;
+    public float idleDuration = 3f;
 
     bool isHovering;
 
@@ -36,17 +43,23 @@ public class ButtonDOTween : MonoBehaviour,
 
         originalScale = rectTransform.localScale;
         originalAnchoredPos = rectTransform.anchoredPosition;
+
+        if (enableIdle)
+        {
+            StartIdleAnimation();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        StopIdleAnimation();
         isHovering = true;
 
         scaleTween?.Kill();
         scaleTween = rectTransform
             .DOScale(originalScale * hoverScale, hoverTime)
             .SetEase(Ease.OutBack)
-            .SetUpdate(true); // 🔥 CLAVE
+            .SetUpdate(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -62,9 +75,14 @@ public class ButtonDOTween : MonoBehaviour,
             .SetUpdate(true);
 
         moveTween = rectTransform
-            .DOAnchorPos(originalAnchoredPos, hoverTime)
-            .SetEase(Ease.OutExpo)
-            .SetUpdate(true);
+        .DOAnchorPos(originalAnchoredPos, hoverTime)
+        .SetEase(Ease.OutExpo)
+        .SetUpdate(true)
+        .OnComplete(() =>
+        {
+            if (enableIdle)
+                StartIdleAnimation();
+        });
     }
 
     public void OnPointerMove(PointerEventData eventData)
@@ -111,5 +129,38 @@ public class ButtonDOTween : MonoBehaviour,
             .DOScale(targetScale, clickTime)
             .SetEase(Ease.OutQuad)
             .SetUpdate(true);
+    }
+    void StartIdleAnimation()
+    {
+        idleTween?.Kill();
+
+        rectTransform.anchoredPosition = originalAnchoredPos;
+
+        Vector2 p1 = originalAnchoredPos + new Vector2(1f, idleRadius);
+        Vector2 p2 = originalAnchoredPos + new Vector2(idleRadius, 0f);
+        Vector2 p3 = originalAnchoredPos + new Vector2(-1f, -idleRadius);
+        Vector2 p4 = originalAnchoredPos + new Vector2(-idleRadius, 0f);
+
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(rectTransform.DOAnchorPos(p1, idleDuration / 4f).SetEase(Ease.InOutSine));
+        seq.Append(rectTransform.DOAnchorPos(p2, idleDuration / 4f).SetEase(Ease.InOutSine));
+        seq.Append(rectTransform.DOAnchorPos(p3, idleDuration / 4f).SetEase(Ease.InOutSine));
+        seq.Append(rectTransform.DOAnchorPos(p4, idleDuration / 4f).SetEase(Ease.InOutSine));
+
+        seq.SetLoops(-1);
+
+        // Hace que cada botón empiece en un punto diferente
+        seq.Goto(Random.Range(0f, idleDuration), true);
+
+        idleTween = seq;
+        idleTween.SetUpdate(true);
+    }
+
+    void StopIdleAnimation()
+    {
+        idleTween?.Kill();
+
+        rectTransform.anchoredPosition = originalAnchoredPos;
     }
 }
