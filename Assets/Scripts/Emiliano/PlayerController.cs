@@ -57,12 +57,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleRotation();
         //gravity
         isGrounded = charControl.isGrounded;
         HandleGravity();
         //movement method
         Move();
-        HandleRotation();
         UpdateAnimations();
     }
 

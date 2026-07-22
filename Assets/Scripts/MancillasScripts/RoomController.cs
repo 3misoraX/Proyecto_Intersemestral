@@ -131,7 +131,7 @@ public class RoomController : MonoBehaviour
         int r = Random.Range(0, 4);
         if(r == 0)
         {
-            GameObject fish = Instantiate(fih, transform.position, Quaternion.identity);
+            GameObject fish = Instantiate(fih, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         }
         StartCoroutine(AnimateDoors(false)); // False = Bajar puertas
     }
