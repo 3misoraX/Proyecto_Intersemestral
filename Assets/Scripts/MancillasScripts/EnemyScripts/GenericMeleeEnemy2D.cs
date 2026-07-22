@@ -43,7 +43,6 @@ public class GenericMeleeEnemy2D : MonoBehaviour
     // Hashes de animación
     private readonly int isMovingHash = Animator.StringToHash("IsMoving");
     private readonly int attackHash = Animator.StringToHash("Attack");
-    private readonly int dieHash = Animator.StringToHash("Die");
 
     void Start()
     {
@@ -92,7 +91,7 @@ public class GenericMeleeEnemy2D : MonoBehaviour
 
             if (direction.x != 0 && spriteRenderer != null)
             {
-                spriteRenderer.flipX = direction.x < 0;
+                spriteRenderer.flipX = direction.x > 0;
             }
 
             if (animator != null) animator.SetBool(isMovingHash, true);
@@ -184,7 +183,6 @@ public class GenericMeleeEnemy2D : MonoBehaviour
         
         if (animator != null)
         {
-            animator.SetTrigger(dieHash);
             animator.SetBool(isMovingHash, false);
         }
 
@@ -195,7 +193,7 @@ public class GenericMeleeEnemy2D : MonoBehaviour
         if (col != null) col.enabled = false;
         EnemyDeathNotifier notifier = GetComponent<EnemyDeathNotifier>();
         if (notifier != null) notifier.NotifyDeath();
-        Destroy(gameObject, 2f);
+        Destroy(gameObject);
     }
 
     private void PlayLoopingSound(AudioClip clip)
