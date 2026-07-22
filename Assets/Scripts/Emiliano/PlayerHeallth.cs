@@ -39,7 +39,7 @@ public class PlayerHeallth : MonoBehaviour
 
     public void Die()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("GameOver");
         gameObject.SetActive(false);
     }
 

@@ -169,7 +169,10 @@ public class PlayerController : MonoBehaviour
 
         verticalVelocity += gravity * Time.deltaTime;
         //Esta Corrutina actua en caso que el jugador se caiga del mapa, se modificara si se mete alguna habilidad que use la gravedad;
-        StartCoroutine(FallingOff());
+        if(!isGrounded)
+        {
+            StartCoroutine(FallingOff());
+        }
     }
 
     // Lo llamará Specials.cs cuando use el Armadillo
