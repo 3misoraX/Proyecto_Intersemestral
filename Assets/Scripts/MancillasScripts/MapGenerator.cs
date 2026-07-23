@@ -99,20 +99,48 @@ public class MapGenerator : MonoBehaviour
             }
         }
     
+        // 1. Filtrar candidatos para el Jefe: Solo habitaciones con EXACTAMENTE una conexión (hojas del árbol)
         Vertex bossRoom = null;
         List<Vertex> candidateRooms = new List<Vertex>();
+        
         foreach (var r in roomList)
         {
             if (r != root && vertexPositions.ContainsKey(r))
             {
-                candidateRooms.Add(r);
+                // Contamos cuántas conexiones reales tiene esta habitación
+                int connectionCount = 0;
+                if (r.ParentVertex != null && vertexPositions.ContainsKey(r.ParentVertex)) connectionCount++;
+                if (r.Edges != null)
+                {
+                    foreach (var edge in r.Edges)
+                    {
+                        if (vertexPositions.ContainsKey(edge)) connectionCount++;
+                    }
+                }
+
+                // Si solo tiene una conexión, es un callejón sin salida perfecto para el jefe
+                if (connectionCount == 1)
+                {
+                    candidateRooms.Add(r);
+                }
             }
         }
+
+        // Plan B: Si por alguna razón la estructura no generó hojas, permitimos cualquier sala que no sea el root
+        if (candidateRooms.Count == 0)
+        {
+            foreach (var r in roomList)
+            {
+                if (r != root && vertexPositions.ContainsKey(r)) candidateRooms.Add(r);
+            }
+        }
+
         if (candidateRooms.Count > 0)
         {
             bossRoom = candidateRooms[UnityEngine.Random.Range(0, candidateRooms.Count)];
         }
 
+        // 2. Elegir una habitación para la llave (que sea distinta al root y al jefe, idealmente con buen flujo)
         Vertex keyRoom = null;
         List<Vertex> keyCandidateRooms = new List<Vertex>();
         foreach (var r in roomList)
