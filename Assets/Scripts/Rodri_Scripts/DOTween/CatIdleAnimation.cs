@@ -25,14 +25,21 @@ public class CatIdleAnimation : MonoBehaviour
 
         transform.DOLocalMoveY(startPos.y + floatDistance, floatDuration)
             .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetLink(gameObject);
 
         transform.DOScale(startScale * scaleMultiplier, scaleDuration)
             .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetLink(gameObject);
 
         transform.DOLocalRotate(new Vector3(0, 0, rotationAngle), rotationDuration)
             .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetLink(gameObject);
+    }
+    private void OnDestroy()
+    {
+        transform.DOKill();
     }
 }

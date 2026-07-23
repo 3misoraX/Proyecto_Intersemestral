@@ -21,6 +21,7 @@ public class PanelFadeAnimator : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
 
         canvasGroup.DOFade(1f, fadeDuration)
+            .SetLink(gameObject)
             .OnComplete(() =>
             {
                 canvasGroup.interactable = true;
@@ -34,6 +35,11 @@ public class PanelFadeAnimator : MonoBehaviour
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
 
-        canvasGroup.DOFade(0f, fadeDuration);
+        canvasGroup.DOFade(0f, fadeDuration)
+            .SetLink(gameObject);
+    }
+    private void OnDestroy()
+    {
+        transform.DOKill();
     }
 }
