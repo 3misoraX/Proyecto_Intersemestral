@@ -7310,6 +7310,7 @@ GameObject:
   - component: {fileID: 526764872108500982}
   - component: {fileID: 603388718488263199}
   - component: {fileID: 7305345649625655526}
+  - component: {fileID: 925829657360639710}
   m_Layer: 0
   m_Name: Initial_RoomIce
   m_TagString: Untagged
@@ -7361,8 +7362,10 @@ MonoBehaviour:
   doorMoveSpeed: 3
   spawner: {fileID: 0}
   fih: {fileID: 0}
+  roomError: 0
   isBossRoom: 0
   confinerPos: {fileID: 8012851414522719533}
+  level2: 1
 --- !u!64 &7305345649625655526
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7385,6 +7388,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &925829657360639710
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8198910245775230079}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 28.02, y: 3.2, z: 27.83}
+  m_Center: {x: 0, y: 1.87, z: 0}
 --- !u!1 &8229693886183085616
 GameObject:
   m_ObjectHideFlags: 0
@@ -8353,6 +8377,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5cb39c8c4714752449d72240ad391b25, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c6fb609c9f71f7442a7a9115d120d2f9, type: 2}
     - target: {fileID: 919132149155446097, guid: 5cb39c8c4714752449d72240ad391b25, type: 3}
       propertyPath: m_Name
       value: Piso_nieve (1)

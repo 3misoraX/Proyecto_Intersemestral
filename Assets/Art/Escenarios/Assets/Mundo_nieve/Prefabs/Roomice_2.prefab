@@ -333,6 +333,7 @@ Transform:
   - {fileID: 1590400639865818284}
   - {fileID: 3455257956253844723}
   - {fileID: 4770522690678382459}
+  - {fileID: 7878520719473487197}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-1627744046744778462
@@ -359,8 +360,10 @@ MonoBehaviour:
   doorMoveSpeed: 3
   spawner: {fileID: 0}
   fih: {fileID: 0}
+  roomError: 0
   isBossRoom: 0
-  confinerPos: {fileID: 0}
+  confinerPos: {fileID: 7878520719473487197}
+  level2: 1
 --- !u!1 &3442817213233699385
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,6 +735,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1482167, y: 0.9879628, z: 1.1871262}
   m_Center: {x: 0, y: 0.4939814, z: 0}
+--- !u!1 &6326689497230336387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7878520719473487197}
+  m_Layer: 0
+  m_Name: ConfinerPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7878520719473487197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326689497230336387}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 807284580678009560}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &472932362565451311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1272,6 +1306,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5cb39c8c4714752449d72240ad391b25, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c6fb609c9f71f7442a7a9115d120d2f9, type: 2}
     - target: {fileID: 919132149155446097, guid: 5cb39c8c4714752449d72240ad391b25, type: 3}
       propertyPath: m_Name
       value: Piso_nieve

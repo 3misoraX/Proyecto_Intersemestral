@@ -1188,8 +1188,10 @@ MonoBehaviour:
   doorMoveSpeed: 3
   spawner: {fileID: 6167336133418175828}
   fih: {fileID: 4570207459090386016, guid: fc7b14602e378b944b5750f4077056ef, type: 3}
+  roomError: 0
   isBossRoom: 0
   confinerPos: {fileID: 3098864253181661131}
+  level2: 1
 --- !u!65 &3836585790382518287
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3147,7 +3149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1833810152192036645, guid: 5cb39c8c4714752449d72240ad391b25, type: 3}
+  - {fileID: 2100000, guid: c6fb609c9f71f7442a7a9115d120d2f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

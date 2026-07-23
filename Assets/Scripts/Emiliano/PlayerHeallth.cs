@@ -60,7 +60,7 @@ public class PlayerHeallth : MonoBehaviour
         float wait = deathSound != null ? deathSound.length : 0f;
         yield return new WaitForSeconds(wait);
         SceneManager.LoadScene("GameOver");
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     IEnumerator IFrames()

@@ -39,7 +39,7 @@ public class RoomController : MonoBehaviour
 
     private CameraBounds confiner;
     public Transform confinerPos;
-
+    public bool level2 = false;
     void Awake()
     {
         confiner = GameObject.Find("CameraBounds").GetComponent<CameraBounds>();
@@ -83,10 +83,17 @@ public class RoomController : MonoBehaviour
         {
             confiner.inRoom = true;
             confiner.StartCoroutine(confiner.MoveBoundaries(confinerPos));
-            if(isBossRoom)
-                confiner.ResizeBoundaries(4, 3);
+            if (level2)
+            {
+                confiner.GetComponent<CameraBounds>().ResizeBoundaries(12, 12);
+            }
             else
-                confiner.ResizeBoundaries(4, 5.5f);
+            {
+                if (isBossRoom)
+                    confiner.ResizeBoundaries(4, 3);
+                else
+                    confiner.ResizeBoundaries(4, 5.5f);
+            }
             BoxCollider confBox = gameObject.GetComponent<BoxCollider>();
             //confiner.ResizeBoundaries(confBox.size.x + 1, confBox.size.z + 1);
 
@@ -116,6 +123,10 @@ public class RoomController : MonoBehaviour
                 StopAllCoroutines();
                 StartCoroutine(AnimateDoors(false));
             }
+        }
+        else if(other.CompareTag("Enemy"))
+        {
+            Destroy(other.gameObject);
         }
     }
 
