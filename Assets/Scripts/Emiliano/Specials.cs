@@ -36,9 +36,30 @@ public class Specials : MonoBehaviour
     public float spiderNormalCooldown = 1f;
     public float spiderSuperCooldown = 8f;
 
+    [Header("Configuración Pez")]
+    public GameObject fishHeavyBulletPrefab;
+    public LineRenderer playerBeamLine;
+    public LayerMask environmentLayer; // Para que el rayo choque con muros
+    public LayerMask enemiesLayer;     // Para que el rayo atraviese y dañe enemigos
+    public Transform playerShootPoint;
+    public int playerBeamDamage = 1;
+    private bool isFiringBeam = false;
+
+    [Header("Configuración Pinguino")]
+    public GameObject playerBasicSlowProjectile;
+    public GameObject playerSuperSnowballProjectile;
+
     // Relojes internos para llevar la cuenta
     private float nextArmadilloTime = 0f;
     private float nextSpiderTime = 0f;
+
+    [Header("Configuración Armiño")]
+    public GameObject playerFreezeProjectile;
+    public float playerJumpHeight = 4f;
+    public int playerJumpDamage = 4;
+    public float playerJumpAoERadius = 2.5f;
+    public LayerMask EnemyLayer; // Para detectar a quién golpear al caer
+    public MonoBehaviour PlayerControllerScript; // Referencia a tu script de control del jugador para desactivarlo durante el salto
     
     [Range(0, 100)] public float shotgunStunChance = 25f;
     public int shotgunPellets = 5;
@@ -253,6 +274,150 @@ public class Specials : MonoBehaviour
         if (bulletRb != null)
         {
             bulletRb.linearVelocity = direction * projectileSpeed;
+        }
+    }
+
+    public void Fish(bool isSuper)
+    {
+        if (isFiringBeam) return; // No disparar si ya está lanzando el rayo
+
+        if (!isSuper)
+        {
+            // Disparo Básico del Pez (Poca cadencia, mucho daño)
+            Vector3 aimDir = playerScript.GetMoveDirection(); // O tu vector de apuntado del joystick
+            if (aimDir == Vector3.zero) aimDir = player.transform.forward;
+            
+            Instantiate(fishHeavyBulletPrefab, playerShootPoint.position, Quaternion.LookRotation(aimDir));
+        }
+        else
+        {
+            // Super del Pez (Rayo de 4 segundos)
+            StartCoroutine(PlayerFishBeamRoutine(4f));
+        }
+    }
+
+    private IEnumerator PlayerFishBeamRoutine(float duration)
+    {
+        isFiringBeam = true;
+        if (playerBeamLine != null) playerBeamLine.enabled = true;
+
+        // 1. Bloquear la dirección a una de las 4 direcciones cardinales iniciales
+        Vector3 rawAim = playerScript.GetMoveDirection();
+        if (rawAim == Vector3.zero) rawAim = player.transform.forward;
+        
+        Vector3 lockedDirection = Vector3.forward;
+        if (Mathf.Abs(rawAim.x) > Mathf.Abs(rawAim.z))
+            lockedDirection = rawAim.x > 0 ? Vector3.right : Vector3.left;
+        else
+            lockedDirection = rawAim.z > 0 ? Vector3.forward : Vector3.back;
+
+        float timer = 0f;
+        float damageTickTimer = 0f;
+
+        while (timer < duration)
+        {
+            // El jugador puede moverse, por lo que el rayo debe actualizar su posición inicial siempre
+            Vector3 startPos = playerShootPoint.position;
+            float maxDistance = 15f; // Rango máximo del rayo
+
+            // Chocar contra el entorno (paredes)
+            if (Physics.Raycast(startPos, lockedDirection, out RaycastHit wallHit, maxDistance, environmentLayer))
+            {
+                maxDistance = wallHit.distance;
+            }
+
+            playerBeamLine.SetPosition(0, startPos);
+            playerBeamLine.SetPosition(1, startPos + (lockedDirection * maxDistance));
+
+            // Dañar a todos los enemigos en el camino
+            damageTickTimer -= Time.deltaTime;
+            if (damageTickTimer <= 0f)
+            {
+                RaycastHit[] hits = Physics.RaycastAll(startPos, lockedDirection, maxDistance, enemiesLayer);
+                foreach (var hit in hits)
+                {
+                    // Llama al script de daño genérico de tus enemigos
+                    hit.collider.SendMessage("TakeDamage", playerBeamDamage, SendMessageOptions.DontRequireReceiver);
+                }
+                damageTickTimer = 0.3f; // Hace daño cada 0.3 segundos
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        if (playerBeamLine != null) playerBeamLine.enabled = false;
+        isFiringBeam = false;
+    }
+
+    public void Penguin(bool isSuper)
+    {
+        Vector3 aimDir = playerScript.GetMoveDirection();
+        if (aimDir == Vector3.zero) aimDir = player.transform.forward;
+
+        if (!isSuper)
+        {
+            // Disparo Básico del Pingüino (Ralentiza)
+            Instantiate(playerBasicSlowProjectile, shootPoint.position, Quaternion.LookRotation(aimDir));
+        }
+        else
+        {
+            // Súper del Pingüino (Bola de nieve creciente)
+            Instantiate(playerSuperSnowballProjectile, shootPoint.position, Quaternion.LookRotation(aimDir));
+        }
+    }
+
+    public void Ermine(bool isSuper)
+    {
+        if (!isSuper)
+        {
+            // Disparo Básico del Armiño (Congela)
+            Vector3 aimDir = playerScript.GetMoveDirection();
+            if (aimDir == Vector3.zero) aimDir = player.transform.forward;
+            
+            Instantiate(playerFreezeProjectile, playerShootPoint.position, Quaternion.LookRotation(aimDir));
+        }
+        else
+        {
+            // Súper del Armiño (Salto en el sitio)
+            StartCoroutine(PlayerErmineJumpRoutine());
+        }
+    }
+
+    private IEnumerator PlayerErmineJumpRoutine()
+    {
+        // Bloquear movimiento (asumiendo que tu script de movimiento se puede apagar)
+        if (PlayerControllerScript != null) PlayerControllerScript.enabled = false;
+        
+        // Opcional: Apagar el collider del jugador para que sea invencible al saltar
+        Collider pCol = player.GetComponent<Collider>();
+        if (pCol != null) pCol.enabled = false;
+
+        Vector3 startPos = player.transform.position;
+        float duration = 1.5f; // Un salto un poco más rápido para el jugador
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+            
+            Vector3 currentPos = startPos;
+            currentPos.y += playerJumpHeight * 4f * t * (1f - t); 
+            player.transform.position = currentPos;
+            
+            yield return null;
+        }
+
+        player.transform.position = startPos;
+        if (pCol != null) pCol.enabled = true;
+        if (PlayerControllerScript != null) PlayerControllerScript.enabled = true;
+
+        // Daño en área al caer
+        Collider[] hits = Physics.OverlapSphere(player.transform.position, playerJumpAoERadius, enemiesLayer);
+        foreach (var hit in hits)
+        {
+            hit.SendMessage("TakeDamage", playerJumpDamage, SendMessageOptions.DontRequireReceiver);
         }
     }
 }

@@ -5,6 +5,7 @@ public class BirdBoss : MonoBehaviour
 {
     [Header("General")]
     private Rigidbody rb;
+    private CapsuleCollider capsule;
     public int dmg = 1;
     [SerializeField] private int hp;
     public int maxHp = 60;
@@ -20,7 +21,6 @@ public class BirdBoss : MonoBehaviour
     public float rangez;
     public GameObject boulder;
     public float explosionRange = 3f;
-    private bool falling = false;
     private Transform player;
 
     [Header("Shotgun Attack")]
@@ -42,7 +42,8 @@ public class BirdBoss : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        capsule = GetComponent<CapsuleCollider>();
+        animator = GetComponentInChildren<Animator>();
         hp = maxHp;
         player = GameObject.FindWithTag("Player").transform;
 
@@ -69,65 +70,74 @@ public class BirdBoss : MonoBehaviour
         currentDirection = (player.position - transform.position).normalized;
 
         // Voltear el sprite dependiendo de si va a la izquierda o derecha
-        if (currentDirection.x != 0)
+        if (currentDirection.x >= 0)
         {
-            spriteRenderer.flipX = currentDirection.x < 0;
+            Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            Quaternion.Euler(0, 180, 0);
         }
     }
 
     void LateUpdate()
     {
+        Vector3 currentDirection = (player.position - transform.position).normalized;
         // Billboarding: Hacer que el sprite siempre mire a la cámara
         if (spriteGraphic != null && mainCamera != null)
         {
-            // Esto hace que el plano del sprite sea paralelo a la pantalla
-            spriteGraphic.forward = mainCamera.forward;
+            if(currentDirection.x >= 0)
+            {
+                // Esto hace que el plano del sprite sea paralelo a la pantalla
+                spriteGraphic.forward = mainCamera.forward;
+            }
+            else
+            {
+                spriteGraphic.forward = -mainCamera.forward;
+            }
         }
     }
     
 
-    public void FallingAttack()
+    public IEnumerator FallingAttack()
     {
-        transform.Translate(new Vector3(transform.position.x, transform.position.y+30, transform.position.z));
+        Vector3 fallPos = new Vector3(player.position.x, transform.position.y, player.position.z);
+        rb.useGravity = false;
+        capsule.enabled = false;
+        GameObject indicator = Instantiate(fallIndicator, new Vector3(fallPos.x, 1, fallPos.z), Quaternion.Euler(90, 0, 0));
+        transform.position = fallPos;
+        yield return new WaitForSeconds(0.5f);
+        Destroy(indicator);
+        rb.useGravity = true;
+        capsule.enabled = true;
+        Collider[] coll = Physics.OverlapSphere(transform.position, explosionRange);
+        foreach (Collider col in coll)
+        {
+            if (col.CompareTag("Player"))
+            {
+                col.GetComponent<PlayerHeallth>().LoseHealth(dmg);
 
-        for(int i = 0; i < 3; i++)
+            }
+        }
+
+        if (explosionEffect != null)
+        {
+            GameObject effect = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(effect, effectLifetime);
+        }
+
+        animator.SetTrigger("Stop");
+
+        for (int i = 0; i < 3; i++)
         {
             Vector3 spawnPos = new Vector3(transform.position.x + Random.Range(-rangex, rangex), 10, transform.position.z + Random.Range(-rangez, rangez));
             GameObject rock = Instantiate(boulder, spawnPos, Quaternion.identity);
             Destroy(rock, 2f);
         }
-
-        Vector3 fallPos = new Vector3(player.position.x, transform.position.y, player.position.z);
-        transform.position = fallPos;
-        GameObject indicator = Instantiate(fallIndicator, new Vector3(fallPos.x, 1, fallPos.z), Quaternion.Euler(90, 0, 0));
-        Destroy(indicator, 2.5f);
-        falling = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.contactCount > 0 && falling)
-        {
-            falling = false;
-            Collider[] coll = Physics.OverlapSphere(transform.position, explosionRange);
-            foreach(Collider col in coll)
-            {
-                if (col.CompareTag("Player"))
-                {
-                    col.GetComponent<PlayerHeallth>().LoseHealth(dmg);
-                    
-                }
-            }
-
-            if(explosionEffect != null)
-            {
-                GameObject effect = Instantiate(explosionEffect, transform.position, Quaternion.identity);
-                Destroy(effect, effectLifetime);
-            }
-
-            animator.SetTrigger("Stop");
-        }
-        
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerHeallth>().LoseHealth(dmg);
@@ -176,7 +186,7 @@ public class BirdBoss : MonoBehaviour
         {
             Instantiate(nextLevelPortal, transform.position, Quaternion.identity);
         }
-        Destroy(gameObject);
+        Destroy(gameObject,  5f);
     }
 
 }
