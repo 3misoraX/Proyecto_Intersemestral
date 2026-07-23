@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 7196204491669625200}
   - component: {fileID: 4689461969541272442}
   m_Layer: 3
-  m_Name: PrototypePlayer
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
   armadilloSuperCooldown: 5
   spiderNormalCooldown: 1.5
   spiderSuperCooldown: 5
-  fishHeavyBulletPrefab: {fileID: 7805502062003170813, guid: 25a39a43bcc4a1e459eb48d9273c04f2, type: 3}
+  fishHeavyBulletPrefab: {fileID: 0}
   playerBeamLine: {fileID: 0}
   environmentLayer:
     serializedVersion: 2
@@ -497,8 +497,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 269994511
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: fcf43a35045e5fd49985e4dbceb4e8da, type: 3}
