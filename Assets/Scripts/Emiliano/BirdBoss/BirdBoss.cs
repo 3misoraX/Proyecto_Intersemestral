@@ -10,6 +10,7 @@ public class BirdBoss : MonoBehaviour
     [SerializeField] private int hp;
     public int maxHp = 60;
     public GameObject nextLevelPortal;
+    public string sceneToLoad;
 
     [Header("Dash Configuration")]
     public bool isMoving = false;
@@ -178,7 +179,6 @@ public class BirdBoss : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
-        SfxPlayer.Play(sfxAudioSource, deathSound);
         hp -= damageAmount;
 
         if (hp <= 0)
@@ -189,11 +189,13 @@ public class BirdBoss : MonoBehaviour
 
     void OnDeath()
     {
+        SfxPlayer.Play(sfxAudioSource, deathSound);
         animator.SetInteger("Attack", 0);
         animator.SetTrigger("Dead");
         if(nextLevelPortal != null)
         {
-            Instantiate(nextLevelPortal, transform.position, Quaternion.identity);
+            GameObject portal = Instantiate(nextLevelPortal, transform.position, Quaternion.identity);
+            portal.GetComponent<Portal>().sceneName = sceneToLoad;
         }
         Destroy(gameObject,  5f);
     }

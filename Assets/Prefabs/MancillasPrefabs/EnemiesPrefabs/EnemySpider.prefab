@@ -339,7 +339,7 @@ MonoBehaviour:
   moveSound: {fileID: 8300000, guid: 56ae230bf9c64de4097b5b9cf7a8e8d1, type: 3}
   shootSound: {fileID: 8300000, guid: dcba8025f3725014992d830f71ed7bf4, type: 3}
   specialShootSound: {fileID: 8300000, guid: f5f5231bdb20d8d44b51d562b6ed798b, type: 3}
-  deathSound: {fileID: 8300000, guid: 3316249d3e5fb294da0c5664392bd3c6, type: 3}
+  deathSound: {fileID: 0}
 --- !u!1 &5521350395038354453
 GameObject:
   m_ObjectHideFlags: 0

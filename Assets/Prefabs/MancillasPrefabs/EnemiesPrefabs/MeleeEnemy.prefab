@@ -614,7 +614,7 @@ MonoBehaviour:
   sfxAudioSource: {fileID: 3512218758123143446}
   moveSound: {fileID: 0}
   attackSound: {fileID: 8300000, guid: b771342a5984f824d83bcc67510ad3fc, type: 3}
-  deathSound: {fileID: 8300000, guid: 1b355e223159c134e9123cd58c09d0a3, type: 3}
+  deathSound: {fileID: 0}
 --- !u!95 &5349381178011163248
 Animator:
   serializedVersion: 7

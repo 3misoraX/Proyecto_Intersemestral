@@ -163,7 +163,6 @@ Transform:
   m_Children:
   - {fileID: 5755510125542546282}
   - {fileID: 77478376827480500}
-  - {fileID: 160637002791232954}
   - {fileID: 7992929178669501923}
   - {fileID: 2777873460143469286}
   m_Father: {fileID: 0}
@@ -232,15 +231,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BirdBoss
   dmg: 1
   hp: 0
-  maxHp: 60
+  maxHp: 100
   nextLevelPortal: {fileID: 7336380662205959615, guid: 3e6611772280257459ef48349cccc748, type: 3}
+  sceneToLoad: Victory
   isMoving: 0
   dashTime: 0.5
   dashSpeed: 10
   rangex: 3
   rangez: 3
   boulder: {fileID: 2057082105079022788, guid: 61e356888df7f544da193eba3890deaf, type: 3}
-  explosionRange: 3
+  explosionRange: 1.5
   bulletCount: 10
   bulletPrefab: {fileID: 6439161000818605803, guid: fc92c6b040d6d894cabaed838b41610f, type: 3}
   bulletForce: 5

@@ -83,6 +83,10 @@ public class RoomController : MonoBehaviour
         {
             confiner.inRoom = true;
             confiner.StartCoroutine(confiner.MoveBoundaries(confinerPos));
+            if(isBossRoom)
+                confiner.ResizeBoundaries(4, 3);
+            else
+                confiner.ResizeBoundaries(4, 5.5f);
             BoxCollider confBox = gameObject.GetComponent<BoxCollider>();
             //confiner.ResizeBoundaries(confBox.size.x + 1, confBox.size.z + 1);
 

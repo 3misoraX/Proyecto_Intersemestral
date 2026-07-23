@@ -9,7 +9,7 @@ public class Bird_Idle : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         ctrl = Random.Range(0, 3);
-        timer = 2f;
+        timer = 1f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

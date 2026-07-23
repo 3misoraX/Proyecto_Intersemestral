@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8055810ee30c3744ba813bbf45e72ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Portal
-  sceneName: MainMenu
+  sceneName: Level2
 --- !u!65 &6602140307454177742
 BoxCollider:
   m_ObjectHideFlags: 0

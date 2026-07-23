@@ -15,8 +15,14 @@ EditorBuildSettings:
     path: Assets/Scenes/DemoGame.unity
     guid: 90d3477faebabe448a95672c3a293d72
   - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 05efc9efd75742341bce2ae8f049664b
+  - enabled: 1
     path: Assets/Scenes/Rodri_Scenes/GameOver.unity
     guid: 46e54c4f582ba7e478f71dd38ab5dd1b
+  - enabled: 1
+    path: Assets/Scenes/Rodri_Scenes/Victory.unity
+    guid: 00b1dabd3289cca428a3d460843663a2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

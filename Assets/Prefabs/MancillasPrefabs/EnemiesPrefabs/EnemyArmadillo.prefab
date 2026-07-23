@@ -417,7 +417,7 @@ MonoBehaviour:
   rollSound: {fileID: 8300000, guid: 9cd0a4c41f220f245b6b99ed3351a995, type: 3}
   specialAttackStartSound: {fileID: 8300000, guid: 0a05c36582d5a4b4fb7776990dc3ccd8, type: 3}
   dealDamageSound: {fileID: 8300000, guid: 4ccf264d33d2a584da1163ffe2794a39, type: 3}
-  deathSound: {fileID: 8300000, guid: 1b355e223159c134e9123cd58c09d0a3, type: 3}
+  deathSound: {fileID: 0}
 --- !u!1 &6398982803319614634
 GameObject:
   m_ObjectHideFlags: 0

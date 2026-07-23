@@ -11,6 +11,7 @@ public class CameraBounds : MonoBehaviour
     {
         bc = GetComponent<BoxCollider>();
         cameraObj = GameObject.Find("CinemachineCamera");
+        bc.size = new Vector3(4, bc.size.y, 5.5f);
     }
 
     void Update()

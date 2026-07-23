@@ -558,7 +558,7 @@ MonoBehaviour:
   sfxAudioSource: {fileID: 5183601905951240029}
   moveSound: {fileID: 0}
   shootSound: {fileID: 8300000, guid: 795fe905ef3e79c40bca57919fa906c7, type: 3}
-  deathSound: {fileID: 8300000, guid: 1b355e223159c134e9123cd58c09d0a3, type: 3}
+  deathSound: {fileID: 0}
 --- !u!1 &8210393922830106550
 GameObject:
   m_ObjectHideFlags: 0
