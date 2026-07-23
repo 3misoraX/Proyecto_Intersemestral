@@ -108,6 +108,7 @@ public class Specials : MonoBehaviour
 
     private IEnumerator ArmadilloDashRoutine(float duration, float startSpeed, bool canBounce)
     {
+        gameObject.GetComponent<PlayerHeallth>().canTakeDamage = false; 
         isDashing = true;
         isInvincible = true;
 
@@ -201,6 +202,7 @@ public class Specials : MonoBehaviour
         }
         isDashing = false;
         isInvincible = false;
+        gameObject.GetComponent<PlayerHeallth>().canTakeDamage = true;
     }
 
 

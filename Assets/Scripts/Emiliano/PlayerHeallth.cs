@@ -8,7 +8,7 @@ public class PlayerHeallth : MonoBehaviour
     public int hp = 0;
     public int maxHp = 3;
     public float iframes;
-    [SerializeField] private bool canTakeDamage = true;
+    public bool canTakeDamage = true;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
