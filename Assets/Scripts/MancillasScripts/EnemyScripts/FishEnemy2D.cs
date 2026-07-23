@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FishEnemy2D : MonoBehaviour
 {
-    public enum FishState { Hidden, Attacking, Dead }
+    public enum FishState { Hidden, Emerging, Attacking, Hiding, Dead }
     public FishState currentState = FishState.Hidden;
 
     [Header("Salud")]
@@ -14,8 +14,13 @@ public class FishEnemy2D : MonoBehaviour
     public int basicDamage = 2;
     public int beamDamagePerTick = 1;
     public float attackDuration = 4f;
-    public float hideDuration = 2f;
     [Range(0, 100)] public float beamProbability = 50f;
+
+    [Header("Movimiento (Entrar/Salir del Agua)")]
+    public float depthOffset = 2f; 
+    public float emergeDuration = 0.5f; 
+    public float hideDuration = 0.5f; 
+    public float waitUnderwaterDuration = 1.5f; 
 
     [Header("Referencias 2D")]
     public Transform spriteGraphic;
@@ -25,21 +30,33 @@ public class FishEnemy2D : MonoBehaviour
 
     [Header("Referencias de Entorno")]
     public Transform player;
-    public Transform[] waterPoints; // Puntos donde puede aparecer
-    public LayerMask obstacleLayer; // Capa de las paredes
-    public LayerMask playerLayer;   // Capa del jugador
+    public Transform[] waterPoints; 
+    public LayerMask obstacleLayer; 
+    public LayerMask playerLayer;   
 
     [Header("Rayo de Agua (Beam)")]
     public LineRenderer beamLine;
     public Transform shootPoint;
     public GameObject basicProjectilePrefab;
 
+    // Hashes de Animación
+    private readonly int emergeHash = Animator.StringToHash("Emerge");
+    private readonly int hideHash = Animator.StringToHash("Hide");
     private readonly int isAttackingHash = Animator.StringToHash("IsAttacking");
     private readonly int dieHash = Animator.StringToHash("Die");
+
+    // NUEVAS VARIABLES PARA CONTROLAR LA FÍSICA
+    private Rigidbody rb;
+    private Collider col;
 
     void Start()
     {
         currentHealth = maxHealth;
+        
+        // Obtenemos las referencias de física al inicio
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+
         if (Camera.main != null) mainCamera = Camera.main.transform;
         if (player == null)
         {
@@ -48,7 +65,7 @@ public class FishEnemy2D : MonoBehaviour
         }
 
         if (beamLine != null) beamLine.enabled = false;
-        spriteGraphic.gameObject.SetActive(false); // Empieza escondido
+        spriteGraphic.gameObject.SetActive(false); 
         StartCoroutine(FishBehaviorRoutine());
     }
 
@@ -64,45 +81,86 @@ public class FishEnemy2D : MonoBehaviour
     {
         while (currentState != FishState.Dead)
         {
-            // 1. Esconderse y teletransportarse
+            // 1. PREPARACIÓN INVISIBLE (Bajo el agua)
             currentState = FishState.Hidden;
-            spriteGraphic.gameObject.SetActive(false);
-            if (beamLine != null) beamLine.enabled = false;
             
-            yield return new WaitForSeconds(hideDuration);
+            // APAGAMOS LAS FÍSICAS Y COLISIONES PARA QUE NO CAIGA AL VACÍO
+            if (rb != null) 
+            {
+                rb.isKinematic = true; // Lo vuelve inmune a la gravedad
+                rb.linearVelocity = Vector3.zero; // Frena cualquier caída anterior
+            }
+            if (col != null) col.enabled = false; 
 
-            // Teletransportar a un punto de agua aleatorio
             if (waterPoints.Length > 0)
             {
                 Transform randomWater = waterPoints[Random.Range(0, waterPoints.Length)];
-                transform.position = randomWater.position;
+                transform.position = randomWater.position + (Vector3.down * depthOffset);
             }
+            
+            yield return new WaitForSeconds(waitUnderwaterDuration);
 
-            // 2. Aparecer y atacar
-            currentState = FishState.Attacking;
+            // 2. EMERGER (Subir a la superficie)
+            currentState = FishState.Emerging;
             spriteGraphic.gameObject.SetActive(true);
-            if (animator != null) animator.SetBool(isAttackingHash, true);
+            if (animator != null) animator.SetTrigger(emergeHash);
+            
+            Vector3 targetSurfacePos = transform.position + (Vector3.up * depthOffset);
+            yield return StartCoroutine(MoveVerticalRoutine(targetSurfacePos, emergeDuration));
 
-            // Mirar hacia el jugador (voltear sprite)
+            // 3. ATACAR
+            currentState = FishState.Attacking;
+            
+            // ENCENDEMOS EL COLLIDER AHORA QUE ESTÁ ARRIBA PARA QUE RECIBA DAÑO
+            if (col != null) col.enabled = true; 
+
             Vector3 dirToPlayer = (player.position - transform.position).normalized;
+            dirToPlayer.y = 0; 
             spriteRenderer.flipX = dirToPlayer.x < 0;
 
-            bool useBeam = Random.Range(0f, 100f) <= beamProbability;
+            if (animator != null) animator.SetBool(isAttackingHash, true);
 
+            bool useBeam = Random.Range(0f, 100f) <= beamProbability;
             if (useBeam) yield return StartCoroutine(FireBeamRoutine(dirToPlayer));
             else yield return StartCoroutine(FireBasicRoutine(dirToPlayer));
 
             if (animator != null) animator.SetBool(isAttackingHash, false);
+
+            // 4. ESCONDERSE (Bajar al fondo)
+            currentState = FishState.Hiding;
+            if (animator != null) animator.SetTrigger(hideHash);
+            
+            // APAGAMOS EL COLLIDER ANTES DE BAJAR PARA QUE NO CHOQUE CON EL PISO
+            if (col != null) col.enabled = false; 
+
+            Vector3 targetDepthPos = transform.position + (Vector3.down * depthOffset);
+            yield return StartCoroutine(MoveVerticalRoutine(targetDepthPos, hideDuration));
+
+            // 5. APAGAR GRÁFICOS
+            spriteGraphic.gameObject.SetActive(false);
+            if (beamLine != null) beamLine.enabled = false;
         }
+    }
+
+    private IEnumerator MoveVerticalRoutine(Vector3 targetPosition, float duration)
+    {
+        Vector3 startPosition = transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = targetPosition; 
     }
 
     private IEnumerator FireBasicRoutine(Vector3 direction)
     {
-        // Disparo único con mucho daño
         if (basicProjectilePrefab != null)
         {
-            GameObject bullet = Instantiate(basicProjectilePrefab, shootPoint.position, Quaternion.LookRotation(direction));
-            // Asegúrate de que este proyectil tenga tu script de daño asignado
+            Instantiate(basicProjectilePrefab, shootPoint.position, Quaternion.LookRotation(direction));
         }
         yield return new WaitForSeconds(attackDuration);
     }
@@ -117,18 +175,15 @@ public class FishEnemy2D : MonoBehaviour
 
         while (timer < attackDuration && currentState != FishState.Dead)
         {
-            // Raycast para encontrar la pared más cercana
             float maxDistance = 20f;
             if (Physics.Raycast(shootPoint.position, direction, out RaycastHit wallHit, 20f, obstacleLayer))
             {
                 maxDistance = wallHit.distance;
             }
 
-            // Dibujar la línea
             beamLine.SetPosition(0, shootPoint.position);
             beamLine.SetPosition(1, shootPoint.position + (direction * maxDistance));
 
-            // Raycast para hacer daño al jugador si toca el rayo (con cooldown de daño)
             damageTickTimer -= Time.deltaTime;
             if (damageTickTimer <= 0f)
             {
@@ -139,7 +194,7 @@ public class FishEnemy2D : MonoBehaviour
                     if (pHealth != null)
                     {
                         pHealth.LoseHealth(beamDamagePerTick);
-                        damageTickTimer = 0.5f; // Hace daño cada medio segundo
+                        damageTickTimer = 0.5f; 
                     }
                 }
             }
@@ -152,18 +207,22 @@ public class FishEnemy2D : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
-        if (currentState == FishState.Dead) return;
+        if (currentState == FishState.Dead || currentState == FishState.Hidden || currentState == FishState.Hiding) return; 
         currentHealth -= damageAmount;
         if (currentHealth <= 0) Die();
     }
 
     public void Die()
     {
+        if (currentState == FishState.Dead) return;
         currentState = FishState.Dead;
+        
+        StopAllCoroutines(); 
+
         if (beamLine != null) beamLine.enabled = false;
         if (animator != null) animator.SetTrigger(dieHash);
         
-        Collider col = GetComponent<Collider>();
+        // Desactivamos el collider usando la variable que ya habíamos guardado
         if (col != null) col.enabled = false;
 
         if (UnlockManager.Instance != null) UnlockManager.Instance.RegisterKill("Fish");

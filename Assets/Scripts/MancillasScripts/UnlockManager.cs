@@ -12,17 +12,23 @@ public class UnlockManager : MonoBehaviour
     public TransformationObject armadilloCard;
     public TransformationObject spiderCard;
     public TransformationObject fishCard;
+    public TransformationObject penguinCard;
+    public TransformationObject ermineCard;
 
     [Header("Progreso")]
     public int killsRequired = 5;
     private int armadilloKills = 0;
     private int spiderKills = 0;
     private int fishKills = 0;
+    private int penguinKills = 0;
+    private int ermineKills = 0;
 
 
     private bool armadilloUnlocked = false;
     private bool spiderUnlocked = false;
     private bool fishUnlocked = false;
+    private bool penguinUnlocked = false;
+    private bool ermineUnlocked = false;
 
     void Awake()
     {
@@ -69,6 +75,28 @@ public class UnlockManager : MonoBehaviour
             {
                 fishUnlocked = true;
                 if (playerGun != null) playerGun.UnlockTransformation(fishCard);
+            }
+        }
+        else if (enemyType == "Penguin" && !penguinUnlocked)
+        {
+            penguinKills++;
+            if (UIManager.Instance != null) UIManager.Instance.UpdateKillCounter("Penguin", penguinKills);
+            
+            if (penguinKills >= killsRequired)
+            {
+                penguinUnlocked = true;
+                if (playerGun != null) playerGun.UnlockTransformation(penguinCard);
+            }
+        }
+        else if (enemyType == "Ermine" && !ermineUnlocked)
+        {
+            ermineKills++;
+            if (UIManager.Instance != null) UIManager.Instance.UpdateKillCounter("Ermine", ermineKills);
+            
+            if (ermineKills >= killsRequired)
+            {
+                ermineUnlocked = true;
+                if (playerGun != null) playerGun.UnlockTransformation(ermineCard);
             }
         }
     }

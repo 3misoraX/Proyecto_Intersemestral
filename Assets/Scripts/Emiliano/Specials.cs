@@ -45,9 +45,21 @@ public class Specials : MonoBehaviour
     public int playerBeamDamage = 1;
     private bool isFiringBeam = false;
 
+    [Header("Configuración Pinguino")]
+    public GameObject playerBasicSlowProjectile;
+    public GameObject playerSuperSnowballProjectile;
+
     // Relojes internos para llevar la cuenta
     private float nextArmadilloTime = 0f;
     private float nextSpiderTime = 0f;
+
+    [Header("Configuración Armiño")]
+    public GameObject playerFreezeProjectile;
+    public float playerJumpHeight = 4f;
+    public int playerJumpDamage = 4;
+    public float playerJumpAoERadius = 2.5f;
+    public LayerMask EnemyLayer; // Para detectar a quién golpear al caer
+    public MonoBehaviour PlayerControllerScript; // Referencia a tu script de control del jugador para desactivarlo durante el salto
     
     [Range(0, 100)] public float shotgunStunChance = 25f;
     public int shotgunPellets = 5;
@@ -336,5 +348,76 @@ public class Specials : MonoBehaviour
 
         if (playerBeamLine != null) playerBeamLine.enabled = false;
         isFiringBeam = false;
+    }
+
+    public void Penguin(bool isSuper)
+    {
+        Vector3 aimDir = playerScript.GetMoveDirection();
+        if (aimDir == Vector3.zero) aimDir = player.transform.forward;
+
+        if (!isSuper)
+        {
+            // Disparo Básico del Pingüino (Ralentiza)
+            Instantiate(playerBasicSlowProjectile, shootPoint.position, Quaternion.LookRotation(aimDir));
+        }
+        else
+        {
+            // Súper del Pingüino (Bola de nieve creciente)
+            Instantiate(playerSuperSnowballProjectile, shootPoint.position, Quaternion.LookRotation(aimDir));
+        }
+    }
+
+    public void Ermine(bool isSuper)
+    {
+        if (!isSuper)
+        {
+            // Disparo Básico del Armiño (Congela)
+            Vector3 aimDir = playerScript.GetMoveDirection();
+            if (aimDir == Vector3.zero) aimDir = player.transform.forward;
+            
+            Instantiate(playerFreezeProjectile, playerShootPoint.position, Quaternion.LookRotation(aimDir));
+        }
+        else
+        {
+            // Súper del Armiño (Salto en el sitio)
+            StartCoroutine(PlayerErmineJumpRoutine());
+        }
+    }
+
+    private IEnumerator PlayerErmineJumpRoutine()
+    {
+        // Bloquear movimiento (asumiendo que tu script de movimiento se puede apagar)
+        if (PlayerControllerScript != null) PlayerControllerScript.enabled = false;
+        
+        // Opcional: Apagar el collider del jugador para que sea invencible al saltar
+        Collider pCol = player.GetComponent<Collider>();
+        if (pCol != null) pCol.enabled = false;
+
+        Vector3 startPos = player.transform.position;
+        float duration = 1.5f; // Un salto un poco más rápido para el jugador
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+            
+            Vector3 currentPos = startPos;
+            currentPos.y += playerJumpHeight * 4f * t * (1f - t); 
+            player.transform.position = currentPos;
+            
+            yield return null;
+        }
+
+        player.transform.position = startPos;
+        if (pCol != null) pCol.enabled = true;
+        if (PlayerControllerScript != null) PlayerControllerScript.enabled = true;
+
+        // Daño en área al caer
+        Collider[] hits = Physics.OverlapSphere(player.transform.position, playerJumpAoERadius, enemiesLayer);
+        foreach (var hit in hits)
+        {
+            hit.SendMessage("TakeDamage", playerJumpDamage, SendMessageOptions.DontRequireReceiver);
+        }
     }
 }
