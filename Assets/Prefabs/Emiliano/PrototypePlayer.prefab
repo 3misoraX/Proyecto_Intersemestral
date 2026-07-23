@@ -277,6 +277,26 @@ MonoBehaviour:
   armadilloSuperCooldown: 5
   spiderNormalCooldown: 1.5
   spiderSuperCooldown: 5
+  fishHeavyBulletPrefab: {fileID: 7805502062003170813, guid: 25a39a43bcc4a1e459eb48d9273c04f2, type: 3}
+  playerBeamLine: {fileID: 0}
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  playerShootPoint: {fileID: 0}
+  playerBeamDamage: 1
+  playerBasicSlowProjectile: {fileID: 0}
+  playerSuperSnowballProjectile: {fileID: 0}
+  playerFreezeProjectile: {fileID: 0}
+  playerJumpHeight: 4
+  playerJumpDamage: 4
+  playerJumpAoERadius: 2.5
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  PlayerControllerScript: {fileID: 0}
   shotgunStunChance: 25
   shotgunPellets: 4
   shotgunSpreadAngle: 45
