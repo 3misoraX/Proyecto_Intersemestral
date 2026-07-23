@@ -25,6 +25,7 @@ public class RoomController : MonoBehaviour
     [Header("Referencias")]
     public EnemySpawner spawner;
     public GameObject fih;
+    public bool roomError = false;
 
     [Header("Configuración de Jefe")]
     public bool isBossRoom = false;
@@ -87,16 +88,7 @@ public class RoomController : MonoBehaviour
 
             if (!isCleared && !isLocked)
             {
-                LockRoom();
-            
-                if (spawner != null)
-                {
-                    spawner.SpawnEnemies(this);
-                }
-                else
-                {
-                    UnlockRoom(); 
-                }
+                LockRoom(other);
             }
         }
     }
@@ -110,30 +102,41 @@ public class RoomController : MonoBehaviour
             if (!isCleared)
             {
                 isLocked = false;
+                roomError = true;
+                List<GameObject> enemiesToKill = new List<GameObject>();
+                GameObject.FindGameObjectsWithTag("Enemy", enemiesToKill);
+                foreach (GameObject item in enemiesToKill)
+                {
+                    Destroy(item);
+                }
                 StopAllCoroutines();
                 StartCoroutine(AnimateDoors(false));
             }
         }
     }
 
-    private void LockRoom()
+    private void LockRoom(Collider other)
     {
         isLocked = true;
+        roomError = false;
         StopAllCoroutines(); 
-        StartCoroutine(AnimateDoors(true)); // True = Subir puertas
+        StartCoroutine(AnimateDoors(true, other)); // True = Subir puertas
     }
 
     public void UnlockRoom()
     {
-        isLocked = false;
-        isCleared = true;
-        StopAllCoroutines();
-        int r = Random.Range(0, 4);
-        if(r == 0)
+        if (!roomError)
         {
-            GameObject fish = Instantiate(fih, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+            isLocked = false;
+            isCleared = true;
+            StopAllCoroutines();
+            int r = Random.Range(0, 4);
+            if(r == 0)
+            {
+                GameObject fish = Instantiate(fih, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+            }
+            StartCoroutine(AnimateDoors(false)); // False = Bajar puertas
         }
-        StartCoroutine(AnimateDoors(false)); // False = Bajar puertas
     }
 
     // Se ejecuta desde el script de la llave cuando el jugador la recoge
@@ -143,13 +146,24 @@ public class RoomController : MonoBehaviour
         StartCoroutine(AnimateDoors(false)); // Baja las puertas para permitir el paso inicial
     }
 
-    private IEnumerator AnimateDoors(bool closing)
+    private IEnumerator AnimateDoors(bool closing, Collider other = null)
     {
         float progress = 0f;
 
         if (closing)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
+            if(other != null && other.CompareTag("Player"))
+            {
+                if (spawner != null)
+                {
+                    spawner.SpawnEnemies(this);
+                }
+                else
+                {
+                    UnlockRoom();
+                }
+            }
         }
 
         while (progress < 1f)

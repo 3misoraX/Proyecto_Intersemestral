@@ -168,11 +168,6 @@ public class PlayerController : MonoBehaviour
         }
 
         verticalVelocity += gravity * Time.deltaTime;
-        //Esta Corrutina actua en caso que el jugador se caiga del mapa, se modificara si se mete alguna habilidad que use la gravedad;
-        if(!isGrounded)
-        {
-            StartCoroutine(FallingOff());
-        }
     }
 
     // Lo llamará Specials.cs cuando use el Armadillo
@@ -191,15 +186,6 @@ public class PlayerController : MonoBehaviour
     public void TriggerDamageAnimation()
     {
         if (animator != null) animator.SetTrigger(damageHash);
-    }
-
-    private IEnumerator FallingOff()
-    {
-        yield return new WaitForSeconds(FallTimer);
-        if (!isGrounded)
-        {
-            GetComponent<PlayerHeallth>().Die(); // Mata al jugador si lleva cayendo mas de el tiempo establecido, es decir, si se cae del mapa por cualquier razon
-        }
     }
 
     public void ApplyFreeze(float duration)

@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 7196204491669625200}
   - component: {fileID: 4689461969541272442}
   m_Layer: 3
-  m_Name: PrototypePlayer
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,6 +277,26 @@ MonoBehaviour:
   armadilloSuperCooldown: 5
   spiderNormalCooldown: 1.5
   spiderSuperCooldown: 5
+  fishHeavyBulletPrefab: {fileID: 0}
+  playerBeamLine: {fileID: 0}
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  playerShootPoint: {fileID: 0}
+  playerBeamDamage: 1
+  playerBasicSlowProjectile: {fileID: 0}
+  playerSuperSnowballProjectile: {fileID: 0}
+  playerFreezeProjectile: {fileID: 0}
+  playerJumpHeight: 4
+  playerJumpDamage: 4
+  playerJumpAoERadius: 2.5
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  PlayerControllerScript: {fileID: 0}
   shotgunStunChance: 25
   shotgunPellets: 4
   shotgunSpreadAngle: 45
@@ -477,8 +497,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 269994511
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: fcf43a35045e5fd49985e4dbceb4e8da, type: 3}

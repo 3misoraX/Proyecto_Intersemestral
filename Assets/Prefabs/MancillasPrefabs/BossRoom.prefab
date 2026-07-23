@@ -592,7 +592,7 @@ MonoBehaviour:
   doorMoveSpeed: 3
   spawner: {fileID: 6222971180083733907}
   fih: {fileID: 0}
-  isBossRoom: 0
+  isBossRoom: 1
   confinerPos: {fileID: 8076470745978782035}
 --- !u!65 &2057022241796290206
 BoxCollider:

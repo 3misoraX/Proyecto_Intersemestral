@@ -43,11 +43,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Other
+    uniqueID: 269994511
+    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: player
-    uniqueID: 269994511
     locked: 0
   m_RenderingLayers:
   - Default

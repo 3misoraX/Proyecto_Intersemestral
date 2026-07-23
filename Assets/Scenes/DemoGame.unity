@@ -227,6 +227,9 @@ MonoBehaviour:
   playerGun: {fileID: 2082994257}
   armadilloCard: {fileID: 11400000, guid: f6a67f7c8c9aa2d4f87806b749de62e6, type: 2}
   spiderCard: {fileID: 11400000, guid: 7d7a86123cea18740b669a4fc34f4983, type: 2}
+  fishCard: {fileID: 0}
+  penguinCard: {fileID: 0}
+  ermineCard: {fileID: 0}
   killsRequired: 5
 --- !u!4 &316343188
 Transform:
@@ -1365,6 +1368,21 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9aae7f1bf5d0f5e41bc7d930da422f66, type: 3}
   - {fileID: 21300000, guid: 03a87d48af255df4da978bb9e05629e7, type: 3}
   - {fileID: 21300000, guid: ec32cbf11efe5184eab8ba55fc7d903a, type: 3}
+  fishKillPanel: {fileID: 0}
+  fishKillIcon: {fileID: 0}
+  fishKillSprites: []
+  fishBasicSprites: []
+  fishSuperSprites: []
+  penguinKillPanel: {fileID: 0}
+  penguinKillIcon: {fileID: 0}
+  penguinKillSprites: []
+  penguinBasicSprites: []
+  penguinSuperSprites: []
+  ermineKillPanel: {fileID: 0}
+  ermineKillIcon: {fileID: 0}
+  ermineKillSprites: []
+  ermineBasicSprites: []
+  ermineSuperSprites: []
   uiAudioSource: {fileID: 1823825236}
   unlockCompletedSound: {fileID: 8300000, guid: 1ae559b32cc39db46a4dc470b0c24d88, type: 3}
 --- !u!4 &1823825235
