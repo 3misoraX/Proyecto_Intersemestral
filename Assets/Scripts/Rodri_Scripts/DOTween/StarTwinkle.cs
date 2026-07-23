@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -17,40 +18,53 @@ public class StarTwinkle : MonoBehaviour
     [SerializeField] private float maxWaitTime = 2f;
 
     private Image img;
+    private Coroutine blinkRoutine;
 
-    private void Start()
+    private void Awake()
     {
         img = GetComponent<Image>();
-
-        // Que cada estrella empiece en un momento diferente
-        Invoke(nameof(StartBlink), Random.Range(0f, 2f));
     }
 
-    void StartBlink()
+    private void OnEnable()
     {
-        Blink();
+        blinkRoutine = StartCoroutine(BlinkRoutine());
     }
 
-    void Blink()
+    private IEnumerator BlinkRoutine()
     {
-        float fadeOut = Random.Range(minFadeTime, maxFadeTime);
-        float fadeIn = Random.Range(minFadeTime, maxFadeTime);
-        float wait = Random.Range(minWaitTime, maxWaitTime);
+        yield return new WaitForSeconds(Random.Range(0f, 2f));
 
-        Sequence seq = DOTween.Sequence();
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
 
-        // Espera un tiempo aleatorio
-        seq.AppendInterval(wait);
+            float fadeOut = Random.Range(minFadeTime, maxFadeTime);
+            float fadeIn = Random.Range(minFadeTime, maxFadeTime);
 
-        // Desaparece
-        seq.Append(img.DOFade(minAlpha, fadeOut));
+            yield return img
+                .DOFade(minAlpha, fadeOut)
+                .SetLink(gameObject)
+                .WaitForCompletion();
 
-        // Espera apagada
-        seq.AppendInterval(Random.Range(0.1f, 0.8f));
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.8f));
 
-        // Vuelve a aparecer
-        seq.Append(img.DOFade(maxAlpha, fadeIn));
+            yield return img
+                .DOFade(maxAlpha, fadeIn)
+                .SetLink(gameObject)
+                .WaitForCompletion();
+        }
+    }
 
-        seq.OnComplete(Blink);
+    private void OnDisable()
+    {
+        if (blinkRoutine != null)
+            StopCoroutine(blinkRoutine);
+
+        img.DOKill();
+    }
+
+    private void OnDestroy()
+    {
+        img.DOKill();
     }
 }

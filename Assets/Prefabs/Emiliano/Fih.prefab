@@ -219,3 +219,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Fih
   spriteGraphic: {fileID: 8133273229312013709}
   spriteRenderer: {fileID: 2628763374820977151}
+  healSound: {fileID: 8300000, guid: a45fcffd1148e7742a356e9db61068ce, type: 3}

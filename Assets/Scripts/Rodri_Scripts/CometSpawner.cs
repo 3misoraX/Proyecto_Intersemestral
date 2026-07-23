@@ -153,7 +153,9 @@ public class CometSpawner : MonoBehaviour
 
 
 
-        Sequence seq = DOTween.Sequence();
+        Sequence seq = DOTween.Sequence()
+            .SetLink(comet.gameObject);
+            Destroy(comet.gameObject);
 
 
 

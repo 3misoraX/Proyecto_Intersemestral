@@ -122,7 +122,7 @@ public class GenericMeleeEnemy2D : MonoBehaviour
         }
 
         if (loopingAudioSource != null) loopingAudioSource.Stop();
-        if (sfxAudioSource != null && attackSound != null) sfxAudioSource.PlayOneShot(attackSound);
+        SfxPlayer.Play(sfxAudioSource, attackSound);
 
         // --- LLAMADA AL SCRIPT DE VIDA DEL JUGADOR ---
         PlayerHeallth playerHealth = player.GetComponent<PlayerHeallth>();
@@ -187,7 +187,7 @@ public class GenericMeleeEnemy2D : MonoBehaviour
         }
 
         if (loopingAudioSource != null) loopingAudioSource.Stop();
-        if (sfxAudioSource != null && deathSound != null) sfxAudioSource.PlayOneShot(deathSound);
+        SfxPlayer.Play(sfxAudioSource, deathSound);
         
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
@@ -204,6 +204,7 @@ public class GenericMeleeEnemy2D : MonoBehaviour
         loopingAudioSource.Stop();
         loopingAudioSource.clip = clip;
         loopingAudioSource.loop = true;
+        loopingAudioSource.volume = SfxSettings.GetVolume();
         loopingAudioSource.Play();
     }
 }

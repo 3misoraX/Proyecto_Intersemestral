@@ -4,7 +4,7 @@ using DG.Tweening;
 public class PanelTitleAnimator : MonoBehaviour
 {
     [Header("Positions")]
-    [SerializeField] private float offscreenX = -800f; // fuera a la izquierda
+    [SerializeField] private float offscreenX = -800f;
     [SerializeField] private float animDuration = 0.5f;
 
     private RectTransform rect;
@@ -28,7 +28,8 @@ public class PanelTitleAnimator : MonoBehaviour
         rect.anchoredPosition = new Vector2(offscreenX, finalPos.y);
 
         rect.DOAnchorPos(finalPos, animDuration)
-            .SetEase(Ease.OutBack);
+            .SetEase(Ease.OutBack)
+            .SetLink(gameObject);
     }
 
     public void PlayExit()
@@ -36,6 +37,11 @@ public class PanelTitleAnimator : MonoBehaviour
         rect.DOKill();
 
         rect.DOAnchorPosX(offscreenX, animDuration * 0.8f)
-            .SetEase(Ease.InExpo);
+            .SetEase(Ease.InExpo)
+            .SetLink(gameObject);
+    }
+    private void OnDestroy()
+    {
+        rect.DOKill();
     }
 }

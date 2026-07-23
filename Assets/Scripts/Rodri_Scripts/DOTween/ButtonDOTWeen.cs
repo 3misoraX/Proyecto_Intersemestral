@@ -26,13 +26,13 @@ public class ButtonDOTween : MonoBehaviour,
 
     Tween scaleTween;
     Tween moveTween;
-    Tween idleMoveTween;
-    Tween idleTween;
 
     [Header("Idle Float")]
     public bool enableIdle = true;
     public float idleRadius = 2f;
     public float idleDuration = 3f;
+    private bool idleAnimating;
+    private float idleOffset;
 
     bool isHovering;
 
@@ -43,6 +43,7 @@ public class ButtonDOTween : MonoBehaviour,
 
         originalScale = rectTransform.localScale;
         originalAnchoredPos = rectTransform.anchoredPosition;
+        idleOffset = Random.Range(0f, Mathf.PI * 2f);
 
         if (enableIdle)
         {
@@ -132,35 +133,28 @@ public class ButtonDOTween : MonoBehaviour,
     }
     void StartIdleAnimation()
     {
-        idleTween?.Kill();
-
-        rectTransform.anchoredPosition = originalAnchoredPos;
-
-        Vector2 p1 = originalAnchoredPos + new Vector2(1f, idleRadius);
-        Vector2 p2 = originalAnchoredPos + new Vector2(idleRadius, 0f);
-        Vector2 p3 = originalAnchoredPos + new Vector2(-1f, -idleRadius);
-        Vector2 p4 = originalAnchoredPos + new Vector2(-idleRadius, 0f);
-
-        Sequence seq = DOTween.Sequence();
-
-        seq.Append(rectTransform.DOAnchorPos(p1, idleDuration / 4f).SetEase(Ease.InOutSine));
-        seq.Append(rectTransform.DOAnchorPos(p2, idleDuration / 4f).SetEase(Ease.InOutSine));
-        seq.Append(rectTransform.DOAnchorPos(p3, idleDuration / 4f).SetEase(Ease.InOutSine));
-        seq.Append(rectTransform.DOAnchorPos(p4, idleDuration / 4f).SetEase(Ease.InOutSine));
-
-        seq.SetLoops(-1);
-
-        // Hace que cada botón empiece en un punto diferente
-        seq.Goto(Random.Range(0f, idleDuration), true);
-
-        idleTween = seq;
-        idleTween.SetUpdate(true);
+        idleAnimating = true;
     }
 
     void StopIdleAnimation()
     {
-        idleTween?.Kill();
+        idleAnimating = false;
 
-        rectTransform.anchoredPosition = originalAnchoredPos;
+        rectTransform.DOAnchorPos(originalAnchoredPos, 0.2f)
+            .SetEase(Ease.OutSine)
+            .SetUpdate(true);
+    }
+    void Update()
+    {
+        if (!idleAnimating)
+            return;
+
+        float t = Time.unscaledTime;
+
+        float x = Mathf.Cos((t / idleDuration) * Mathf.PI * 2f + idleOffset) * (idleRadius * 0.6f);
+        float y = Mathf.Sin((t / idleDuration) * Mathf.PI * 2f + idleOffset) * idleRadius;
+
+        rectTransform.anchoredPosition =
+            originalAnchoredPos + new Vector2(x, y);
     }
 }

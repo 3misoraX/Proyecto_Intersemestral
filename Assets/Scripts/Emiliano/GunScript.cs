@@ -22,6 +22,10 @@ public class GunScript : MonoBehaviour
     public int superCharges;
     public int superMaxCharges;
     public float specialCooldown;
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shootSound;
+
 
     //Checks for default weapon
     void Start()
@@ -67,16 +71,15 @@ public class GunScript : MonoBehaviour
         switch (activeTransformation.weaponType)
         {
             case 'a':
-                //auto prefab
                 if (shootAction.action.IsPressed() == true && cooldown <= 0)
                 {
                     GameObject projectile = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
                     projectile.GetComponent<BulletScript>().bulletType = activeTransformation.bulletType;
-                    projectile.GetComponent<Rigidbody>().AddForce(shootPoint.forward *bulletForce, ForceMode.VelocityChange);
+                    projectile.GetComponent<Rigidbody>().AddForce(shootPoint.forward * bulletForce, ForceMode.VelocityChange);
                     cooldown = 1 / activeTransformation.cadency;
-                }
 
-                //auto weapon cooldown
+                    SfxPlayer.Play(audioSource, shootSound);
+                }
                 break;
             case 'l':
                 //auto raycast

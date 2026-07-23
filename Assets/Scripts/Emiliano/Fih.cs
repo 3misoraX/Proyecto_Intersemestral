@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Fih : MonoBehaviour
 {
-    public Transform spriteGraphic; // El GameObject hijo que tiene el SpriteRenderer y el Animator
+    public Transform spriteGraphic;
     public SpriteRenderer spriteRenderer;
+    [SerializeField] private AudioClip healSound;
     private Transform mainCamera;
 
     private void Start()
@@ -20,10 +21,8 @@ public class Fih : MonoBehaviour
 
     void LateUpdate()
     {
-        // Billboarding: Hacer que el sprite siempre mire a la cámara
         if (spriteGraphic != null && mainCamera != null)
         {
-            // Esto hace que el plano del sprite sea paralelo a la pantalla
             spriteGraphic.forward = mainCamera.forward;
         }
     }
@@ -32,6 +31,7 @@ public class Fih : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            SfxPlayer.PlayAtPoint(healSound, transform.position);
             other.SendMessage("Heal", 1, SendMessageOptions.DontRequireReceiver);
             Destroy(gameObject);
         }
