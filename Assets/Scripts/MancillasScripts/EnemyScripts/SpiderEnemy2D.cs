@@ -327,7 +327,7 @@ public class SpiderEnemy2D : MonoBehaviour
         {
             UnlockManager.Instance.RegisterKill("Spider");
         }
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 1.5f);
     }
 
     private void ShootProjectile(GameObject prefab, Vector3 direction)

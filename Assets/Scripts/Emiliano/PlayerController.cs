@@ -57,12 +57,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleRotation();
         //gravity
         isGrounded = charControl.isGrounded;
         HandleGravity();
         //movement method
         Move();
-        HandleRotation();
         UpdateAnimations();
     }
 
@@ -200,5 +200,23 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<PlayerHeallth>().Die(); // Mata al jugador si lleva cayendo mas de el tiempo establecido, es decir, si se cae del mapa por cualquier razon
         }
+    }
+
+    public void ApplyFreeze(float duration)
+    {
+        StartCoroutine(FreezeRoutine(duration));
+    }
+
+    private IEnumerator FreezeRoutine(float duration)
+    {
+        // 1. Guardar la velocidad original y ponerla a cero (o apagar el script de movimiento/estado)
+        float originalSpeed = speed;
+        speed = 0f;
+        
+        // 2. Esperar
+        yield return new WaitForSeconds(duration);
+        
+        // 3. Restaurar velocidad
+        speed = originalSpeed;
     }
 }

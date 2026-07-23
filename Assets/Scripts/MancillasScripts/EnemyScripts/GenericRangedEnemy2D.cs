@@ -48,7 +48,6 @@ public class GenericRangedEnemy2D : MonoBehaviour
 
     private readonly int isMovingHash = Animator.StringToHash("IsMoving");
     private readonly int attackHash = Animator.StringToHash("Attack");
-    private readonly int dieHash = Animator.StringToHash("Die");
 
     private readonly Vector3[] directions8Way = new Vector3[]
     {
@@ -117,13 +116,13 @@ public class GenericRangedEnemy2D : MonoBehaviour
             {
                 rb.MovePosition(transform.position + currentMoveDirection * moveSpeed * Time.fixedDeltaTime);
                 
-                if (spriteRenderer != null) spriteRenderer.flipX = currentMoveDirection.x < 0;
+                if (spriteRenderer != null) spriteRenderer.flipX = currentMoveDirection.x > 0;
                 if (animator != null) animator.SetBool(isMovingHash, true);
             }
             else
             {
                 // Si está en el rango ideal, se detiene y mira al jugador
-                if (spriteRenderer != null && dirToPlayer.x != 0) spriteRenderer.flipX = dirToPlayer.x < 0;
+                if (spriteRenderer != null && dirToPlayer.x != 0) spriteRenderer.flipX = dirToPlayer.x > 0;
                 if (animator != null) animator.SetBool(isMovingHash, false);
             }
         }
@@ -157,7 +156,7 @@ public class GenericRangedEnemy2D : MonoBehaviour
         if (firePoint == null || projectilePrefab == null)
         {
             Debug.LogError("Falta FirePoint o ProjectilePrefab en GenericRangedEnemy.");
-            Invoke(nameof(ResumeMovement), 0.5f);
+            Invoke(nameof(ResumeMovement), 0.1f);
             return;
         }
 
@@ -173,7 +172,7 @@ public class GenericRangedEnemy2D : MonoBehaviour
 
         SfxPlayer.Play(sfxAudioSource, shootSound);
 
-        Invoke(nameof(ResumeMovement), 0.5f);
+        Invoke(nameof(ResumeMovement), 0.1f);
     }
 
     private Vector3 GetClosest8WayDirection(Vector3 targetDirection)
@@ -240,7 +239,6 @@ public class GenericRangedEnemy2D : MonoBehaviour
         
         if (animator != null)
         {
-            animator.SetTrigger(dieHash);
             animator.SetBool(isMovingHash, false);
         }
 
@@ -251,7 +249,7 @@ public class GenericRangedEnemy2D : MonoBehaviour
         if (col != null) col.enabled = false;
         EnemyDeathNotifier notifier = GetComponent<EnemyDeathNotifier>();
         if (notifier != null) notifier.NotifyDeath();
-        Destroy(gameObject, 2f);
+        Destroy(gameObject);
     }
 
     private void PlayLoopingSound(AudioClip clip)
