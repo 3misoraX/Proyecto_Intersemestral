@@ -59,6 +59,7 @@ public class ArmadilloEnemy2D : MonoBehaviour
     public AudioClip rollSound;
     public AudioClip specialAttackStartSound;
     public AudioClip dealDamageSound;
+    public AudioClip deathSound; 
 
     private Rigidbody rb;
     private Vector3 rollDirection;
@@ -248,7 +249,7 @@ public class ArmadilloEnemy2D : MonoBehaviour
         animator.SetBool(isWalkingHash, false);
         animator.SetBool(isRollingHash, true);
 
-        sfxAudioSource.PlayOneShot(specialAttackStartSound);
+        SfxPlayer.Play(sfxAudioSource, specialAttackStartSound);
         PlayLoopingSound(rollSound);
     }
 
@@ -265,7 +266,7 @@ public class ArmadilloEnemy2D : MonoBehaviour
 
         if (collision.gameObject.CompareTag(playerTag))
         {
-            sfxAudioSource.PlayOneShot(dealDamageSound);
+            SfxPlayer.Play(sfxAudioSource, dealDamageSound);
             int damageToDeal = (currentState == EnemyState.Rolling) ? rollDamage : normalDamage;
             Debug.Log($"Hizo {damageToDeal} de daño al jugador.");
 
@@ -312,6 +313,7 @@ public class ArmadilloEnemy2D : MonoBehaviour
     {
         loopingAudioSource.Stop();
     }
+     SfxPlayer.Play(sfxAudioSource, deathSound);
     
     Collider col = GetComponent<Collider>();
     if (col != null) 
@@ -338,10 +340,12 @@ public class ArmadilloEnemy2D : MonoBehaviour
     private void PlayLoopingSound(AudioClip clip)
     {
         if (loopingAudioSource == null || clip == null) return;
-        
+        if (loopingAudioSource.isPlaying && loopingAudioSource.clip == clip) return;
+
         loopingAudioSource.Stop();
         loopingAudioSource.clip = clip;
         loopingAudioSource.loop = true;
+        loopingAudioSource.volume = SfxSettings.GetVolume();
         loopingAudioSource.Play();
     }
 }

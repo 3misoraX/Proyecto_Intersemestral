@@ -3,10 +3,10 @@ using UnityEngine;
 public class BossKey : MonoBehaviour
 {
     [HideInInspector] public RoomController bossRoom;
-    public Transform spriteGraphic; // El GameObject hijo que tiene el SpriteRenderer y el Animator
+    public Transform spriteGraphic;
     public SpriteRenderer spriteRenderer;
+    [SerializeField] private AudioClip pickupSound;
     private Transform mainCamera;
-
 
     void Start()
     {
@@ -22,19 +22,18 @@ public class BossKey : MonoBehaviour
 
     void LateUpdate()
     {
-        // Billboarding: Hacer que el sprite siempre mire a la cámara
         if (spriteGraphic != null && mainCamera != null)
         {
-            // Esto hace que el plano del sprite sea paralelo a la pantalla
             spriteGraphic.forward = mainCamera.forward;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Al tocar al jugador, desbloquea la sala del jefe y se destruye
         if (other.CompareTag("Player"))
         {
+            SfxPlayer.PlayAtPoint(pickupSound, transform.position);
+
             if (bossRoom != null)
             {
                 bossRoom.UnlockBossRoom();

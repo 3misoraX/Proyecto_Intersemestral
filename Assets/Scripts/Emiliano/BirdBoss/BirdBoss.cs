@@ -39,6 +39,12 @@ public class BirdBoss : MonoBehaviour
     public float effectLifetime = 0.3f;
     public GameObject fallIndicator;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource sfxAudioSource;
+    [SerializeField] private AudioClip shotgunSound;
+    [SerializeField] private AudioClip fallExplosionSound;
+    [SerializeField] private AudioClip deathSound;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -110,6 +116,7 @@ public class BirdBoss : MonoBehaviour
         Destroy(indicator);
         rb.useGravity = true;
         capsule.enabled = true;
+        SfxPlayer.Play(sfxAudioSource, fallExplosionSound);
         Collider[] coll = Physics.OverlapSphere(transform.position, explosionRange);
         foreach (Collider col in coll)
         {
@@ -146,6 +153,7 @@ public class BirdBoss : MonoBehaviour
 
     public void ShotgunAttack()
     {
+        SfxPlayer.Play(sfxAudioSource, shotgunSound);
         for(int i = 0; i < bulletCount; i++)
         {
             float angleX = Random.Range(-dispersion, dispersion);
@@ -170,6 +178,7 @@ public class BirdBoss : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
+        SfxPlayer.Play(sfxAudioSource, deathSound);
         hp -= damageAmount;
 
         if (hp <= 0)
@@ -188,5 +197,4 @@ public class BirdBoss : MonoBehaviour
         }
         Destroy(gameObject,  5f);
     }
-
 }

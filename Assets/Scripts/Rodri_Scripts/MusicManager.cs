@@ -24,6 +24,7 @@ public class MusicManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        musicSource.loop = true;
 
         currentVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 1f);
         musicSource.volume = currentVolume;

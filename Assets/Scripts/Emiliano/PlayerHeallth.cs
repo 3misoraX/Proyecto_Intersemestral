@@ -9,10 +9,12 @@ public class PlayerHeallth : MonoBehaviour
     public int maxHp = 3;
     public float iframes;
     [SerializeField] private bool canTakeDamage = true;
-    //UI
-    //---
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip damageSound;
+    [SerializeField] private AudioClip deathSound;
+
     void Start()
     {
         hp = maxHp;
@@ -24,8 +26,15 @@ public class PlayerHeallth : MonoBehaviour
         if (canTakeDamage)
         {
             hp -= dmg;
-            if (UIManager.Instance != null) UIManager.Instance.UpdateHealth(hp); // ACTUALIZA UI
-            if( hp <= 0) Die();
+            if (UIManager.Instance != null) UIManager.Instance.UpdateHealth(hp);
+
+            // Sonido de daño
+            SfxPlayer.Play(audioSource, damageSound);
+
+            // Ya que tenías esto listo en PlayerController, aprovechamos a dispararlo
+            GetComponent<PlayerController>()?.TriggerDamageAnimation();
+
+            if (hp <= 0) Die();
             StartCoroutine(IFrames());
         }
     }
@@ -34,11 +43,22 @@ public class PlayerHeallth : MonoBehaviour
     {
         hp += healHp;
         if (hp >= maxHp) hp = maxHp;
-        if (UIManager.Instance != null) UIManager.Instance.UpdateHealth(hp); // ACTUALIZA UI
+        if (UIManager.Instance != null) UIManager.Instance.UpdateHealth(hp);
     }
 
     public void Die()
     {
+        // Sonido de muerte
+        SfxPlayer.Play(audioSource, deathSound);
+
+        StartCoroutine(DieAfterSound());
+    }
+
+    private IEnumerator DieAfterSound()
+    {
+        // Espera a que termine el sonido antes de cambiar de escena
+        float wait = deathSound != null ? deathSound.length : 0f;
+        yield return new WaitForSeconds(wait);
         SceneManager.LoadScene("GameOver");
         gameObject.SetActive(false);
     }
