@@ -20,17 +20,24 @@ public class Planet3Animation : MonoBehaviour
 
         transform.DOLocalMoveX(startPos.x + moveDistance, moveDuration)
             .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetLink(gameObject);
 
         transform.DORotate(
             new Vector3(0,0,-360),
             rotationTime,
             RotateMode.FastBeyond360)
             .SetEase(Ease.Linear)
-            .SetLoops(-1);
+            .SetLoops(-1)
+            .SetLink(gameObject);
 
         transform.DOScale(startScale * scaleMultiplier, 2f)
             .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetLink(gameObject);
+    }
+    private void OnDestroy()
+    {
+        transform.DOKill();
     }
 }

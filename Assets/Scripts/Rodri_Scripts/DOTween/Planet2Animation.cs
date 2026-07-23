@@ -12,7 +12,8 @@ public class Planet2Animation : MonoBehaviour
     {
         startPos = transform.localPosition;
 
-        Sequence orbit = DOTween.Sequence();
+        Sequence orbit = DOTween.Sequence()
+            .SetLink(gameObject);
 
         orbit.Append(transform.DOLocalMove(
             startPos + new Vector3(0, offset, 0),
@@ -34,5 +35,9 @@ public class Planet2Animation : MonoBehaviour
 
         orbit.SetEase(Ease.InOutSine);
         orbit.SetLoops(-1);
+    }
+    private void OnDestroy()
+    {
+        transform.DOKill();
     }
 }

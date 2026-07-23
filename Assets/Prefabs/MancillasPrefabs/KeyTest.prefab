@@ -161,6 +161,7 @@ MonoBehaviour:
   bossRoom: {fileID: 0}
   spriteGraphic: {fileID: 8292892623751340706}
   spriteRenderer: {fileID: 9095017603322011557}
+  pickupSound: {fileID: 8300000, guid: ee78519c497b10f4b88aeb227f0b502f, type: 3}
 --- !u!1 &6393631258595397616
 GameObject:
   m_ObjectHideFlags: 0

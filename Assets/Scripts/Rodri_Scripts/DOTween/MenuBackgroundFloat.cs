@@ -17,6 +17,11 @@ public class MenuBackgroundFloat : MonoBehaviour
             duration
         )
         .SetEase(Ease.InOutSine)
-        .SetLoops(-1, LoopType.Yoyo);
+        .SetLoops(-1, LoopType.Yoyo)
+        .SetLink(gameObject);
+    }
+    private void OnDestroy()
+    {
+        transform.DOKill();
     }
 }
