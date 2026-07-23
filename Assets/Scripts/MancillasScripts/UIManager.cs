@@ -33,6 +33,40 @@ public class UIManager : MonoBehaviour
     public Sprite[] spiderBasicSprites;
     public Sprite[] spiderSuperSprites;
 
+    [Header("Desbloqueos - Pez")]
+    public GameObject fishKillPanel;
+    public Image fishKillIcon;
+    public Sprite[] fishKillSprites;
+    private Coroutine fishFadeRoutine;
+
+    [Header("Habilidades - Pez (Sprites de Cooldown)")]
+    public Sprite[] fishBasicSprites;
+    public Sprite[] fishSuperSprites;
+
+    // Relojes del pez
+    private float fishBasicTimer, fishBasicMax;
+    private float fishSuperTimer, fishSuperMax;
+
+    [Header("Desbloqueos - Pinguino")]
+    public GameObject penguinKillPanel;
+    public Image penguinKillIcon;
+    public Sprite[] penguinKillSprites;
+
+    [Header("Habilidades - Pingüino")]
+    public Sprite[] penguinBasicSprites;
+    public Sprite[] penguinSuperSprites;
+    private Coroutine penguinFadeRoutine;
+
+    [Header("Desbloqueos - Armiño")]
+    public GameObject ermineKillPanel;
+    public Image ermineKillIcon;
+    public Sprite[] ermineKillSprites;
+
+    [Header("Habilidades - Armiño")]
+    public Sprite[] ermineBasicSprites;
+    public Sprite[] ermineSuperSprites;
+    private Coroutine ermineFadeRoutine;
+
     [Header("Audio")]
     public AudioSource uiAudioSource;
     public AudioClip unlockCompletedSound;
@@ -42,6 +76,10 @@ public class UIManager : MonoBehaviour
     private float armaSuperTimer, armaSuperMax;
     private float spiderBasicTimer, spiderBasicMax;
     private float spiderSuperTimer, spiderSuperMax;
+    private float penguinBasicTimer, penguinBasicMax;
+    private float penguinSuperTimer, penguinSuperMax;
+    private float ermineBasicTimer, ermineBasicMax;
+    private float ermineSuperTimer, ermineSuperMax;
     private char currentActiveAnimal = ' '; 
 
     void Awake()
@@ -57,6 +95,13 @@ public class UIManager : MonoBehaviour
         if (armaSuperTimer > 0) armaSuperTimer -= Time.deltaTime;
         if (spiderBasicTimer > 0) spiderBasicTimer -= Time.deltaTime;
         if (spiderSuperTimer > 0) spiderSuperTimer -= Time.deltaTime;
+        if (fishBasicTimer > 0) fishBasicTimer -= Time.deltaTime;
+        if (fishSuperTimer > 0) fishSuperTimer -= Time.deltaTime;
+        if (penguinBasicTimer > 0) penguinBasicTimer -= Time.deltaTime;
+        if (penguinSuperTimer > 0) penguinSuperTimer -= Time.deltaTime;
+        if (ermineBasicTimer > 0) ermineBasicTimer -= Time.deltaTime;
+        if (ermineSuperTimer > 0) ermineSuperTimer -= Time.deltaTime;
+        
 
         if (abilitiesPanel != null && abilitiesPanel.activeSelf)
         {
@@ -85,6 +130,21 @@ public class UIManager : MonoBehaviour
         {
             if (spiderFadeRoutine != null) StopCoroutine(spiderFadeRoutine);
             spiderFadeRoutine = StartCoroutine(ShowKillCounter(spiderKillPanel, spiderKillIcon, spiderKillSprites, kills));
+        }
+        else if (type == "Fish")
+        {
+            if (fishFadeRoutine != null) StopCoroutine(fishFadeRoutine);
+            fishFadeRoutine = StartCoroutine(ShowKillCounter(fishKillPanel, fishKillIcon, fishKillSprites, kills));
+        }
+        else if (type == "Penguin")
+        {
+            if (penguinFadeRoutine != null) StopCoroutine(penguinFadeRoutine);
+            penguinFadeRoutine = StartCoroutine(ShowKillCounter(penguinKillPanel, penguinKillIcon, penguinKillSprites, kills));
+        }
+        else if (type == "Ermine")
+        {
+            if (ermineFadeRoutine != null) StopCoroutine(ermineFadeRoutine);
+            ermineFadeRoutine = StartCoroutine(ShowKillCounter(ermineKillPanel, ermineKillIcon, ermineKillSprites, kills));
         }
     }
 
@@ -159,6 +219,57 @@ public class UIManager : MonoBehaviour
                 return true; 
             }
         }
+        else if (a == 'f') // Relojes del Pez
+        {
+            if (!isSuper)
+            {
+                if (fishBasicTimer > 0) return false; 
+                fishBasicMax = duration; 
+                fishBasicTimer = duration; 
+                return true; 
+            }
+            else
+            {
+                if (fishSuperTimer > 0) return false; 
+                fishSuperMax = duration; 
+                fishSuperTimer = duration; 
+                return true; 
+            }
+        }
+        else if (a == 'p') // Relojes del Pingüino
+        {
+            if (!isSuper)
+            {
+                if (penguinBasicTimer > 0) return false; 
+                penguinBasicMax = duration; 
+                penguinBasicTimer = duration; 
+                return true; 
+            }
+            else
+            {
+                if (penguinSuperTimer > 0) return false; 
+                penguinSuperMax = duration; 
+                penguinSuperTimer = duration; 
+                return true; 
+            }
+        }
+        else if (a == 'e') // Relojes del Armiño
+        {
+            if (!isSuper)
+            {
+                if (ermineBasicTimer > 0) return false; 
+                ermineBasicMax = duration; 
+                ermineBasicTimer = duration; 
+                return true; 
+            }
+            else
+            {
+                if (ermineSuperTimer > 0) return false; 
+                ermineSuperMax = duration; 
+                ermineSuperTimer = duration; 
+                return true; 
+            }
+        }
         return false;
     }
 
@@ -173,6 +284,21 @@ public class UIManager : MonoBehaviour
         {
             basicAbilityIcon.sprite = GetCooldownSprite(spiderBasicSprites, spiderBasicTimer, spiderBasicMax);
             superAbilityIcon.sprite = GetCooldownSprite(spiderSuperSprites, spiderSuperTimer, spiderSuperMax);
+        }
+        else if (currentActiveAnimal == 'f')
+        {
+            basicAbilityIcon.sprite = GetCooldownSprite(fishBasicSprites, fishBasicTimer, fishBasicMax);
+            superAbilityIcon.sprite = GetCooldownSprite(fishSuperSprites, fishSuperTimer, fishSuperMax);
+        }
+        else if (currentActiveAnimal == 'p')
+        {
+            basicAbilityIcon.sprite = GetCooldownSprite(penguinBasicSprites, penguinBasicTimer, penguinBasicMax);
+            superAbilityIcon.sprite = GetCooldownSprite(penguinSuperSprites, penguinSuperTimer, penguinSuperMax);
+        }
+        else if (currentActiveAnimal == 'e')
+        {
+            basicAbilityIcon.sprite = GetCooldownSprite(ermineBasicSprites, ermineBasicTimer, ermineBasicMax);
+            superAbilityIcon.sprite = GetCooldownSprite(ermineSuperSprites, ermineSuperTimer, ermineSuperMax);
         }
     }
 
