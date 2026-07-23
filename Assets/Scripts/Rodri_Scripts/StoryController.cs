@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using TMPro;
 using DG.Tweening;
 
@@ -59,8 +60,14 @@ public class StoryController : MonoBehaviour
         bool space = Keyboard.current != null &&
                      Keyboard.current.spaceKey.wasPressedThisFrame;
 
+        // Ignoramos el clic si cayó sobre un elemento de UI (como el botón de Skip),
+        // para que no dispare "avanzar una imagen" al mismo tiempo que el botón.
+        bool pointerOverUI = EventSystem.current != null &&
+                              EventSystem.current.IsPointerOverGameObject();
+
         bool click = Mouse.current != null &&
-                     Mouse.current.leftButton.wasPressedThisFrame;
+                     Mouse.current.leftButton.wasPressedThisFrame &&
+                     !pointerOverUI;
 
         if (space || click)
         {
