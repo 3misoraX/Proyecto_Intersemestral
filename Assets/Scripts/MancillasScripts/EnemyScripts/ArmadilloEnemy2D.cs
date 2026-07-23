@@ -137,19 +137,44 @@ public class ArmadilloEnemy2D : MonoBehaviour
         }
 
         // Voltear el sprite dependiendo de si va a la izquierda o derecha
-        if (currentDirection.x != 0)
+        if (currentDirection.x >= 0)
         {
-            spriteRenderer.flipX = currentDirection.x < 0; 
+            Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            Quaternion.Euler(0, 180, 0);
         }
     }
 
     void LateUpdate()
     {
+        Vector3 currentDirection;
         // Billboarding: Hacer que el sprite siempre mire a la cámara
         if (spriteGraphic != null && mainCamera != null)
         {
-            // Esto hace que el plano del sprite sea paralelo a la pantalla
-            spriteGraphic.forward = mainCamera.forward;
+            if (currentState == EnemyState.Rolling)
+            {
+                currentDirection = rollDirection;
+            }
+            else if(currentState == EnemyState.Dead)
+            {
+                currentDirection = Vector3.zero;
+            }
+            else
+            {
+                currentDirection = (player.position - transform.position).normalized;
+            }
+
+            if (currentDirection.x <= 0)
+            {
+                // Esto hace que el plano del sprite sea paralelo a la pantalla
+                spriteGraphic.forward = mainCamera.forward;
+            }
+            else
+            {
+                spriteGraphic.forward = -mainCamera.forward;
+            }
         }
     }
 

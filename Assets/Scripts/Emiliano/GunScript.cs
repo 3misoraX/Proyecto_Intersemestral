@@ -16,7 +16,7 @@ public class GunScript : MonoBehaviour
     private TransformationObject activeTransformation;
     public GameObject bulletPrefab;
     public float bulletForce;
-    private float cooldown = 0f;
+    private float cooldown = 0.2f;
     [SerializeField] private int current = 0;
     //specials
     public int superCharges;
@@ -64,15 +64,6 @@ public class GunScript : MonoBehaviour
     //l for an auto raycast shot
     void ShootingManager()
     {
-        //This is a stupid solution for the shooting direction bug but it works so fine i guess :/
-        //Just adds a small cooldown when starting to shoot
-        if (shootAction.action.triggered)
-        {
-            cooldown = 0.01f;
-        }
-
-        //there is still a bug where if can shoot twice when pressing two directions at the same time
-
         switch (activeTransformation.weaponType)
         {
             case 'a':
@@ -148,17 +139,37 @@ public class GunScript : MonoBehaviour
 
     void TriggerAbility(char abilityChar, bool isSuper)
     {
-        // Convierte a minúscula por seguridad y evalúa la letra de la tarjeta
-        switch (char.ToLower(abilityChar))
+        char lowerChar = char.ToLower(abilityChar);
+        
+        // Asignar los tiempos correspondientes
+        float cooldown = 1f;
+        if (lowerChar == 'a') cooldown = isSuper ? 8f : 1f; // Tiempos para el armadillo
+        else if (lowerChar == 's') cooldown = isSuper ? 7f : 1.5f; // Tiempos para la araña
+        else if (lowerChar == 'f') cooldown = isSuper ? 6f : 2f; // Tiempos para el pez
+        else if (lowerChar == 'p') cooldown = isSuper ? 7f : 3f; // Tiempos para el pingüino
+        else if (lowerChar == 'e') cooldown = isSuper ? 6f : 2f; // Tiempos del Armiño
+
+        // Le preguntamos al UI si podemos usar la habilidad. Si devuelve true, la ejecutamos.
+        if (UIManager.Instance != null && UIManager.Instance.StartCooldown(lowerChar, isSuper, cooldown))
         {
-            case 'a':
-                specialsScript.Armadillo(isSuper);
-                UIManager.Instance.StartCooldown(isSuper, isSuper ? 4f : 1f);
-                break;
-            case 's':
-                specialsScript.Spider(isSuper);
-                UIManager.Instance.StartCooldown(isSuper, isSuper ? 2f : 0.5f);
-                break;
+            switch (lowerChar)
+            {
+                case 'a':
+                    specialsScript.Armadillo(isSuper);
+                    break;
+                case 's':
+                    specialsScript.Spider(isSuper);
+                    break;
+                case 'f':
+                    specialsScript.Fish(isSuper);
+                    break;
+                case 'p':
+                    specialsScript.Penguin(isSuper);
+                    break;
+                case 'e':
+                    specialsScript.Ermine(isSuper);
+                    break;
+            }
         }
     }
     

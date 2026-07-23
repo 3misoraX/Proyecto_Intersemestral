@@ -621,6 +621,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2694439768151816115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9148813211067472279}
+  m_Layer: 9
+  m_Name: ConfinerPos
+  m_TagString: ConfinerPositions
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9148813211067472279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2694439768151816115}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1232260724187264894}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3414834265011111787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,6 +1324,7 @@ Transform:
   - {fileID: 7020850878144337200}
   - {fileID: 6136330260881209987}
   - {fileID: 3604727873478500698}
+  - {fileID: 9148813211067472279}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7622509547013774512
@@ -1397,7 +1429,9 @@ MonoBehaviour:
   doorHideDistance: 4
   doorMoveSpeed: 3
   spawner: {fileID: 0}
+  fih: {fileID: 0}
   isBossRoom: 0
+  confinerPos: {fileID: 9148813211067472279}
 --- !u!65 &6084696447618111038
 BoxCollider:
   m_ObjectHideFlags: 0
